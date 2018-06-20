@@ -2,8 +2,8 @@ module.exports = {
     googleClientId: process.env.GOOGLE_CLIENT_ID,
     googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
     mongoURI: process.env.MONGO_URI,
-    jwtSecret: process.env.COOKIE_KEY,
-    tokenLifeTime: 7 * 24 * 60 *60
+    jwtSecret: process.env.JWT_SECRET,
+    tokenLifeTime: process.env.TOKEN_LIFE_TIME
 };
   
 //7 * 24 * 60 *60

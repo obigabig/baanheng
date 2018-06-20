@@ -6,7 +6,8 @@ function tokenForUser(user) {
     const secretKey = keys.jwtSecret;
     //const timestamp = new Date().getTime();
     return jwt.encode({ sub: user.id,
-                         username: user.name,
+                         name: user.name,
+                         email: user.email,
                          isAdmin: user.isAdmin,
                          iat: Math.round(Date.now() / 1000),
                          exp: Math.round(Date.now() / 1000 + keys.tokenLifeTime)  }

@@ -33,9 +33,13 @@ if(process.env.NODE_ENV === 'production'){
     });
 }
 
-const PORT = process.env.PORT || 5000;
+/*const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
-server.listen(PORT);
+server.listen(PORT);*/
+
+console.log('Start server...');
+const PORT = process.env.PORT || 5000;
+app.listen(PORT);
 console.log('Server listening on:', PORT);
 
 

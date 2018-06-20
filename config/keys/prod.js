@@ -3,7 +3,6 @@ module.exports = {
     googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
     mongoURI: process.env.MONGO_URI,
     jwtSecret: process.env.JWT_SECRET,
-    tokenLifeTime: process.env.TOKEN_LIFE_TIME
 };
   
 //7 * 24 * 60 *60

@@ -11,7 +11,7 @@ function tokenForUser(user) {
                          isAdmin: user.isAdmin,
                          iat: Math.round(Date.now() / 1000),
                          exp: Math.round(Date.now() / 1000 + 7 * 24 * 60 * 60)  }
-                        , secretKey);   // 5 Hours(5 * 60 * 60)
+                        , secretKey);   // 5 Hours = (5 * 60 * 60)
 }
 
 exports.signin = (req,res,next) => {

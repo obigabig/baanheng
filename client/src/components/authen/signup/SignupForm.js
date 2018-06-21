@@ -18,12 +18,13 @@ class SignupForm extends Component {
     }
 
     renderField() {    
-        return _.map(formFileds, ({label, name, type}) => {
+        return _.map(formFileds, ({label, name, type, autocomplete}) => {
                 return (
                     <Field 
                         key={ name }
                         type={type}
                         name={name} 
+                        autocomplete={autocomplete}
                         component={SignupField}
                         label={label}
                     />
@@ -59,7 +60,7 @@ class SignupForm extends Component {
         const { handleSubmit } = this.props;
         return (
             <div>
-                <form onSubmit={handleSubmit(this.submit)}>
+                <form onSubmit={handleSubmit(this.submit)} >
                     {this.renderField()}    
                     {this.renderSubmitError()}
                     {this.renderSubmitButton()}      

@@ -7,7 +7,7 @@ function tokenForUser(user) {
     //const timestamp = new Date().getTime();
     return jwt.encode({ sub: user.id,
                          name: user.name,
-                         email: user.email,
+                         email: user.local.email,
                          isAdmin: user.isAdmin,
                          iat: Math.round(Date.now() / 1000),
                          exp: Math.round(Date.now() / 1000 + 7 * 24 * 60 * 60)  }

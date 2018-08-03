@@ -5,3 +5,14 @@ exports.validateEmail = (email) => {
     }
     return;
 }
+
+exports.validatePropertyValue = (value) => {
+    if (value < 0){
+        return `Value sholud be more than 0. ${value}`;
+    }
+    return undefined;
+}
+
+exports.required = (value) => {
+    return value => (value ? undefined : 'Required')
+}

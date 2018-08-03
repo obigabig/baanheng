@@ -1,13 +1,11 @@
-//const passportService = require('../services/passport');
-const passport = require('passport');
+
 const Authentication = require('../controllers/authentication');
+const User = require('../controllers/user');
 
-//return true/false
-const requireAuth = passport.authenticate('jwt', { session: false });
-const requireSignin = passport.authenticate('local', { session: false });
-
-module.exports = app => {
+module.exports = (app, requireAuth, requireSignin) => {
     app.post('/api/signup', Authentication.signup);
     app.post('/api/signin', requireSignin, Authentication.signin);
     app.get('/api/current-user', requireAuth, Authentication.currentUser);
+    app.get('/api/select/user-subInvestors', requireAuth, Authentication.selectUserSubInvestors);
+    app.post('/api/createUserSubInvestor', requireAuth, User.createUserSubInvestor);
 };

@@ -13,7 +13,7 @@ import LoginField from './LoginField';
 class LoginForm extends Component {
 
     submit = (values) => {
-        this.props.signInAction(values, () => {this.props.history.push('/')});
+        this.props.signInAction(values, () => {this.props.history.push('/Dashboard')});
     }
 
     renderField() {    

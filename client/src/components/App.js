@@ -7,13 +7,18 @@ import Header from './Header';
 import Home from './Home';
 import Signup from './authen/signup/Signup';
 import Login from './authen/login/Login';
+
 import Dashboard from './dashboard/Dashboard';
-import requireAuth from '../utils/requireAuth';
+import Contract from './contract/Contract';
+import ContractLists from './contractList/ContractLists';
+
+import Profile from './user/Profile';
+
+import '../css/main.css';
+import Footer from './Footer';
 
 class App extends Component {
-  componentDidMount() {
-    
-  }
+
 
   render() {
 
@@ -21,10 +26,16 @@ class App extends Component {
       <BrowserRouter>
       <div className="container">
         <Header />  
-        <Route exact path="/" component={Home} />     
-        <Route exact path="/Dashboard" component={requireAuth(Dashboard)} />   
+        <Route exact path="/" component={Home} />    
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />        
+
+        <Route exact path="/Dashboard" component={Dashboard} />    
+        <Route path="/Contract/:id?" component={Contract}/>       
+        <Route exact path="/ContractLists" component={ContractLists} />  
+
+        <Route exact path="/Profile" component={Profile} />   
+        <Footer />
       </div>
     </BrowserRouter>
     );

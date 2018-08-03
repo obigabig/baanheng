@@ -1,6 +1,8 @@
 const jwt = require('jwt-simple');
 const User = require('../models/user');
+const UserSubInvestor = require('../models/userSubInvestor');
 const keys = require('../config/keys/keys');
+const _ = require('lodash');
 
 function tokenForUser(user) {
     const secretKey = keys.jwtSecret;
@@ -20,8 +22,7 @@ exports.signin = (req,res,next) => {
   res.send({ token: tokenForUser(req.user) });
 }
 
-exports.signup = (req,res,next) => {
-
+exports.signup = async (req,res,next) => {
     const email = req.body.email;
     const password = req.body.password;
     const name = req.body.name;
@@ -30,40 +31,71 @@ exports.signup = (req,res,next) => {
         res.status(422).send({ error: 'You must provide email and password.'});
     }
 
-    // See if a user with the given email exists
-    User.findOne({ "local.email": email }, (err, existingUser) => {
-        if (err) { return next(err); }
-
-        // If a user with email does exist, return an error
-        if (existingUser){
+    try {
+        const existingUser = await User.findOne()
+            .where("local.email").in([email])
+            .exec();
+        
+        if(existingUser){
             return res.status(422).send( {error: 'Email is already in use.'} )
         }
 
-        // If a user with email does NOT exist, create and save user record
-        const user = new User({
-            name: name,
+        let user, userSubInvestors;
+        user = new User({
+            name,
             local: {    
                 email: email,
                 password: password
             }
         });
-
-        user.save(err => {
-            if (err) { return next(err); }
-
-            // Repond to request indicating the user was created
-            res.json({ token: tokenForUser(user)})
-        });
-
-    });
+        userSubInvestors = new UserSubInvestor({name , isDefault: true});
+        user.userSubInvestors.push(userSubInvestors);
+        
+        await userSubInvestors.save();
+        await user.save();
+        
+        res.json({ token: tokenForUser(user)})
+        
+    } 
+    catch(e){
+        console.log(e);
+        res.status(422).send({ error: `Cannot signup.`});
+    }
 }
 
-exports.currentUser = (req,res,next) => {
+exports.currentUser = (req,res) => {
     // Get user detail
-    const userdetail = {
+    const userdetail = {   
+        id: req.user._id,     
         name: req.user.name,
-        isAdmin: req.user.isAdmin
+        isAdmin: req.user.isAdmin,
+        email: req.user.local.email,
+        userSubInvestors: req.user.userSubInvestors
     }
-    
+
     res.send(userdetail);
-  }
+}
+
+exports.selectUserSubInvestors = async (req,res,next) => {
+
+    const email = req.user.local.email;
+    try{
+        const existingUser = await User.findOne({ "local.email": email })
+            .select('userSubInvestors')
+            .populate('userSubInvestors')
+            .exec();
+        // If a user with email does exist, return an error
+        if (!existingUser){
+            return res.status(422).send( {error: 'User sub investors is not found.'} )
+        }
+
+        //send output in react-select format
+        res.send(_.map(existingUser.userSubInvestors, ({_id, name}) => {
+            return {value: _id, label: name}
+        }));
+
+    }catch(err){
+        return next(err);
+    }
+
+};

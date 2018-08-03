@@ -1,0 +1,34 @@
+
+.card-content{
+    padding: 20px 20px 5px 20px !important;
+}
+
+.contractCard{
+    border: 1px groove #e3f2fd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.contractCard-title{
+    border-bottom: 1px groove;
+    font-weight: 400 !important;
+}
+
+.contractCard-detail{
+    color: #525151 !important;
+}
+
+.color-new{
+    background-color: #b9e8ce59;
+}
+.color-ongoing{
+    background-color: #6bb2f62e;
+}
+.color-break{
+    background-color: #f28c7c57;
+}
+.color-end{
+    background-color: #b6b5b599;
+}
+
+

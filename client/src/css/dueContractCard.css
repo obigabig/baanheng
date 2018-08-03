@@ -1,0 +1,55 @@
+.collapseBox{
+    border: 1px groove #80808029;
+    padding: 0px 0px 15px 0px;
+    margin: 10px 0px 15px 0px;
+    background: #faf8f8;
+}
+
+.collapseTitle{
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+    border-bottom: 1px solid grey;
+}
+.collapseTitle label{
+    color: #545454;
+}
+
+.dueContractcard-content{
+    padding: 5px 20px 0px 20px !important;
+}
+.dueContractCard-action{
+    padding: 5px 20px 5px 20px !important; 
+}
+.dueContractCard{
+    border: 1px groove #e3f2fd;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-bottom: 5px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+.dueContractCard-title{
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    color: #006cc2 !important;
+}
+
+.dueContractCard-detail{
+    color: #525151 !important;
+}
+
+.color-new{
+    background-color: #b9e8ce59;
+}
+.color-ongoing{
+    background-color: #6bb2f62e;
+}
+.color-break{
+    background-color: #f28c7c57;
+}
+.color-end{
+    background-color: #b6b5b599;
+}
+
+

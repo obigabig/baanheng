@@ -1,10 +1,11 @@
-import { FETCH_USER } from '../actions/types';
+import { FETCH_USER, FETCH_USER_ERROR } from '../actions/types';
 
 const userReducer = (state = {}, action) => {
-    
     switch(action.type){
         case FETCH_USER:
             return action.payload;
+        case FETCH_USER_ERROR:
+            return { ...state, errorMessage: action.payload };
         default:
             return state;
     }

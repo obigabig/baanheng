@@ -1,0 +1,64 @@
+#root{
+    background-color: rgba(212, 212, 212, 0.4);
+    background-color: #faf8f8;
+}
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 5vh;
+}
+.main-box{
+    background: #FFF !important;
+}
+.row{
+    margin-bottom: 0px;
+}
+.container .row {
+     margin-left: 0rem; 
+     margin-right: 0rem; 
+}
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea{
+    margin-bottom: 5px;
+}
+label{
+    font-size: 15px;
+}
+
+ /* Redux field array Grid */
+.btn-flat.btn-flat-inline i{
+    font-size: 1.8em;
+}
+.btn-flat-inline{
+    padding: 0 5px 0 5px;
+}
+.fieldArrayRow{
+    border-bottom: 1px dotted rgba(0,0,0,0.42);
+}
+.grid-input-readonly{
+    border: 0px !important;
+    color: black !important;
+}
+.btnDelete:hover{
+    color: #ff5722;
+}
+.btnDelete{
+    color: #dd2c00;
+}
+.btnApprove:hover{
+    color: #81c784;
+}
+.btnApprove{
+    color: #4caf50;
+}
+.logOut{
+    font-style: italic;
+    font-size: small;
+}
+nav{
+    background-color: #4c9e96;
+}
+
+@media only screen and (min-width: 992px)
+{
+    
+}

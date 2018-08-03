@@ -8,6 +8,8 @@ const app = express();
 
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
+const contractRoutes = require('./routes/contractRoutes');
+const migrateRoutes = require('./routes/migrate');
 const keys = require('./config/keys/keys');
 
 //Mongoose connect
@@ -21,7 +23,12 @@ app.use(bodyParser.json({ type: '*/*' }));
 require('./services/passport');   //Passport middlewares
 
 //Route with authen middleware.
-authRoutes(app);
+const passport = require('passport');
+const requireAuth = passport.authenticate('jwt', { session: false });
+const requireSignin = passport.authenticate('local', { session: false });
+authRoutes(app, requireAuth, requireSignin);
+contractRoutes(app, requireAuth);
+migrateRoutes(app);
 
 if(process.env.NODE_ENV === 'production'){
     //Map asset

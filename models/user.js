@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const userSchema = new Schema({
     name: {
         type: String,
-        require: [true, 'Name cannot be null?']
+        required: [true, 'Name cannot be null?']
     },
     isAdmin: {
         type: Boolean,
@@ -32,6 +32,14 @@ const userSchema = new Schema({
         token: String,
         email: String,
         name: String
+    },
+    userSubInvestors : [{   
+        type: Schema.Types.ObjectId, 
+        ref: 'userSubInvestor'
+    }],
+    createDate: { type: Date, 
+        default:Date.now,
+        timezone: 'Asia/Bangkok'
     }
 });
 
@@ -54,9 +62,11 @@ userSchema.pre('save', function(next) {
       });
     });
   });
-  
+              
   userSchema.methods.comparePassword = function(candidatePassword, callback) {
+    console.log(this.local.password)
     bcrypt.compare(candidatePassword, this.local.password, function(err, isMatch) {
+
       if (err) { return callback(err); }
   
       callback(null, isMatch);

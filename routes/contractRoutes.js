@@ -13,6 +13,7 @@ module.exports = (app, requireAuth) => {
     app.get("/api/getContractListsLength", requireAuth, Contact.getContractListsLength);
     /* Dashboard */
      app.get("/api/getDueContractLists", requireAuth, Contact.getDueContractLists);
+     app.get("/api/markActionAsComplete", requireAuth, Contact.markActionAsComplete);
     /* Report */
     app.get("/api/getInvestorRatio", requireAuth, Contact.getInvestorRatio);
 };

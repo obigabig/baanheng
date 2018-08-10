@@ -1,8 +1,9 @@
-const Contract = require('../models/contract/contract');
-const User = require('../models/user');
-
+const Contract = require('../models/contract/contract')
+const User = require('../models/user')
+const { StatusMapping , PactMapping, TypeMapping} = require('../const')
+const { getContractByValueRange } = require('../queries/contract')
 const contractQuerues = require('../queries/contract')
-const _ = require('lodash');
+const _ = require('lodash')
 
 exports.initialContractForm = async (req, res) => {
     const email = req.user.local.email;
@@ -92,7 +93,6 @@ exports.createContract = async (req, res, next) => {
 
 exports.updateContract = async (req, res, next) => {
 
-    console.log(req.body)
     const title = req.body.title;
     const no = req.body.no;
     const description = req.body.description;
@@ -155,15 +155,27 @@ exports.getContract = async (req, res) => {
 };
 
 exports.getContractLists = async (req, res) => {
-    try {        
+    try {     
+        const { skip, limit, sort, sortType, status, pact, propType, value } = req.query
+
+        let aryStatus = _.map(String(status).split(','), no => StatusMapping[no])
+        let aryPact = _.map(String(pact).split(','), no => PactMapping[no])
+        let aryPropType = _.map(String(propType).split(','), no => TypeMapping[no])
+        
+        const constraint = getContractByValueRange(req.user.id, value)
+
         const contract = await Contract
-                .find( {_createBy : req.user.id})
-                .sort({'no':-1})
-                .skip(Number(req.query.skip))
-                .limit(Number(req.query.limit))
+                .find(constraint)
+                .where('status').in(aryStatus)
+                .where('pact').in(aryPact)
+                .where('type').in(aryPropType)
+                .skip(Number(skip))
+                .limit(Number(limit))
+                .sort([[sort, Number(sortType)]])
                 .populate("subInvestor._userSubInvestor")
-                .exec();
-        res.send(contract);
+                .exec()
+
+        res.send(contract)
     }
     catch(e){
         console.log(e);
@@ -172,44 +184,27 @@ exports.getContractLists = async (req, res) => {
 };
 
 exports.getContractListsLength = async (req, res) => {
-    try {        
+    try {      
+        const { status, pact, propType, value } = req.query
+
+        let aryStatus = _.map(String(status).split(','), no => StatusMapping[no])
+        let aryPact = _.map(String(pact).split(','), no => PactMapping[no])
+        let aryPropType = _.map(String(propType).split(','), no => TypeMapping[no])
+
+        const constraint = getContractByValueRange(req.user.id, value)
+
         const contract = await Contract
-                .find( {_createBy : req.user.id})
-                .sort({'no':-1})
+                .find(constraint)
+                .where('status').in(aryStatus)
+                .where('pact').in(aryPact)
+                .where('type').in(aryPropType)
                 .exec();
+
         res.send(contract.length.toString());
     }
     catch(e){
         console.log(e);
         res.status(422).send({ error: `Cannot fetch [getContractListsLength].} `+ e});
-    }
-};
-
-exports.getDueContractLists = async (req, res) => {
-    try {        
-        const activeContractList = await Contract
-                .find({
-                    _createBy : req.user.id
-                })
-                .where('actions.isCompleted').equals(false)
-                .exec();
-        
-         const activeContractListWithUpcomingAction = 
-            _(activeContractList).map(activeContract => {
-                const upComingAction = contractQuerues.getUpcomingAction(activeContract);
-                if(upComingAction){
-                    activeContract.actions = upComingAction;
-                    return(activeContract);
-                }                
-                return undefined;                
-            })
-            .compact()      
-            .value();   
-        res.send(activeContractListWithUpcomingAction);
-    }
-    catch(e){
-        console.log(e);
-        res.status(422).send({ error: `Cannot fetch [getDueContractLists].} `+ e});
     }
 };
 
@@ -255,7 +250,67 @@ exports.getInvestorRatio = async (req, res) => {
     }
 };
 
+const getActiveContractListWithUpcomingAction = async (userId) => {
 
+    
+    const activeContractList = await Contract
+        .find({
+            _createBy : userId
+        })
+        .where('actions.isCompleted').equals(false)
+        .exec();
+
+    //เลือกเฉพาะ Actions ล่าสุดที่จะแจ้งเตือน
+    const result = _(activeContractList).map(activeContract => {
+        const upComingAction = contractQuerues.getUpcomingAction(activeContract);
+        if(upComingAction){
+            activeContract.actions = upComingAction;
+            return(activeContract);
+        }                
+        return undefined;                
+    })
+    .compact()      
+    .value();   
+
+    return result
+}
+
+
+exports.getDueContractLists = async (req, res) => {
+
+    try {       
+        const result = await getActiveContractListWithUpcomingAction(req.user.id)
+
+        res.send(result);
+    }
+    catch(e){
+        console.log(e);
+        res.status(422).send({ error: `Cannot fetch [getDueContractLists].} `+ e});
+    }
+};
+
+exports.markActionAsComplete = async (req, res) => {
+
+    const contractId = req.query.contractId
+    const actionId = req.query.actionId
+
+    try {
+        
+        const contract = await Contract.findById(contractId)        
+        //find sub document
+        const action = contract.actions.id(actionId)
+        //Edit sub document
+        action.set('isCompleted', true)
+        //Save sub document
+        await contract.save()
+        //Fetch updated data
+        res.send(await getActiveContractListWithUpcomingAction(req.user.id));
+    }
+    catch(e){
+        console.log(e);
+        res.status(422).send({ error: `Cannot do [markActionAsComplete]: ${contract.title} `+ e});
+    }
+}
 
             
     

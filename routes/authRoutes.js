@@ -7,5 +7,6 @@ module.exports = (app, requireAuth, requireSignin) => {
     app.post('/api/signin', requireSignin, Authentication.signin);
     app.get('/api/current-user', requireAuth, Authentication.currentUser);
     app.get('/api/select/user-subInvestors', requireAuth, Authentication.selectUserSubInvestors);
-    app.post('/api/createUserSubInvestor', requireAuth, User.createUserSubInvestor);
+    app.post('/api/createUserSubInvestor', requireAuth, User.createUserSubInvestor);    
+    app.get('/api/updateUserSubInvestor', requireAuth, User.updateUserSubInvestor);
 };

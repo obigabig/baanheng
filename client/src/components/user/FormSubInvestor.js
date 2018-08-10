@@ -3,7 +3,8 @@ import { reduxForm , Field } from 'redux-form'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { 
-    createUserSubInvestor
+    createUserSubInvestor,
+    updateUserSubInvestor
 } from '../../actions';
 
 import TextInput from '../reduxFormComponent/TextInput'
@@ -18,28 +19,71 @@ class FormSubInvestors extends Component{
         this.state = {
             isLoading: false
         }
+
+        this.submit = this.submit.bind(this)
+    }
+
+    componentDidMount(){
+        const { mode, name } = this.props
+
+        if( mode === 'Edit'){
+            this.props.initialize({ 
+                name
+            })
+        }
     }
 
     submit = (values) => {
-        //SubmissionError
-        //throw new SubmissionError({ username: 'User does not exist', _error: 'Login failed!' })
-        this.setState({isLoading: true})
-        this.props.createUserSubInvestor(values, 
-        () => {
-            this.setState({isLoading: false});
-            this.props.onCancel()
-        },
-        () => {
-            Popup.alert(this.props.user.errorMessage.error, 'พบข้อผิดพลาด');
-            this.setState({isLoading: false});
-        })
+        const { mode, _id, name } = this.props
+        const { createUserSubInvestor, updateUserSubInvestor } = this.props //Action
+
+        if(mode === 'New'){
+            this.setState({isLoading: true}, () => {
+                createUserSubInvestor(values, 
+                () => {
+                    this.setState({isLoading: false}, ()=>{
+                        this.props.onCancel()
+                    })                    
+                },
+                () => {
+                    this.setState({isLoading: false}, ()=>{
+                        Popup.alert(this.props.user.errorMessage.error, 'พบข้อผิดพลาด')
+                    })    
+                })
+            })
+        }
+        else if(mode === 'Edit' && values.name !== name ){
+            this.setState({isLoading: true}, () => {
+                updateUserSubInvestor(_id, values.name,
+                () => {
+                    this.setState({isLoading: false}, ()=>{
+                        this.props.onCancel()
+                    })     
+                },
+                () => {
+                    this.setState({isLoading: false}, ()=>{
+                        Popup.alert(this.props.user.errorMessage.error, 'พบข้อผิดพลาด')
+                    })  
+                })
+            })
+        }
+        else{
+            this.setState({isLoading: false}, ()=>{
+                this.props.onCancel()
+            })
+        }
     }
 
     render () {
         const { handleSubmit } = this.props
-        console.log(this.props.user)
+        const { mode } = this.props
         return (
             <form onSubmit={handleSubmit(this.submit)}>
+                <div className="col s12 blue-text">
+                    <h5>
+                        { mode==='Edit' ? 'แก้ไขผู้ลงทุน' : 'เพิ่มผู้ลงทุน'}
+                    </h5>
+                </div>
                 <div className="col s12">
                     <Field name="name" 
                         component={TextInput} 
@@ -79,5 +123,5 @@ export default compose(
         form: 'subInvestor',
         validate
     }),
-    connect(mapStateToProps,{createUserSubInvestor})
+    connect(mapStateToProps,{createUserSubInvestor, updateUserSubInvestor})
 ) (FormSubInvestors);

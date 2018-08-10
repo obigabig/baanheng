@@ -136,10 +136,24 @@ export const updateContractAction = (values , callback, error) => async dispatch
 };
 
 /*-----------------------[Contract List]-------------------------------*/
-export const getContractListsAction = (skip, limit, callback) => async dispatch => {
+export const getContractListsAction = (
+  skip, limit, sort, status, pact, propType, value, callback
+) => async dispatch => {
   try { 
-    const contractList = await axios.get(`/api/ContractLists?skip=${skip}&limit=${limit}`);
-    const contractListLength = await axios.get(`/api/getContractListsLength`);
+    const contractList = await axios.get(
+      `/api/ContractLists?sort=${sort.field}&sortType=${sort.type}` + 
+      `&status=${status}` +
+      `&pact=${pact}` +
+      `&propType=${propType}` +
+      `&value=${value}` +
+      `&skip=${skip}&limit=${limit}`
+    )
+    const contractListLength = await axios.get(`/api/getContractListsLength?` + 
+      `&status=${status}` +     
+      `&pact=${pact}` +
+      `&propType=${propType}` +
+      `&value=${value}`
+    )
     dispatch({ type: FETCH_CONTRACTLIST, payload: contractList.data });
     dispatch({ type: FETCH_CONTRACTLIST_LENGTH, payload: contractListLength.data });
     callback();
@@ -153,12 +167,23 @@ export const getContractListsAction = (skip, limit, callback) => async dispatch 
 export const getDueContractListsAction = (callback) => async dispatch => {
   try {
     const contractList = await axios.get(`/api/getDueContractLists`);
+
     dispatch({ type: FETCH_DUE_CONTRACTLIST, payload: contractList.data });
     callback();
   } catch(err) {
     dispatch({ type: DUE_CONTRACTLIST_ERROR, payload: err.response.data.error });
   }
 };
+
+export const markActionAsComplete = (contractId, actionId) => async dispatch => {
+  try {
+    const contractList = await axios.get(`/api/markActionAsComplete?contractId=${contractId}&actionId=${actionId}`);
+    dispatch({ type: FETCH_DUE_CONTRACTLIST, payload: contractList.data });
+  } catch(err) {
+    dispatch({ type: DUE_CONTRACTLIST_ERROR, payload: err.response.data.error });
+  }
+  
+}
 
 /*-----------------------[Report]-------------------------------*/
 export const getinvestorRatioAction = () => async dispatch => {
@@ -181,6 +206,19 @@ export const createUserSubInvestor = (values , callback, error) => async dispatc
     error();
   }
 };
+
+export const updateUserSubInvestor = (_id, updatedName, callback, error) => async dispatch => {
+  try {
+    const res = await axios.get(`/api/updateUserSubInvestor?_id=${_id}&updatedName=${updatedName}`);
+    dispatch({ type: FETCH_USER, payload: res.data });    
+    callback();
+  } catch(err) {
+    dispatch({ type: FETCH_USER_ERROR, payload: err.response.data });
+    error();
+  }
+};
+
+
 
 
 

@@ -53,6 +53,14 @@ exports.ActionsType = [
     { value: actionsTypeValue.other, label: actionsTypeValue.other }
 ]
 
+const sortList = [
+    { value: 'no' , label: 'เลขที่' },
+    { value: 'value' , label: 'มูลค่า' },
+    { value: 'beginDate' , label: 'วันที่ทำสัญญา' },
+]
+
+exports.SortList = sortList
+
 
 
 

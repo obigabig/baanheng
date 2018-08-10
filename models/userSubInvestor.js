@@ -6,6 +6,18 @@ const userSubInvestorSchema = new Schema({
     isDefault: {type: Boolean, default: false}
 });
 
+/*userSubInvestorSchema.pre('save', function (next) {
+    var self = this;
+    UserModel.find({name : self.name}, function (err, docs) {
+        if (!docs.length){
+            next();
+        }else{                
+            console.log('user exists: ',self.name);
+            next(new Error("User exists!"));
+        }
+    });
+}) ;*/
+
 // Create the model class
 const ModelClass = mongoose.model('userSubInvestor', userSubInvestorSchema);
 

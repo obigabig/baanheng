@@ -22,6 +22,7 @@ class ContractCard extends Component{
                 if(!action.isCompleted)
                     return  { 
                         type : action.type,
+                        description: action.description,
                         period : action.period,
                         dueDate : moment(action.dueDate, "DD/MM/YYYY"),
                         isCompleted : action.isCompleted,
@@ -54,7 +55,7 @@ class ContractCard extends Component{
                     style={{marginRight:'0px'}}>
                     <strong>
                     {upComingAction.type && 
-                    `${upComingAction.type} : ` +
+                    `${upComingAction.description} : ` +
                     `${moment(upComingAction.dueDate).format("DD/MM/YYYY")}` +
                     ` (${upComingAction.upComingDay} วัน)`  
                     }  

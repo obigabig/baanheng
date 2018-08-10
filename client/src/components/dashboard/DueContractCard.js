@@ -1,12 +1,45 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { markActionAsComplete } from '../../actions';
 import '../../css/dueContractCard.css'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { ContractStatusValue } from '../../const';
 
 class DueContractCard extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+        }
+
+        this.markAsComplete = this.markAsComplete.bind(this)
+    }
+
+    markAsComplete(event, actionId){
+        const { contract } = this.props
+
+        confirmAlert({
+            title: '',
+            message: 'ทำการปิดการแจ้งเตือน ?',
+            buttons: [
+              {
+                label: 'ตกลง',
+                onClick: () => this.props.markActionAsComplete(contract._id, actionId)
+              },
+              {
+                label: 'ยกเลิก',
+                onClick: () => {}
+              }
+            ]
+          })
+        
+        event.preventDefault()
+    }
 
     renderCardAction (action){
         const upComingDay = moment(action.dueDate,"DD/MM/YYYY").diff(moment(), 'days');
@@ -22,7 +55,7 @@ class DueContractCard extends Component {
             <div className="card-action dueContractCard-action">  
                 <span style={{color:'#4d4d4d'}}>
                     { action.type &&  
-                    `${action.type} : ` +
+                    `${action.description} : ` +
                     `${action.dueDate}`}
                 </span>              
                 <span 
@@ -33,7 +66,11 @@ class DueContractCard extends Component {
                     ` (${upComingDay} วัน)`  
                     }                      
                 </span>
-                <a className="right" style={{marginRight: '0px', color:'#4d4d4d'}}>                   
+                <a className="right"
+                    href=""
+                    style={{marginRight: '0px', color:'#4d4d4d'}}
+                    onClick={(event) => this.markAsComplete(event, action._id)}
+                >                   
                     <i className="left Tiny material-icons">check_box_outline_blank</i>
                     <span style={{lineHeight: '25px'}}>เสร็จ</span>                   
                 </a>
@@ -83,5 +120,9 @@ class DueContractCard extends Component {
     }
 }
 
-export default withRouter(DueContractCard);
+export default 
+compose(
+    connect(null, { markActionAsComplete }),
+    withRouter
+) (DueContractCard);
 

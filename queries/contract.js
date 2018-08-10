@@ -10,7 +10,9 @@ exports.getUpcomingAction = (contract) => {
             if(!action.isCompleted  && upComingDay < upComingDayCount)
             {                
                 return  { 
+                    _id: action._id,
                     type : action.type,
+                    description: action.description,
                     period : action.period,
                     dueDate : action.dueDate,
                     isCompleted : action.isCompleted
@@ -25,4 +27,49 @@ exports.getUpcomingAction = (contract) => {
         return _.minBy(notCompletedActions, action => { return action.dueDate })
     }
     return {}
+}
+
+exports.getContractByValueRange = (id, value) => {
+    if(value === "1")
+        {
+            return { 
+                _createBy : id,
+                value : { 
+                    "$gte": 0,
+                    "$lte": 500000 
+                }
+            }
+        }
+        else if(value === "2")
+        {
+            return { 
+                _createBy : id,
+                value : { 
+                    "$gte": 500001,
+                    "$lte": 1000000 
+                }
+            }
+        }
+        else if(value === "3")
+        {
+            return { 
+                _createBy : id,
+                value : { 
+                    "$gte": 1000001,
+                    "$lte": 2000000 
+                }
+            }
+        }
+        else if(value === "4")
+        {
+            return { 
+                _createBy : id,
+                value : { 
+                    "$gte": 2000001
+                }
+            }
+        }
+        else{
+            return { _createBy : id}
+        }
 }

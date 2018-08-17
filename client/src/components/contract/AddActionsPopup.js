@@ -8,7 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import NumberFormat from 'react-number-format';
 
 //Const
-import { ActionsType } from '../../const';
+import { ActionsType, ActionsTypeValue } from '../../const';
 
 //When Click this form all props will be assign to Contractform
 class AddActionsPopup extends Component {
@@ -49,7 +49,17 @@ class AddActionsPopup extends Component {
     }
 
     handleActionTypeChange = (event) => {
-        this.setState({ selectedActionTypeOption: event });
+        if(event === ActionsTypeValue.other){
+            this.setState({ 
+                selectedActionTypeOption: event
+            })
+        }
+        else{
+            this.setState({ 
+                selectedActionTypeOption: event,
+                description : ''
+            })
+        }
     }
 
     handleDescriptionChange = (event) => {
@@ -62,6 +72,24 @@ class AddActionsPopup extends Component {
     
     handleActionDateChange = (date) => {
         this.setState({ dueDate: moment(date).format('DD/MM/YYYY') });
+    }
+
+    renderDescription = () => {
+        const { selectedActionTypeOption } = this.state;
+        if(selectedActionTypeOption.value === ActionsTypeValue.other){
+            return (                
+                <div>                    
+                    <label>เพิ่มเติม :</label>
+                     <input
+                        name="description"
+                        type= "text"
+                        placeholder="เพิ่มเติม"    
+                        onChange={this.handleDescriptionChange}             
+                        />
+                </div>
+            )
+        }
+        return ''
     }
 
     render() {
@@ -92,16 +120,8 @@ class AddActionsPopup extends Component {
                         options={ActionsType}
                         placeholder = "รายการ"
                     />
-                </div>   
-                <div>
-                    <label>เพิ่มเติม :</label>
-                     <input
-                        name="description"
-                        type= "text"
-                        placeholder="เพิ่มเติม"    
-                        onChange={this.handleDescriptionChange}             
-                        />
-                </div>
+                </div>  
+                {this.renderDescription()} 
                 <div className="row">
                     <div className="col s4">
                         <label>ระยะเวลา:</label>                      

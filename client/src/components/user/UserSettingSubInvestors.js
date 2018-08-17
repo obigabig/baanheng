@@ -14,6 +14,10 @@ class UserSettingSubInvestors extends Component{
         isShowAddForm: false
     }
 
+    componentDidMount() {
+        
+    }
+    
     toggleAddForm = () => {
         this.setState({
             isShowAddForm: !this.state.isShowAddForm,

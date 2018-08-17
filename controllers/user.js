@@ -5,7 +5,7 @@ const _ = require('lodash');
 exports.createUserSubInvestor = async (req,res) => {
 
     const name = req.body.name
-    
+    console.log(req)
     try {
         //Find exist name in UerSubInvestor
         const user = await User.findOne({ '_id': req.user.id })            
@@ -29,7 +29,7 @@ exports.createUserSubInvestor = async (req,res) => {
             id: updatedUser._id,     
             name: updatedUser.name,
             isAdmin: updatedUser.isAdmin,
-            email:updatedUser.local.email,
+            email:updatedUser.email,
             userSubInvestors: updatedUser.userSubInvestors
         })
 
@@ -72,7 +72,7 @@ exports.updateUserSubInvestor = async (req,res) => {
             id: updatedUser._id,     
             name: updatedUser.name,
             isAdmin: updatedUser.isAdmin,
-            email:updatedUser.local.email,
+            email:updatedUser.email,
             userSubInvestors: updatedUser.userSubInvestors
         })
     } 

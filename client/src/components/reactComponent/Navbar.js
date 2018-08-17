@@ -18,13 +18,8 @@ const NavBar = ({ActiveIndex}) => {
                             รายการทั้งหมด
                         </Link>
                     </li>
-                    <li className={ ActiveIndex==="Report" ? "active" : ""}>
-                        <a href="collapsible.html">รายงาน</a>
-                    </li>
-                    <li className={ ActiveIndex===4 ? "active" : ""}>
-                        <Link to="/signup">       
-                            สมัครสมาชิก
-                        </Link>
+                    <li className={ ActiveIndex==="Reports" ? "active" : ""}>
+                        <a href="/Reports">รายงาน</a>
                     </li>
                 </ul>
                 </div>

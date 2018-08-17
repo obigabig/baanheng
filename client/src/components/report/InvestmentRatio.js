@@ -5,7 +5,9 @@ import { getinvestorRatioAction } from '../../actions';
 import _ from 'lodash';
 import { numberWithCommas } from '../../utils/format'
 
-class InvestorRatio extends Component{
+import { Chart, Axis, Series, Tooltip, Pie } from "react-charts";
+
+class InvestmentRatio extends Component{
 
     componentDidMount() {
         this.props.getinvestorRatioAction();  
@@ -34,10 +36,10 @@ class InvestorRatio extends Component{
                 return (
                     <tr key={index}>
                         <td>
-                            <div className="Truncation left-align">
+                            <div className="left left-align">
                                 {data.name}
                             </div>
-                            <div className="right-align">
+                            <div className="right right-align">
                                 {`${numberWithCommas(data.value)} บาท`}
                             </div>
                         </td>
@@ -48,16 +50,29 @@ class InvestorRatio extends Component{
     }
 
     renderPieChart = () => {
-        /*const { investorRatio } = this.props.report
+        const { investorRatio } = this.props.report
         if(investorRatio){               
                         
-            const data =_.map(investorRatio, (data) => {
-                return ([
-                    data.name,
-                    data.value
-                ])       
-            })           
-        }*/
+            const data = [{
+                label: "ลงทุน",
+                data: _.map(investorRatio, (data) => {
+                    return ({
+                        'x' : data.name,
+                        'y' : data.value
+                    })       
+                })  
+            }]
+                 
+            return (
+                <div style={{width: '100%', height:'300px'}}>
+                    <Chart data={data}>
+                        <Axis type="pie" />
+                        <Series type={Pie} showPoints={false} />
+                        <Tooltip />
+                    </Chart>
+                </div>
+            )   
+        }
 
         return  ''     
             
@@ -72,6 +87,7 @@ class InvestorRatio extends Component{
         }
         
         return (
+            <div>
             <div style={boxStyle}>                
                 <div className="right-align red-text">  
                     {this.props.report.errorMessage && <strong>{this.props.report.errorMessage}</strong>}
@@ -79,14 +95,21 @@ class InvestorRatio extends Component{
                 <table>
                     <thead>
                         <tr>
-                            <th className="indigo-text darken-4 center-align">สัดส่วนการลงทุน</th>
+                            <th className="indigo-text darken-4 center-align">
+                                <h5>สัดส่วนการลงทุน</h5>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         { this.renderInvestor() }                    
                         { this.rendersumValue() }              
                     </tbody>
-                </table>               
+                </table>    
+                <div className="center-align">
+                    {this.renderPieChart()}
+                </div>                                           
+            </div>
+            <div className="right red-text">*นับเฉพาะรายการที่อยู่ระหว่างทำสัญญาเท่านั้น</div> 
             </div>
         )
     }
@@ -99,4 +122,4 @@ function mapStateToProps({ report }){
 export default 
 compose(
     connect(mapStateToProps, { getinvestorRatioAction })
-) (InvestorRatio);
+) (InvestmentRatio);

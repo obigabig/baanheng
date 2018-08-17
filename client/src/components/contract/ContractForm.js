@@ -25,8 +25,11 @@ import {
     createContractAction,
     updateContractAction,
     getContractAction,
-    updateContractSubInvestorFormAction
+    updateContractSubInvestorFormAction,
+    deleteContractAction
 } from '../../actions';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 
 
@@ -116,6 +119,36 @@ class ContractForm extends Component {
         }
     }
 
+    renderDeleteBtn = () => {
+        const deleteData = () => {
+            confirmAlert({
+                title: '',
+                message: 'ต้องการลบข้อมูล ?',
+                buttons: [
+                  {
+                    label: 'ตกลง',
+                    onClick: () => this.props.deleteContractAction(this.props.contracts.data.no, () => {
+                        this.props.history.push('/Dashboard');
+                    })
+                  },
+                  {
+                    label: 'ยกเลิก',
+                    onClick: () => {}
+                  }
+                ]
+              })
+        }
+        
+        return (
+            <a href="#!" 
+                className="formBtnDelte right red-text darken-4"
+                onClick={() => deleteData()}
+            >
+                ลบ
+            </a>
+        )
+    }
+
     render() {
         const { handleSubmit } = this.props;
 
@@ -130,7 +163,16 @@ class ContractForm extends Component {
                         <div className="col s11"><h5> รายละเอียด </h5></div>                     
                     </div> 
                     {this.props.mode === 'edit' && this.props.contracts.data ? 
-                        <div className="col s12 indigo-text darken-4"><h5>{`รายการเลขที่ #${this.props.contracts.data.no}`}</h5></div> : ''
+                        <div className="row">
+                            <div className="col s12 m6 indigo-text darken-4">
+                                <h5>{`รายการเลขที่ #${this.props.contracts.data.no}`}</h5>
+                            </div> 
+                            <div className="col s12 m6">
+                                {this.renderDeleteBtn()}
+                            </div> 
+                        </div> 
+                        : ''
+                        
                     }
                     <div className="col s12">
                         <Field name="status" 
@@ -242,7 +284,8 @@ export default compose(
             updateContractAction,
             updateContractSubInvestorFormAction,
             initContractFormAction,
-            getContractAction
+            getContractAction,
+            deleteContractAction
         })
 ) (withRouter(ContractForm));
 

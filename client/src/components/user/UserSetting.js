@@ -8,6 +8,7 @@ class UserSetting extends Component {
 
     renderUserInfo() {
         const { user } = this.props
+        console.log(user)
         return (
             <div>
                 <div className="blue lighten-2 white-text text-darken-2 valign-wrapper"

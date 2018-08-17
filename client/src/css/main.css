@@ -58,6 +58,47 @@ nav{
     background-color: #4c9e96;
 }
 
+ /* Btn log in */
+ .fb-login-btn{
+    height: 50px;
+    line-height: 15px;
+    margin: 5px;
+    font-family: Helvetica,sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: calc(.27548vw + 12.71074px);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color .3s,border-color .3s;
+    background-color: #4c69ba;
+    border: calc(.06887vw + .67769px) solid #4c69ba;
+    padding: calc(.34435vw + 13.38843px) calc(.34435vw + 18.38843px);
+    width: 250px;
+ }
+
+ .google-login-btn{
+    height: 50px;
+    line-height: 15px;
+    margin: 5px;
+    font-family: Helvetica,sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: calc(.27548vw + 12.71074px);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color .3s,border-color .3s;
+    background-color: rgb(209, 72, 54);
+    border: calc(.06887vw + .67769px) solid rgb(209, 72, 54);
+    padding: calc(.34435vw + 13.38843px) calc(.34435vw + 18.38843px);
+    width: 250px;
+ }
+
 @media only screen and (min-width: 992px)
 {
     

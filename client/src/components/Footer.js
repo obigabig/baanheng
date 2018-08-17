@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 class Footer extends Component {
     render() {
@@ -8,16 +10,17 @@ class Footer extends Component {
             <div className="container">
             <div className="row">
                 <div className="col l6 s12">
-                <h5 className="white-text">Footer Content</h5>
-                <p className="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                <h5 className="white-text">Baan-hengheng Admin</h5>
+                    <p className="grey-text text-lighten-4">
+                        ระบบบัญทึกสัญญาจำนอง-ขายฝาก
+                    </p>
                 </div>
                 <div className="col l4 offset-l2 s12">
-                <h5 className="white-text">Links</h5>
+                <h5 className="white-text">Menus</h5>
                 <ul>
-                    <li><a className="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                    <li><a className="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                    <li><a className="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                    <li><a className="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                    <li><Link to="/Dashboard" className="grey-text text-lighten-3" href="#!">การแจ้งเตือน</Link></li>
+                    <li><Link to="/ContractLists" className="grey-text text-lighten-3" href="#!">รายการทั้งหมด</Link></li>
+                    <li><Link to="/Reports" className="grey-text text-lighten-3" href="#!">รายงาน</Link></li>
                 </ul>
                 </div>
             </div>
@@ -25,7 +28,7 @@ class Footer extends Component {
             <div className="footer-copyright">
             <div className="container">
             © 2018 Copyright Text
-            <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
+            <a className="grey-text text-lighten-4 right" href="#!">Contact admin</a>
             </div>
             </div>
             </footer>
@@ -33,4 +36,4 @@ class Footer extends Component {
     }
 }
 
-export default Footer;
+export default withRouter(Footer);

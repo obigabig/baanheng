@@ -38,10 +38,10 @@ const contractSchema = new Schema({
         default:Date.now,
         timezone: 'Asia/Bangkok'
     },
-    _modifiedBy: [{ type: Schema.Types.ObjectId, 
+    _modifiedBy: { type: Schema.Types.ObjectId, 
         ref: 'user'
-    }],
-    modifiedDate: [Date],
+    },
+    modifiedDate: Date,
 });
 
 // Create the model class

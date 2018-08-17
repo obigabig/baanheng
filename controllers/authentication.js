@@ -7,13 +7,15 @@ const _ = require('lodash');
 function tokenForUser(user) {
     const secretKey = keys.jwtSecret;
     //const timestamp = new Date().getTime();
-    return jwt.encode({ sub: user.id,
-                         name: user.name,
-                         email: user.local.email,
-                         isAdmin: user.isAdmin,
-                         iat: Math.round(Date.now() / 1000),
-                         exp: Math.round(Date.now() / 1000 + 7 * 24 * 60 * 60)  }
-                        , secretKey);   // 5 Hours = (5 * 60 * 60)
+    const payload = { sub: user.id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        iat: Math.round(Date.now() / 1000),
+        exp: Math.round(Date.now() / 1000 + 9999 * 24 * 60 * 60)}
+        //exp: Math.round(Date.now() / 1000 + 60) }
+        
+    return jwt.encode(payload, secretKey);   // 5 Hours = (5 * 60 * 60)
 }
 
 exports.signin = (req,res,next) => {
@@ -33,7 +35,7 @@ exports.signup = async (req,res,next) => {
 
     try {
         const existingUser = await User.findOne()
-            .where("local.email").in([email])
+            .where("email").in([email])
             .exec();
         
         if(existingUser){
@@ -59,31 +61,32 @@ exports.signup = async (req,res,next) => {
     } 
     catch(e){
         console.log(e);
-        res.status(422).send({ error: `Cannot signup.`});
+        res.status(422).send({ error: `Cannot signup:` + e});
     }
 }
 
-exports.currentUser = (req,res) => {
-    // Get user detail
-    const userdetail = {   
-        id: req.user._id,     
-        name: req.user.name,
-        isAdmin: req.user.isAdmin,
-        email: req.user.local.email,
-        userSubInvestors: req.user.userSubInvestors
+exports.getCurrentUser = async (req,res) => {
+    try {
+        // Get user detail
+        const user = await User.findById(req.user.id)
+            .populate('userSubInvestors')
+            .exec();
+        res.send(user)
     }
-
-    res.send(userdetail);
+    catch(e){
+        console.log(e);
+        res.status(422).send({ error: `Cannot getCurrentUser:` + e});
+    }
 }
 
 exports.selectUserSubInvestors = async (req,res,next) => {
-
-    const email = req.user.local.email;
+    const email = req.user.email;
     try{
-        const existingUser = await User.findOne({ "local.email": email })
+        const existingUser = await User.findOne({ "email": email })
             .select('userSubInvestors')
             .populate('userSubInvestors')
             .exec();
+            
         // If a user with email does exist, return an error
         if (!existingUser){
             return res.status(422).send( {error: 'User sub investors is not found.'} )
@@ -99,3 +102,20 @@ exports.selectUserSubInvestors = async (req,res,next) => {
     }
 
 };
+
+
+exports.getAuthenticateUser = (req,res,next) => {
+    try{
+        if (!req.user) {
+            return res.send(401, 'User Not Authenticated');
+        }
+        req.auth = {
+            id: req.user.id
+        };
+
+        next();
+    }
+    catch(err){
+        return next(err)
+    }
+}

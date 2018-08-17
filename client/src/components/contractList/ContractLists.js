@@ -32,9 +32,6 @@ class ContractLists extends Component{
         }
 
         this.fetchContractLists = this.fetchContractLists.bind(this)
-        /*this.handlePaginationClick = this.handlePaginationClick.bind(this)
-        this.handlePaginationLeftClick = this.handlePaginationLeftClick.bind(this)
-        this.handlePaginationRightClick = this.handlePaginationRightClick.bind(this)*/
     }
 
     componentDidMount() {
@@ -67,7 +64,21 @@ class ContractLists extends Component{
         });
     }
 
-    
+    renderTotalCardNumber() {
+        const { contractsList } = this.props
+        if(contractsList.length && contractsList.length > 0)
+        {
+            return (
+                <div className="center-align grey-text" 
+                    style={{marginTop:'10px',
+                            fontStyle: 'italic'}}>
+                    ผลลัพธ์ทั้งหมด { contractsList.length } รายการ
+                </div>
+            )
+        }
+        return ''
+
+    }
 
     renderCardLists() {
         const { contractsList } = this.props
@@ -118,6 +129,7 @@ class ContractLists extends Component{
                         <div className="right-align red-text">  
                             {this.props.contractsList.errorMessage && <strong>{this.props.contractsList.errorMessage}</strong>}
                         </div>
+                        {this.renderTotalCardNumber()}
                         {this.state.isLoading ? <Spinner/> : this.renderCardLists()} 
                         <ContractPagination 
                             contractsList = {this.props.contractsList}

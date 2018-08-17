@@ -1,14 +1,40 @@
 const passport = require('passport');
 const User = require('../models/user');
 const keys = require('../config/keys/keys');
-const JwtStrategy = require('passport-jwt').Strategy;
+
+var GoogleTokenStrategy = require('passport-google-token').Strategy;
+var FacebookTokenStrategy = require('passport-facebook-token');
+
+const fbLogin = new FacebookTokenStrategy({
+    clientID: keys.facebookAuth.clientID,
+    clientSecret: keys.facebookAuth.clientSecret
+  },
+  (accessToken, refreshToken, profile, done) => {
+    User.upsertFbUser(accessToken, refreshToken, profile, (err, user) => {
+      return done(err, user);
+    });
+})
+
+const googleLogin = new GoogleTokenStrategy({
+    clientID: keys.googleAuth.clientID,
+    clientSecret: keys.googleAuth.clientSecret
+},
+(accessToken, refreshToken, profile, done) => {
+    User.upsertGoogleUser(accessToken, refreshToken, profile, (err, user) => {
+        return done(err, user);
+    });
+})
+
+passport.use(fbLogin);
+passport.use(googleLogin);
+
+/*const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local');
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-
 const userQueries = require('../queries/user');
-const _ = require('lodash');
+const _ = require('lodash');*/
 
-// Setup options for JWT Strategy
+/*// Setup options for JWT Strategy
 // ExtractJwt.fromAuthHeaderAsBearerToken()
 //.fromAuthHeaderWithScheme('jwt')
 //.fromHeader('authorization')
@@ -40,7 +66,7 @@ const localLogin = new LocalStrategy(localOptions, async (email, password, done)
   // Verify this email and password, call done with the user
   // if it is the correct email and password
   // otherwise, call done with false
-  User.findOne({ "local.email" : email } , (err, user) => {
+  User.findOne({ "email" : email } , (err, user) => {
     
     if (err) { return done(err); }
     if(!user){ return done(null, false, {errorMessage: 'Incorrect email or password.'}); }
@@ -58,4 +84,5 @@ const localLogin = new LocalStrategy(localOptions, async (email, password, done)
 });
 
 passport.use(jwtLogin);
-passport.use(localLogin);
+passport.use(localLogin);*/
+

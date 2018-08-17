@@ -7,9 +7,60 @@ import { FETCH_INVESTOR_RATIO, FETCH_INVESTOR_RATIO_ERROR } from './types';
 import { change, arrayInsert } from 'redux-form';
 import axios from 'axios';
 
-//JWT LEGACY_AUTH_SCHEME
-let tokenStr = localStorage.getItem('token') ? `JWT ${localStorage.getItem('token')}` : '';
-axios.defaults.headers.common['Authorization'] = tokenStr;
+
+const setAxiosHeader = () => {
+  let xAuthTokenStr = localStorage.getItem('token') ? `${localStorage.getItem('token')}` : '';
+  axios.defaults.headers['x-auth-token'] = xAuthTokenStr;
+}
+
+let xAuthTokenStr = localStorage.getItem('token') ? `${localStorage.getItem('token')}` : '';
+axios.defaults.headers['x-auth-token'] = xAuthTokenStr;
+
+  export const fbLogInAction = (values, callback) => async dispatch => {
+    try {
+      
+      //Sign up & Get token from server
+      const res = await axios.post('/api/auth/facebook', values);
+      const token = res.headers['x-auth-token'];
+
+      if (token) {              
+        dispatch({ type: AUTH_USER, payload: token });
+        localStorage.setItem('token', token);
+        setAxiosHeader()
+        //dispatch user profile
+        const resUser = await axios.get('/api/current-user');
+        dispatch({ type: FETCH_USER, payload: resUser.data });
+        callback()
+      }
+      
+    } catch(err) {
+      console.log(err)
+      dispatch({ type: AUTH_ERROR, payload: err });
+    }
+  };
+
+  export const googleLogInAction = (values, callback) => async dispatch => {
+    try {
+      
+      //Sign up & Get token from server
+      const res = await axios.post('/api/auth/google', values);
+      const token = res.headers['x-auth-token'];
+
+      if (token) {              
+        dispatch({ type: AUTH_USER, payload: token });
+        localStorage.setItem('token', token);
+        setAxiosHeader()
+        //dispatch user profile
+        const resUser = await axios.get('/api/current-user');
+        dispatch({ type: FETCH_USER, payload: resUser.data });
+        callback()
+      }
+      
+    } catch(err) {
+      console.log(err)
+      dispatch({ type: AUTH_ERROR, payload: err });
+    }
+  };
 
   export const signUpAction = (values , callback) => async dispatch => {
     try {
@@ -56,14 +107,7 @@ axios.defaults.headers.common['Authorization'] = tokenStr;
       }
     }
   };
-
-  export const signOutAction = (callback) => async dispatch => {
-    localStorage.removeItem('token');
-    dispatch({ type: AUTH_USER, payload: '' });
-    dispatch({ type: FETCH_USER, payload: '' });
-    callback();
-  };
-
+  
   export const fetchUserAction = () => async dispatch => {
     try {
       const res = await axios.get('/api/current-user');
@@ -71,6 +115,14 @@ axios.defaults.headers.common['Authorization'] = tokenStr;
     } catch (e) {
       dispatch({ type: AUTH_USER, payload: false });
     }
+  };
+
+
+  export const signOutAction = (callback) => async dispatch => {
+    localStorage.removeItem('token');
+    dispatch({ type: AUTH_USER, payload: '' });
+    dispatch({ type: FETCH_USER, payload: '' });
+    callback();
   };
 
 /*-----------------------[New Contract Form]-------------------------------*/
@@ -135,6 +187,17 @@ export const updateContractAction = (values , callback, error) => async dispatch
   }
 };
 
+/*-----------------------[Delete Contract Form]-------------------------------*/
+export const deleteContractAction = (id , callback) => async dispatch => {
+  try {
+    console.log(id)
+    const res = await axios.get(`/api/deleteContract/${id}`);
+    dispatch({ type: FETCH_CONTRACT, payload: res.data });
+    callback();
+  } catch(err) {
+    dispatch({ type: CONTRACT_ERROR, payload: err.response.data.error });
+  }
+};
 /*-----------------------[Contract List]-------------------------------*/
 export const getContractListsAction = (
   skip, limit, sort, status, pact, propType, value, callback

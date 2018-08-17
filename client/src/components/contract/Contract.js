@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import ContractForm from './ContractForm';
-import requireAuth from '../../hoc/requireAuth';
+import requireAuth from '../../utils/requireAuth';
 import InvestorRatio from '../dashboard/InvestorRatio';
 import Navbar from '../reactComponent/Navbar';
+
+import '../../css/contract.css';
 
 class Contract extends Component {
 

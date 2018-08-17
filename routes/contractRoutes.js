@@ -1,4 +1,7 @@
 
+const passport = require('passport');
+const requireAuth = passport.authenticate('jwt', { session: false });
+const requireSignin = passport.authenticate('local', { session: false });
 const Contact = require('../controllers/contract');
 
 module.exports = (app, requireAuth) => {
@@ -8,6 +11,8 @@ module.exports = (app, requireAuth) => {
     /* Edit contract */
     app.get("/api/getContract/:id", requireAuth, Contact.getContract);    
     app.post("/api/update-contract", requireAuth, Contact.updateContract);
+    /* Delete contract */
+    app.get("/api/deleteContract/:id", requireAuth, Contact.deleteContract);  
     /* Contract list */
     app.get("/api/ContractLists", requireAuth, Contact.getContractLists);
     app.get("/api/getContractListsLength", requireAuth, Contact.getContractListsLength);

@@ -1,8 +1,13 @@
+
+exports.facebookClientId = "505475596589543"
+exports.googleClientId = "1086485022003-6mp8hgbp4govp1qt6ghg1ag4lcv3uitv.apps.googleusercontent.com"
+
+
 const contractStatusValue = {
     new: 'งานใหม่',
     ongoing: 'ทำสัญญา',
-    break: 'หลุด',
-    end: 'จบสัญญา',
+    break: 'ทรัพย์หลุด',
+    end: 'จบงาน',
 };
 exports.ContractStatusValue = contractStatusValue
 exports.ContractStatus = [

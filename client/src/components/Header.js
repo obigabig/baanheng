@@ -6,10 +6,11 @@ import { withRouter } from 'react-router-dom';
 
 
 class Header extends Component {
+
     componentDidMount(){
-        if(this.props.authenticated)
-        {
-            this.props.fetchUserAction();            
+        if(this.props.authenticated)     
+        {   
+            this.props.fetchUserAction()
         }
     }
 
@@ -19,7 +20,7 @@ class Header extends Component {
             case null:
                 return (
                     <div>                        
-                        <Link to="/login" className="red btn-flat white-text">   
+                        <Link to="/login" className="light-blue darken-4 btn-flat white-text">   
                             <i className="material-icons left">account_circle</i>         
                             เข้าสู่ระบบ
                         </Link>
@@ -29,11 +30,11 @@ class Header extends Component {
                 return (
                 <div style={{ padding: '10px'}}>
                     <div className="row">
-                        <span className="white-text right valign-wrapper">   
+                        <Link to="/Profile" className="white-text right valign-wrapper">   
                             <i className="material-icons">account_circle</i>         
-                            {this.props.user.name}
+                            {`${this.props.user.email? this.props.user.email : ''}`}
                             { this.props.user.isAdmin ? ' (Admin)' : '' }
-                        </span>
+                        </Link>
                     </div>                    
                     <div className="row">
                     <a href="" 
@@ -44,21 +45,27 @@ class Header extends Component {
                     </div>
                 </div>
                 
-                );
+            );
         }
           
     }
 
     render() {
-        
         return (
             <div>
-                <div className="row teal lighten-2 ">
+                <div className="row teal lighten-2 valign-wrapper">
                     <div 
-                        className="col s12 m5 white-text text-darken-5"
+                        className="col s12 m5"
                         style={{ padding: '10px'}}
                     > 
-                        BaanHengHeng ๙๙ 
+                        <Link to="/" className=" white-text text-darken-5" > 
+                            <div className="left">
+                                <img src={require("../img/favicon.png")}   
+                                    width="79px"
+                                    height="79px"
+                                    alt="favicon" />  
+                            </div>       
+                        </Link>                        
                     </div>
                     <div className="col s12 m7 right-align white-text text-darken-2">                        
                         { this.renderLogin() }                        

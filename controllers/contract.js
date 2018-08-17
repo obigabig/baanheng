@@ -4,12 +4,13 @@ const { StatusMapping , PactMapping, TypeMapping} = require('../const')
 const { getContractByValueRange } = require('../queries/contract')
 const contractQuerues = require('../queries/contract')
 const _ = require('lodash')
+const moment = require('moment')
 
 exports.initialContractForm = async (req, res) => {
-    const email = req.user.local.email;
+    const email = req.user.email;
     try{
         //Get default sub investor
-        const user = await User.findOne({ "local.email": email })
+        const user = await User.findOne({ "email": email })
             .select('userSubInvestors')
             .populate('userSubInvestors')
             .exec();
@@ -43,22 +44,24 @@ exports.initialContractForm = async (req, res) => {
 }
 
 exports.createContract = async (req, res, next) => {
+
+    console.log(req.user)
     const title = req.body.title;
     const description = req.body.description;
     const status = req.body.status;
     const type = req.body.type;
     const pact = req.body.pact;
     const value = req.body.value;
-    const _agent = req.user._id;
+    const _agent = req.user.id;
     const beginDate = req.body.beginDate;
     const googleMapsUrl = req.body.contractLocation.url;
     const actions = req.body.contractActions;
     const debtor = req.body.contractDebtor;
     const subInvestor = req.body.contractSubInvestors;   
-    const _createBy = req.user._id; 
+    const _createBy = req.user.id; 
 
     //Get lastest number
-    const objNewNo = await Contract.findOne({_agent: req.user._id}, {'no':1,'_id':0}).sort({no : -1});
+    const objNewNo = await Contract.findOne({_agent: req.user.id}, {'no':1,'_id':0}).sort({no : -1});
     let newNo = 1;
     if(objNewNo)
         newNo = objNewNo["no"] + 1
@@ -100,13 +103,14 @@ exports.updateContract = async (req, res, next) => {
     const type = req.body.type;
     const pact = req.body.pact;
     const value = req.body.value;
-    const _agent = req.user._id;
+    const _agent = req.user.id;
     const beginDate = req.body.beginDate;
     const googleMapsUrl = req.body.contractLocation.url;
     const actions = req.body.contractActions;
     const debtor = req.body.contractDebtor;
     const subInvestor = req.body.contractSubInvestors;   
-    const _createBy = req.user._id; 
+    const _modifiedBy = req.user.id
+    const modifiedDate = moment()  
 
     try {
         
@@ -127,7 +131,8 @@ exports.updateContract = async (req, res, next) => {
             actions,
             debtor,
             subInvestor,
-            _createBy
+            _modifiedBy,
+            modifiedDate
         });
 
         res.send(contract);
@@ -311,6 +316,22 @@ exports.markActionAsComplete = async (req, res) => {
         res.status(422).send({ error: `Cannot do [markActionAsComplete]: ${contract.title} `+ e});
     }
 }
+
+exports.deleteContract = async (req, res) => {
+    try {       
+        const contract = await Contract
+                .deleteOne({
+                    _createBy : req.user.id,
+                    no: Number(req.params.id)
+                })
+                .exec();
+        res.send(contract)
+    }
+    catch(e){
+        console.log(e);
+        res.status(422).send({ error: `Cannot complete [deleteContract]. `+e});
+    }
+};
 
             
     

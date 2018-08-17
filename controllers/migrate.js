@@ -7,30 +7,29 @@ const User = require('../models/user')
 
 const subinvestorMapping = (sqlName) => {
     if(sqlName === 'สุวิทย์')
-        return '5b62c6ab69a91c23a4a9aee2'   //subinvestor id
+        return '5b74f2c0193bdc6274570b26'   //subinvestor id
     else if(sqlName === 'สมพร')
-        return '5b62c6c869a91c23a4a9aee4'
+        return '5b750aafbea680557c224283'
     else if(sqlName === 'สิงห์')
-        return '5b62c6cf69a91c23a4a9aee6'
+        return '5b751c3ffca4001778e3a685'
     else if(sqlName === 'เนี้ยว')
-        return '5b62c6d769a91c23a4a9aee8'
+        return '5b753a377900b165bc06cd3a'
     else if(sqlName === 'พรพิษ')
-        return '5b62c6dd69a91c23a4a9aeea'
+        return '5b753a3c7900b165bc06cd3c'
     else if(sqlName === 'บิ๊ก')
-        return '5b62c6e469a91c23a4a9aeec'
+        return '5b753a427900b165bc06cd3e'
     else if(sqlName === 'ยายเฉลิม')
-        return '5b62c6eb69a91c23a4a9aeee'
+        return '5b753a477900b165bc06cd40'
     else if(sqlName === 'แป๊ะ')
-        return '5b62c6f369a91c23a4a9aef0'
+        return '5b753a4f7900b165bc06cd42'
     else
-        return '5b62c70169a91c23a4a9aef2'
-
+        return '5b753a557900b165bc06cd44'
 }
 
 exports.migrateContract = async (req, res) => {
 
     try {
-        const userId = '5b62c6ab69a91c23a4a9aee1';
+        const userId = '5b74f2c0193bdc6274570b25';
 
         const pool = await sql.connect('mssql://sa:12345@localhost\\SQLEXPRESS/ASSETMANAGER')
         const contractList = await sql.query`select * from CONTRACT WHERE ID > 0 AND ID < 999 AND ACTIVEFLAG = 'A' ORDER BY ID` 

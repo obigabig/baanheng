@@ -1,7 +1,6 @@
 
-exports.facebookClientId = "505475596589543"
-exports.googleClientId = "1086485022003-6mp8hgbp4govp1qt6ghg1ag4lcv3uitv.apps.googleusercontent.com"
-
+exports.facebookClientId = process.env.FB_CLIENT_ID
+exports.googleClientId = process.env.GOOGLE_CLIENT_ID
 
 const contractStatusValue = {
     new: 'งานใหม่',

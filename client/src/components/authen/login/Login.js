@@ -35,6 +35,7 @@ class Login extends Component {
     }
 
     render (){
+        alert(googleClientId)
         let content = 
             (
                 <div className="row grey lighten-3">

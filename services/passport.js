@@ -5,6 +5,7 @@ const keys = require('../config/keys/keys');
 var GoogleTokenStrategy = require('passport-google-token').Strategy;
 var FacebookTokenStrategy = require('passport-facebook-token');
 
+
 const fbLogin = new FacebookTokenStrategy({
     clientID: keys.facebookAuth.clientID,
     clientSecret: keys.facebookAuth.clientSecret

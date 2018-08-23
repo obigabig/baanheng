@@ -5,53 +5,54 @@ const moment = require('moment')
 const Contract = require('../models/contract/contract')
 const User = require('../models/user')
 
-const subinvestorMapping = (sqlName) => {
+    //obigabig
+    /*const subinvestorMapping = (sqlName) => {
     if(sqlName === 'สุวิทย์')
-        return '5b7e261dc915062d9c888499'   //subinvestor id
+        return '5b7e36834151560014482f8e'   //subinvestor id
     else if(sqlName === 'สมพร')
-        return '5b7e271ec915062d9c88849b'
+        return '5b7e37964151560014482f90'
     else if(sqlName === 'สิงห์')
-        return '5b7e2723c915062d9c88849d'
+        return '5b7e379d4151560014482f92'
     else if(sqlName === 'เนี้ยว')
-        return '5b7e2728c915062d9c88849f'
+        return '5b7e37a34151560014482f94'
     else if(sqlName === 'พรพิษ')
-        return '5b7e2730c915062d9c8884a1'
+        return '5b7e37a94151560014482f96'
     else if(sqlName === 'บิ๊ก')
-        return '5b7e2749c915062d9c8884a3'
+        return '5b7e37af4151560014482f98'
     else if(sqlName === 'ยายเฉลิม')
-        return '5b7e274ec915062d9c8884a5'
+        return '5b7e37b44151560014482f9a'
     else if(sqlName === 'แป๊ะ')
-        return '5b7e2754c915062d9c8884a7'
+        return '5b7e37b94151560014482f9c'
     else
-        return '5b7e275ac915062d9c8884a9'
+        return '5b7e37d04151560014482f9e'*/
 
     //Suvit.jong
-    /*    const subinvestorMapping = (sqlName) => {
+    const subinvestorMapping = (sqlName) => {
             if(sqlName === 'สุวิทย์')
-                return '5b7e261dc915062d9c888499'   //subinvestor id
+                return '5b767d736aaef100141c4ab3'   //subinvestor id
             else if(sqlName === 'สมพร')
-                return '5b7e271ec915062d9c88849b'
+                return '5b767e1a6aaef100141c4ab5'
             else if(sqlName === 'สิงห์')
-                return '5b7e2723c915062d9c88849d'
+                return '5b767e216aaef100141c4ab7'
             else if(sqlName === 'เนี้ยว')
-                return '5b7e2728c915062d9c88849f'
+                return '5b767e2a6aaef100141c4ab9'
             else if(sqlName === 'พรพิษ')
-                return '5b7e2730c915062d9c8884a1'
+                return '5b767e376aaef100141c4abb'
             else if(sqlName === 'บิ๊ก')
-                return '5b7e2749c915062d9c8884a3'
+                return '5b767e3f6aaef100141c4abd'
             else if(sqlName === 'ยายเฉลิม')
-                return '5b7e274ec915062d9c8884a5'
+                return '5b767e486aaef100141c4abf'
             else if(sqlName === 'แป๊ะ')
-                return '5b7e2754c915062d9c8884a7'
+                return '5b767e536aaef100141c4ac1'
             else
-                return '5b7e275ac915062d9c8884a9'*/
+                return '5b767e626aaef100141c4ac3'
 }
 
 exports.migrateContract = async (req, res) => {
 
     try {
-        const userId = '5b7e261dc915062d9c888498';  //obigabig
-        //const userId = '5b767d736aaef100141c4ab2';  //Suvit.jong
+        //const userId = '5b7e36834151560014482f8d';  //obigabig
+        const userId = '5b767d736aaef100141c4ab2';  //Suvit.jong
 
         const pool = await sql.connect('mssql://sa:12345@localhost\\SQLEXPRESS/ASSETMANAGER')
         const contractList = await sql.query`select * from CONTRACT WHERE ID > 0 AND ID < 999 AND ACTIVEFLAG = 'A' ORDER BY ID` 
@@ -148,11 +149,15 @@ exports.migrateContract = async (req, res) => {
         
            const saved = await newContract.save()
 
+          
         })
+
+        //sql.close()
         res.send('Completed');
         //sql.close()
     } catch (err) {
-        console.log(err)
+        //console.log(err)
+        sql.close()
         res.status(422).send({ error: `Error: `+ err});
     }
 

@@ -106,7 +106,7 @@ class DueContractCard extends Component {
                         <Link to={`/Contract/${contract.no}`}>
                             <div className="dueContractcard-content">
                                 <div className="card-title dueContractCard-title"> 
-                                    <div className="row">
+                                    <div className="row" style={{ marginRight: '-20px'}}>
                                         <div className="col s11 truncate" >
                                             <span>{`#${contract.no} : `} </span> 
                                             <span> {`${contract.title} (${contract.type})`} </span>   

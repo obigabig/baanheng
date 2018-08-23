@@ -98,7 +98,6 @@ class ContractForm extends Component {
         //SubmissionError
         //throw new SubmissionError({ username: 'User does not exist', _error: 'Login failed!' })
         this.setState({isLoading: true});
-
         if(this.props.mode === 'new'){
             this.props.createContractAction(values, () => {
 

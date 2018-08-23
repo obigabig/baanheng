@@ -66,8 +66,8 @@ const validate = values => {
           subInvestorsArrayErrors[index] = valueErrors;
         }
         else if(isDupplicateName){
-            valueErrors._userSubInvestor = 'ชื่อผู้ลงทุนซ้ำ';
-            subInvestorsArrayErrors[index] = valueErrors;
+            /*valueErrors._userSubInvestor = 'ชื่อผู้ลงทุนซ้ำ';
+            subInvestorsArrayErrors[index] = valueErrors;*/
         }
 
         if (!value || !value.value) {

@@ -3,20 +3,11 @@ import NumberFormat from 'react-number-format';
 
 class NumberInput extends Component {
     
-    onChange(event) {
-        if (this.props.input.onChange && event != null) {
-            this.props.input.onChange(event.value);
-
-        } else {
-            // Clear the input field
-            this.props.input.onChange(null)
-        }
-    }
-
     render() {
-        const {  input, 
+        const {  input,            
             label, 
             placeholder = '', 
+            thousandSeparate=false,
             require=false, 
             readonly=false,
             meta: { error, touched } } = this.props;
@@ -37,13 +28,24 @@ class NumberInput extends Component {
                     }}>*</span>  : ''}
                 </label>
                 <div style={{clear:'both'}} />
-                <NumberFormat {...input} 
-                    thousandSeparator=""
+                <NumberFormat 
+                    value={input.value}
+                    type={input.type}
                     style={inputStyle} 
                     placeholder={placeholder}
                     displayType={readonly ? 'text': 'input' } 
-                    onValueChange = { this.onChange.bind(this) }  
+                    allowNegative={false}
+                    decimalSeparator={'.'}
+                    thousandSeparator={thousandSeparate}
+                    onValueChange={(values) => {
+                        if (isNaN(values.floatValue)) {
+                            input.onChange('');
+                          } else {
+                            input.onChange(values.floatValue);
+                          }
+                    }}
                 />
+
                 <div className="red-text">
                     { touched && error }
                 </div>

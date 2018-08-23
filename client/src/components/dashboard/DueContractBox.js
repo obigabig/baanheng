@@ -54,11 +54,11 @@ class DueContractBox extends Component {
                         </div>              
                     </div>
                     <input
-                                    id="chkUpcoming"
-                                    name="chkUpcoming"
-                                    type="checkbox"
-                                    checked={this.state.isListOpen}
-                                    onChange={this.handleChkUpcomingInputChange} 
+                            id="chkUpcoming"
+                            name="chkUpcoming"
+                            type="checkbox"
+                            checked={this.state.isListOpen}
+                            onChange={this.handleChkUpcomingInputChange} 
                     />
             </label>
         </div>

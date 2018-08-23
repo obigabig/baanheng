@@ -43,7 +43,7 @@ class ContractCard extends Component{
         if(upComongDays <= 10)
             return "red-text darken-4";
         else if(upComongDays <= 20)
-            return "orange-text darken-4";
+            return "green-text darken-4";
     
         return "green-text darken-4";
     }
@@ -95,7 +95,7 @@ class ContractCard extends Component{
         const {contract} = this.props;
         return (
             <div className="row">
-                <div className="col s12">
+                <div className="col s12 mobile-box">
                     <div className={`card hoverable contractCard ${this.cardStyle(contract)}`}>                        
                         <div className="card-content">
                             <span className="card-title contractCard-title truncate">     

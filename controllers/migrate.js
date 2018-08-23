@@ -7,29 +7,51 @@ const User = require('../models/user')
 
 const subinvestorMapping = (sqlName) => {
     if(sqlName === 'สุวิทย์')
-        return '5b767d736aaef100141c4ab3'   //subinvestor id
+        return '5b7e261dc915062d9c888499'   //subinvestor id
     else if(sqlName === 'สมพร')
-        return '5b767e1a6aaef100141c4ab5'
+        return '5b7e271ec915062d9c88849b'
     else if(sqlName === 'สิงห์')
-        return '5b767e216aaef100141c4ab7'
+        return '5b7e2723c915062d9c88849d'
     else if(sqlName === 'เนี้ยว')
-        return '5b767e2a6aaef100141c4ab9'
+        return '5b7e2728c915062d9c88849f'
     else if(sqlName === 'พรพิษ')
-        return '5b767e376aaef100141c4abb'
+        return '5b7e2730c915062d9c8884a1'
     else if(sqlName === 'บิ๊ก')
-        return '5b767e3f6aaef100141c4abd'
+        return '5b7e2749c915062d9c8884a3'
     else if(sqlName === 'ยายเฉลิม')
-        return '5b767e486aaef100141c4abf'
+        return '5b7e274ec915062d9c8884a5'
     else if(sqlName === 'แป๊ะ')
-        return '5b767e536aaef100141c4ac1'
+        return '5b7e2754c915062d9c8884a7'
     else
-        return '5b767e626aaef100141c4ac3'
+        return '5b7e275ac915062d9c8884a9'
+
+    //Suvit.jong
+    /*    const subinvestorMapping = (sqlName) => {
+            if(sqlName === 'สุวิทย์')
+                return '5b7e261dc915062d9c888499'   //subinvestor id
+            else if(sqlName === 'สมพร')
+                return '5b7e271ec915062d9c88849b'
+            else if(sqlName === 'สิงห์')
+                return '5b7e2723c915062d9c88849d'
+            else if(sqlName === 'เนี้ยว')
+                return '5b7e2728c915062d9c88849f'
+            else if(sqlName === 'พรพิษ')
+                return '5b7e2730c915062d9c8884a1'
+            else if(sqlName === 'บิ๊ก')
+                return '5b7e2749c915062d9c8884a3'
+            else if(sqlName === 'ยายเฉลิม')
+                return '5b7e274ec915062d9c8884a5'
+            else if(sqlName === 'แป๊ะ')
+                return '5b7e2754c915062d9c8884a7'
+            else
+                return '5b7e275ac915062d9c8884a9'*/
 }
 
 exports.migrateContract = async (req, res) => {
 
     try {
-        const userId = '5b767d736aaef100141c4ab2';
+        const userId = '5b7e261dc915062d9c888498';  //obigabig
+        //const userId = '5b767d736aaef100141c4ab2';  //Suvit.jong
 
         const pool = await sql.connect('mssql://sa:12345@localhost\\SQLEXPRESS/ASSETMANAGER')
         const contractList = await sql.query`select * from CONTRACT WHERE ID > 0 AND ID < 999 AND ACTIVEFLAG = 'A' ORDER BY ID` 
@@ -66,11 +88,11 @@ exports.migrateContract = async (req, res) => {
             const actionsList = await sql.query`SELECT AlertType
                     ,AlertDate
                 FROM CONTRACTALERT 
-                WHERE ContractId = ${no}
+                WHERE ContractId = ${no} AND AlertType != ''
                 ORDER BY No` 
             const actions = _.map(actionsList.recordset, action => {
                     const type = action.AlertType === 'ทวงถามดอกเบี้ย' ? "ทวงถามดอกเบี้ย" : "อื่นๆ"
-                    const description = action.AlertType;
+                    const description = action.AlertType === 'ทวงถามดอกเบี้ย' ? "ทวงถามดอกเบี้ย" : "ไม่ได้ระบุ"
                     //แทรกช่องอื่นๆ 
                     /*const period = action.AlertDate && contract.ContractDate ?
                         moment(action.AlertDate).diff(moment(contract.ContractDate), "months") : 0*/

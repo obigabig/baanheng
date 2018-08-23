@@ -18,7 +18,7 @@ class Dashboard extends Component{
                     <div className="col s12 m4 l3 hide-on-small-only">
                         <InvestorRatio />
                     </div>
-                    <div className="col s12 m8 l9">                           
+                    <div className="col s12 m8 l9 mobile-box">                           
                         <DueContractList />              
                     </div>
                 </div>   

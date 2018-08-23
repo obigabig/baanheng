@@ -19,8 +19,8 @@ import Page404 from './Page404'
 import '../css/main.css';
 import Footer from './Footer';
 
-class App extends Component {
 
+class App extends Component {
 
   render() {
 

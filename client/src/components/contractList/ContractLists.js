@@ -12,6 +12,7 @@ import Navbar from '../reactComponent/Navbar'
 import FixButton from '../reactComponent/FixButton'
 import ContractCard from './ContractCard'
 import ContractFilter from './ContractFilter'
+import ContractFilterMobile from './ContractFilterMobile'
 import ContractSort from './ContractSort'
 import ContractPagination from './ContractPagination'
 
@@ -23,9 +24,11 @@ class ContractLists extends Component{
         this.state = {
             isLoading: true,
             currentPage: 1,
-            dataPerPage: 10,
+            dataPerPage: 20,
             sort: { field: 'no', type: -1},
-            filterStatus: '1',
+            filterNo: '',
+            filterTitle: '',
+            filterStatus: '0,1,2,3',
             filterPact: '0,1,2',
             filterPropType: '0,1,2,3,4,5,6,7,8,9,10',
             filterValue: '0'
@@ -43,6 +46,8 @@ class ContractLists extends Component{
         const {
             currentPage, dataPerPage
             , sort
+            , filterNo
+            , filterTitle
             , filterStatus
             , filterPact
             , filterPropType
@@ -54,6 +59,8 @@ class ContractLists extends Component{
                 (currentPage-1) * dataPerPage, 
                 dataPerPage, 
                 sort, 
+                filterNo,
+                filterTitle,
                 filterStatus,
                 filterPact,
                 filterPropType,
@@ -80,6 +87,52 @@ class ContractLists extends Component{
 
     }
 
+    renderFilterComponent(){
+        const pc = (
+            <div className="hide-on-med-and-down"> 
+            <ContractFilter 
+                            updateContractList={(no, title, status, pact, propType, value) => {
+                                this.setState({
+                                        filterNo: no,
+                                        filterTitle: title,
+                                        filterStatus: status,
+                                        filterPact: pact,
+                                        filterPropType: propType,
+                                        filterValue: value
+                                    }, () => {                                                    
+                                    this.fetchContractLists()  
+                                })                                     
+                            }
+                        }/>
+            </div>
+        )
+        const mobileAndTablet = (
+            <div className="hide-on-large-only">
+            <ContractFilterMobile                 
+                            updateContractList={(no, title, status, pact, propType, value) => {
+                                this.setState({
+                                        filterNo: no,
+                                        filterTitle: title,
+                                        filterStatus: status,
+                                        filterPact: pact,
+                                        filterPropType: propType,
+                                        filterValue: value
+                                    }, () => {                                                    
+                                    this.fetchContractLists()  
+                                })                                     
+                            }
+                        }/>
+            </div>
+        )
+
+        return (
+            <div>
+                { pc }
+                { mobileAndTablet }
+            </div>
+        )
+    }
+
     renderCardLists() {
         const { contractsList } = this.props
 
@@ -103,18 +156,7 @@ class ContractLists extends Component{
                 </div>
                 <div className="row">
                     <div className="col s12 m4 l3" >
-                        <ContractFilter 
-                            updateContractList={(status, pact, propType, value) => {
-                                this.setState({
-                                        filterStatus: status,
-                                        filterPact: pact,
-                                        filterPropType: propType,
-                                        filterValue: value
-                                    }, () => {                                                    
-                                    this.fetchContractLists()  
-                                })                                     
-                            }
-                        }/>
+                        { this.renderFilterComponent() }
                     </div>
                     <div className="col s12 m8 l9" >
                         <ContractSort 
@@ -133,7 +175,7 @@ class ContractLists extends Component{
                         {this.state.isLoading ? <Spinner/> : this.renderCardLists()} 
                         <ContractPagination 
                             contractsList = {this.props.contractsList}
-                            dataPerPage={20}
+                            dataPerPage={this.state.dataPerPage}
                             updateContractList={(currentPage) => {
                                 this.setState({
                                     currentPage

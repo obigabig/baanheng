@@ -1,10 +1,11 @@
 const Contract = require('../models/contract/contract')
 const User = require('../models/user')
 const { StatusMapping , PactMapping, TypeMapping} = require('../const')
-const { getContractByValueRange } = require('../queries/contract')
+const { getFilterContractQuery } = require('../queries/contract')
 const contractQuerues = require('../queries/contract')
 const _ = require('lodash')
 const moment = require('moment')
+const { sortByKeyValue } = require('../utils/utils')
 
 exports.initialContractForm = async (req, res) => {
     const email = req.user.email;
@@ -161,16 +162,16 @@ exports.getContract = async (req, res) => {
 
 exports.getContractLists = async (req, res) => {
     try {     
-        const { skip, limit, sort, sortType, status, pact, propType, value } = req.query
+        const { skip, limit, sort, no, title, sortType, status, pact, propType, value } = req.query
 
-        let aryStatus = _.map(String(status).split(','), no => StatusMapping[no])
-        let aryPact = _.map(String(pact).split(','), no => PactMapping[no])
-        let aryPropType = _.map(String(propType).split(','), no => TypeMapping[no])
+        let aryStatus = _.map(String(status).split(','), n => StatusMapping[n])
+        let aryPact = _.map(String(pact).split(','), n => PactMapping[n])
+        let aryPropType = _.map(String(propType).split(','), n => TypeMapping[n])
         
-        const constraint = getContractByValueRange(req.user.id, value)
+        const constraint = getFilterContractQuery(req.user.id, no, title, value)
 
         const contract = await Contract
-                .find(constraint)
+                .find(constraint)            
                 .where('status').in(aryStatus)
                 .where('pact').in(aryPact)
                 .where('type').in(aryPropType)
@@ -190,14 +191,14 @@ exports.getContractLists = async (req, res) => {
 
 exports.getContractListsLength = async (req, res) => {
     try {      
-        const { status, pact, propType, value } = req.query
+        const { no, title, status, pact, propType, value } = req.query
 
-        let aryStatus = _.map(String(status).split(','), no => StatusMapping[no])
-        let aryPact = _.map(String(pact).split(','), no => PactMapping[no])
-        let aryPropType = _.map(String(propType).split(','), no => TypeMapping[no])
+        let aryStatus = _.map(String(status).split(','), n => StatusMapping[n])
+        let aryPact = _.map(String(pact).split(','), n => PactMapping[n])
+        let aryPropType = _.map(String(propType).split(','), n => TypeMapping[n])
 
-        const constraint = getContractByValueRange(req.user.id, value)
-
+        const constraint = getFilterContractQuery(req.user.id, no, title, value)
+        
         const contract = await Contract
                 .find(constraint)
                 .where('status').in(aryStatus)
@@ -238,7 +239,7 @@ exports.getInvestorRatio = async (req, res) => {
             });
         });
 
-        const investorRatio = _(allSubInvestors)
+        const investorRatio = sortByKeyValue(_(allSubInvestors)
             .groupBy('name')
             .map((data, key) => {
                 return {
@@ -247,6 +248,8 @@ exports.getInvestorRatio = async (req, res) => {
                 }
             })
             .value()
+        , 'value','desc')
+
         res.send(investorRatio);
     }
     catch(e){

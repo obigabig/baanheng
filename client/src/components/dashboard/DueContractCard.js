@@ -47,33 +47,40 @@ class DueContractCard extends Component {
             if(upComingDay <= 10)
                 return "red-text darken-4";
             else if(upComingDay <= 20)
-                return "orange-text darken-4";
+                return "green-text darken-4";
         
             return "green-text darken-4";
         }
         return (
             <div className="card-action dueContractCard-action">  
-                <span style={{color:'#4d4d4d'}}>
+                <div className="left-align" style={{color:'#4d4d4d'}}>
+                    <span>
                     { action.type &&  
                     `${action.description} : ` +
-                    `${action.dueDate}`}
-                </span>              
-                <span 
-                    className={`${upComingTextColor(upComingDay)}`}
-                    style={{marginRight:'0px'}}
-                >                    
-                    {action.type && 
-                    ` (${upComingDay} วัน)`  
-                    }                      
-                </span>
-                <a className="right"
-                    href=""
-                    style={{marginRight: '0px', color:'#4d4d4d'}}
-                    onClick={(event) => this.markAsComplete(event, action._id)}
-                >                   
-                    <i className="left Tiny material-icons">check_box_outline_blank</i>
-                    <span style={{lineHeight: '25px'}}>เสร็จ</span>                   
-                </a>
+                    `${action.dueDate}`}     
+                    </span>        
+                    <span 
+                        className={`${upComingTextColor(upComingDay)}`}
+                        
+                    >                    
+                        {action.type && 
+                        ` (${upComingDay} วัน)`  
+                        }                      
+                    </span>
+                </div>
+                <div className="center-align" style={{
+                            color:'#4d4d4d'
+                            , width: '60px'
+                            , margin: '0 auto'}}>        
+                    <a  href="#!"
+                        className="valign-wrapper black-text"                        
+                        onClick={(event) => this.markAsComplete(event, action._id)}
+                    >
+                        <i className="Tiny material-icons green-text">check</i>
+                        <span>เสร็จ</span>          
+                    </a>
+                    <div style={{clear:'both'}}/>
+                </div>
             </div>
         );        
     }
@@ -94,7 +101,7 @@ class DueContractCard extends Component {
 
         return (
             <div className="row">
-                <div className="col s12">
+                <div className="col s12 mobile-box">
                     <div className={`card hoverable dueContractCard ${cardStyle(contract)}`}>
                         <Link to={`/Contract/${contract.no}`}>
                             <div className="dueContractcard-content">

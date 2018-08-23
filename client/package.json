@@ -23,6 +23,7 @@
     "react-dom": "^16.4.2",
     "react-facebook-login": "^4.0.1",
     "react-google-login": "^3.2.1",
+    "react-https-redirect": "^1.0.10",
     "react-motion": "^0.5.2",
     "react-number-format": "^3.4.2",
     "react-popup": "^0.9.3",

@@ -200,11 +200,13 @@ export const deleteContractAction = (id , callback) => async dispatch => {
 };
 /*-----------------------[Contract List]-------------------------------*/
 export const getContractListsAction = (
-  skip, limit, sort, status, pact, propType, value, callback
+  skip, limit, sort, no, title, status, pact, propType, value, callback
 ) => async dispatch => {
   try { 
     const contractList = await axios.get(
       `/api/ContractLists?sort=${sort.field}&sortType=${sort.type}` + 
+      `&no=${no}` +
+      `&title=${title}` +
       `&status=${status}` +
       `&pact=${pact}` +
       `&propType=${propType}` +
@@ -212,6 +214,8 @@ export const getContractListsAction = (
       `&skip=${skip}&limit=${limit}`
     )
     const contractListLength = await axios.get(`/api/getContractListsLength?` + 
+      `&no=${no}` +
+      `&title=${title}` +
       `&status=${status}` +     
       `&pact=${pact}` +
       `&propType=${propType}` +

@@ -21,8 +21,8 @@
     padding: 5px 20px 5px 20px !important; 
 }
 .dueContractCard{
-    border: 1px groove #e3f2fd;
-    border-radius: 5px;
+    border: 0px groove #e3f2fd;
+    border-radius: 0px;
     background-color: #fff;
     margin-bottom: 5px !important;
     margin-left: 10px !important;

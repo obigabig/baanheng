@@ -63,7 +63,7 @@ class ContractPagination extends Component{
         // Logic for displaying page numbers
         const pageNumbers = [];
         if(contractsList.length)
-        {            
+        {        
             for (let i = 1; i <= Math.ceil(contractsList.length / dataPerPage); i++) {
                 pageNumbers.push(i);
             }

@@ -46,12 +46,26 @@ class ContractFilter extends Component{
         return (
             <div> 
                 <nav>
-                    <div className="nav-wrapper  blue-grey lighten-2">
+                    <div className="nav-wrapper blue-grey lighten-2 hide-on-med-and-down">
                         <div className="left" 
                             style={{paddingLeft: '15px', paddingRight: '15px'}}>
                             จัดเรียง: 
                         </div>
-                        <ul id="nav-mobile" className="left hide-on-med-and-down">
+                        <ul id="nav-desktop" className="left">
+                            { _.map(SortList, (sort) => {
+                                    return (
+                                        <li key={sort.value}>
+                                            <a onClick={() => sortBy(sort.value)}>
+                                                {sort.label}     
+                                                {this.renderSortIcon(sort.value)}                                           
+                                            </a>                                            
+                                        </li>
+                                    )
+                            })}
+                        </ul>
+                    </div>
+                    <div className="nav-wrapper blue-grey lighten-2 hide-on-large-only">
+                        <ul id="nav-desktop" className="left">
                             { _.map(SortList, (sort) => {
                                     return (
                                         <li key={sort.value}>

@@ -18,7 +18,7 @@ class Contract extends Component {
                 <Navbar ActiveIndex=""/>
             </div>
             <div className="row">
-                <div className="col s12 m4 l3"><InvestorRatio/></div>
+                <div className="col s12 m4 l3 hide-on-med-and-down"><InvestorRatio/></div>
                 <div className="col s12 m8 l9">
                     <ContractForm 
                         mode={this.props.match.params.id? 'edit' : 'new'}

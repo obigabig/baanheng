@@ -8,7 +8,7 @@ const styles = {
     position: 'relative',
   },
   slide: {
-    padding: 15,
+    padding: 5,
     minHeight: 120
   },
   slide1: {

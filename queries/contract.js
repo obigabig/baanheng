@@ -29,47 +29,46 @@ exports.getUpcomingAction = (contract) => {
     return {}
 }
 
-exports.getContractByValueRange = (id, value) => {
+exports.getFilterContractQuery = (id, no, title, value) => {
+    let where = {}
+    //Userid
+    where._createBy = id
+    //Contract no    
+    if(no !== ''){
+        where.no = no
+    }
+    //Contract title
+    if(title !== ''){
+        where.title =  new RegExp(title, 'i')
+    }
+    //Contract Value
     if(value === "1")
         {
-            return { 
-                _createBy : id,
-                value : { 
-                    "$gte": 0,
-                    "$lte": 500000 
-                }
+            where.value = {                
+                "$gte": 0,
+                "$lte": 500000 
             }
         }
         else if(value === "2")
         {
-            return { 
-                _createBy : id,
-                value : { 
-                    "$gte": 500001,
-                    "$lte": 1000000 
-                }
+            where.value = {                
+                "$gte": 500001,
+                "$lte": 1000000 
             }
         }
         else if(value === "3")
         {
-            return { 
-                _createBy : id,
-                value : { 
-                    "$gte": 1000001,
-                    "$lte": 2000000 
-                }
+            where.value = {    
+                "$gte": 1000001,
+                "$lte": 2000000 
             }
         }
         else if(value === "4")
         {
-            return { 
-                _createBy : id,
-                value : { 
-                    "$gte": 2000001
-                }
+            where.value = {    
+                "$gte": 2000001
             }
         }
-        else{
-            return { _createBy : id}
-        }
+
+        return where
 }

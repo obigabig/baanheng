@@ -99,7 +99,10 @@ nav{
     width: 250px;
  }
 
-@media only screen and (min-width: 992px)
+  
+@media only screen and (max-width: 992px)
 {
-    
+    .mobile-box{
+        padding: 0px !important;
+    }
 }

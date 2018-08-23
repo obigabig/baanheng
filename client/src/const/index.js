@@ -12,7 +12,7 @@ const contractStatusValue = {
     new: 'งานใหม่',
     ongoing: 'ทำสัญญา',
     break: 'ทรัพย์หลุด',
-    end: 'จบงาน',
+    end: 'จบงาน'
 };
 exports.ContractStatusValue = contractStatusValue
 exports.ContractStatus = [

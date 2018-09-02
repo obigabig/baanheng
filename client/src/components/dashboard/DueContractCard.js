@@ -68,19 +68,6 @@ class DueContractCard extends Component {
                         }                      
                     </span>
                 </div>
-                <div className="center-align" style={{
-                            color:'#4d4d4d'
-                            , width: '60px'
-                            , margin: '0 auto'}}>        
-                    <a  href="#!"
-                        className="valign-wrapper black-text"                        
-                        onClick={(event) => this.markAsComplete(event, action._id)}
-                    >
-                        <i className="Tiny material-icons green-text">check</i>
-                        <span>เสร็จ</span>          
-                    </a>
-                    <div style={{clear:'both'}}/>
-                </div>
             </div>
         );        
     }
@@ -103,22 +90,29 @@ class DueContractCard extends Component {
             <div className="row">
                 <div className="col s12 mobile-box">
                     <div className={`card hoverable dueContractCard ${cardStyle(contract)}`}>
-                        <Link to={`/Contract/${contract.no}`}>
-                            <div className="dueContractcard-content">
-                                <div className="card-title dueContractCard-title"> 
-                                    <div className="row" style={{ marginRight: '-20px'}}>
-                                        <div className="col s11 truncate" >
-                                            <span>{`#${contract.no} : `} </span> 
-                                            <span> {`${contract.title} (${contract.type})`} </span>   
-                                        </div>
-                                        <div className="col s1 blue-grey-text darken-4">
-                                            <i className="material-icons right">edit</i>
-                                        </div>   
-                                    </div>                    
-                                </div>                            
-                            </div>
-                        </Link>
-                        {this.renderCardAction(contract.actions[0])}                          
+                        <div className="card-content">
+                            <div className="card-title dueContractCard-title"> 
+                            <div className="row" >
+                                <div className="col s11 truncate" >
+                                    <Link to={`/Contract/${contract.no}`}>
+                                        <span>{`#${contract.no} : `} </span> 
+                                        <span> {`${contract.title} (${contract.type})`} </span>  
+                                    </Link>                 
+                                </div>
+                                <div className="col s1 blue-grey-text darken-4">                        
+                                    <a  href="#!"
+                                        className="valign-wrapper black-text"                        
+                                        onClick={(event) => this.markAsComplete(event, contract.actions[0]._id)}
+                                    >
+                                        <i className="Tiny material-icons blue-grey-text darken-4">alarm_off</i>        
+                                    </a>
+                                </div>    
+                                </div>                             
+                            </div>                       
+                        </div>
+                        {this.renderCardAction(contract.actions[0])}    
+                        
+                                               
                         
                     </div>
                 </div>             

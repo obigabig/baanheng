@@ -4,7 +4,7 @@ const UserSubInvestor = require('../models/userSubInvestor');
 const keys = require('../config/keys/keys');
 const _ = require('lodash');
 
-function tokenForUser(user) {
+/*function tokenForUser(user) {
     const secretKey = keys.jwtSecret;
     //const timestamp = new Date().getTime();
     const payload = { sub: user.id,
@@ -12,9 +12,8 @@ function tokenForUser(user) {
         email: user.email,
         isAdmin: user.isAdmin,
         iat: Math.round(Date.now() / 1000),
-        exp: Math.round(Date.now() / 1000 + 9999 * 24 * 60 * 60)}
+        exp: Math.round((Date.now() / 1000) + (7 * 24 * 60 * 60))}
         //exp: Math.round(Date.now() / 1000 + 60) }
-        
     return jwt.encode(payload, secretKey);   // 5 Hours = (5 * 60 * 60)
 }
 
@@ -22,7 +21,7 @@ exports.signin = (req,res,next) => {
   // User has already had their email and password auth'd
   // We just need to give them a token
   res.send({ token: tokenForUser(req.user) });
-}
+}*/
 
 exports.signup = async (req,res,next) => {
     const email = req.body.email;

@@ -11,8 +11,8 @@ if (process.env.NODE_ENV === 'production') {
 const contractStatusValue = {
     new: 'งานใหม่',
     ongoing: 'ทำสัญญา',
-    break: 'ทรัพย์หลุด',
-    end: 'จบงาน'
+    break: 'หลุด',
+    end: 'จบสัญญา'
 };
 exports.ContractStatusValue = contractStatusValue
 exports.ContractStatus = [

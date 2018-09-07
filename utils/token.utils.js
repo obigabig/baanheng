@@ -8,7 +8,7 @@ var createToken = function(user) {
             email: user.email
         }, keys.jwtSecret,
         {
-            expiresIn: 60 * 120
+            expiresIn: 60 * 60 * 60 * 7
         });
 };
 

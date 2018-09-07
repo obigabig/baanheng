@@ -31,4 +31,44 @@
     background-color: #b6b5b599;
 }
 
+/*---------------Desktop version---------------*/
+.contractRow-new{
+    background-color: #05d6628a;
+    color: #000000 !important;
+}
+.contractRow-ongoing{
+    background-color: #6bb2f62e;
+    color: #000000 !important;
+}
+.contractRow-break{
+    background-color: #ad4c3dcf;
+    color: #ffffff !important;
+}
+.contractRow-end{
+    background-color: #11111161;
+    color: #ffffff !important;
+}
+.contractRowDetail-new{
+    background-color: #05d66242;
+    color: #000000 !important;
+}
+.contractRowDetail-ongoing{
+    background-color: #6bb2f60a;
+    color: #000000 !important;
+}
+.contractRowDetail-break{
+    background-color: #bf8379;
+    color: #ffffff !important;
+}
+.contractRowDetail-end{
+    background-color: #adadad;
+    color: #ffffff !important;
+}
+/*------------ Desktop ----------------*/
+.contractRow-desktop{
+    line-height: 35px;
+    font-size: medium;
+    margin: 2px 0px 0px 0px;
+}
+
 

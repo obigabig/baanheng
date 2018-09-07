@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import 'moment/locale/th';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
+
 
 class Datepicker extends Component {
 
@@ -25,15 +27,19 @@ class Datepicker extends Component {
         maxWidth: '25em'
       }
 
+      moment.locale('th')
+
         return (
           <div style={{marginTop:'5px'}}>
             <label> {label} </label>
             <div style={{clear:'both'}} />
             <DatePicker
               {...input}
+              dateFormat="DD/MM/YYYY"
+              locale="th"
+              weekdays={['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.']}
               style={inputStyle}
               placeholder={placeholder}
-              dateFormat="DD/MM/YYYY"
               selected={input.value ? moment(input.value, 'DD/MM/YYYY') : null}
               onChange={this.handleChange}
               placeholderText={label}

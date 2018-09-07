@@ -1,206 +1,239 @@
-import React, { Component } from 'react'
-import _ from 'lodash'
-import { compose } from 'redux'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import requireAuth from '../../utils/requireAuth'
-import { getContractListsAction} from '../../actions'
+import React, { Component } from 'react';
+import _ from 'lodash';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import requireAuth from '../../utils/requireAuth';
+import { getContractListsAction } from '../../actions';
 
-import DataNotFound from '../reactComponent/DataNotFound'
-import Spinner from '../reactComponent/Spinner'
-import Navbar from '../reactComponent/Navbar'
-import FixButton from '../reactComponent/FixButton'
-import ContractCard from './ContractCard'
-import ContractFilter from './ContractFilter'
-import ContractFilterMobile from './ContractFilterMobile'
-import ContractSort from './ContractSort'
-import ContractPagination from './ContractPagination'
+import DataNotFound from '../reactComponent/DataNotFound';
+import Spinner from '../reactComponent/Spinner';
+import Navbar from '../reactComponent/Navbar';
+import FixButton from '../reactComponent/FixButton';
+import ContractCard from './ContractCard';
+import ContractFilter from './ContractFilter';
+import ContractFilterMobile from './ContractFilterMobile';
+import ContractSort from './ContractSort';
+import ContractPagination from './ContractPagination';
 
+class ContractLists extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isLoading: true,
+      selectedContractNo: null,
+      currentPage: 1,
+      dataPerPage: 30,
+      sort: { field: 'no', type: -1 },
+      filterNo: '',
+      filterTitle: '',
+      filterStatus: '0,1,2,3',
+      filterPact: '0,1,2',
+      filterPropType: '0,1,2,3,4,5,6,7,8,9,10',
+      filterValue: '0'
+    };
 
-class ContractLists extends Component{
+    this.fetchContractLists = this.fetchContractLists.bind(this);
+    this.renderMainData = this.renderMainData.bind(this);
+    this.renderCardLists = this.renderCardLists.bind(this);
+  }
 
-    constructor() {
-        super();
-        this.state = {
-            isLoading: true,
-            currentPage: 1,
-            dataPerPage: 20,
-            sort: { field: 'no', type: -1},
-            filterNo: '',
-            filterTitle: '',
-            filterStatus: '0,1,2,3',
-            filterPact: '0,1,2',
-            filterPropType: '0,1,2,3,4,5,6,7,8,9,10',
-            filterValue: '0'
+  componentDidMount() {
+    this.fetchContractLists();
+  }
+
+  fetchContractLists() {
+    const { getContractListsAction } = this.props;
+    const {
+      currentPage,
+      dataPerPage,
+      sort,
+      filterNo,
+      filterTitle,
+      filterStatus,
+      filterPact,
+      filterPropType,
+      filterValue
+    } = this.state;
+
+    this.setState({ isLoading: true }, () => {
+      getContractListsAction(
+        (currentPage - 1) * dataPerPage,
+        dataPerPage,
+        sort,
+        filterNo,
+        filterTitle,
+        filterStatus,
+        filterPact,
+        filterPropType,
+        filterValue,
+        () => {
+          this.setState({ isLoading: false });
         }
+      );
+    });
+  }
 
-        this.fetchContractLists = this.fetchContractLists.bind(this)
+  renderTotalCardNumber() {
+    const { contractsList } = this.props;
+    if (contractsList.length && contractsList.length > 0) {
+      return (
+        <div
+          className="center-align grey-text"
+          style={{
+            marginTop: '10px',
+            fontStyle: 'italic',
+            fontSize: 'small'
+          }}
+        >
+          ผลลัพธ์ทั้งหมด {contractsList.length} รายการ
+        </div>
+      );
+    }
+    return '';
+  }
+
+  renderFilterComponent() {
+    const pc = (
+      <div className="hide-on-med-and-down">
+        <ContractFilter
+          updateContractList={(no, title, status, pact, propType, value) => {
+            this.setState(
+              {
+                filterNo: no,
+                filterTitle: title,
+                filterStatus: status,
+                filterPact: pact,
+                filterPropType: propType,
+                filterValue: value
+              },
+              () => {
+                this.fetchContractLists();
+              }
+            );
+          }}
+        />
+      </div>
+    );
+    const mobileAndTablet = (
+      <div className="hide-on-large-only">
+        <ContractFilterMobile
+          updateContractList={(no, title, status, pact, propType, value) => {
+            this.setState(
+              {
+                filterNo: no,
+                filterTitle: title,
+                filterStatus: status,
+                filterPact: pact,
+                filterPropType: propType,
+                filterValue: value
+              },
+              () => {
+                this.fetchContractLists();
+              }
+            );
+          }}
+        />
+      </div>
+    );
+
+    return (
+      <div>
+        {pc}
+        {mobileAndTablet}
+      </div>
+    );
+  }
+
+  renderCardLists() {
+    const { contractsList } = this.props;
+    const { selectedContractNo } = this.state;
+
+    if (contractsList.data && contractsList.data.length > 0) {
+      return _.map(this.props.contractsList.data, contract => {
+        return <ContractCard 
+                    key={contract.no} 
+                    contract={contract}
+                    selectedContractNo={selectedContractNo} 
+                    setSelectedContractNo={(contractNo) => this.setState({selectedContractNo : contractNo})}
+                />;
+      });
     }
 
-    componentDidMount() {
-        this.fetchContractLists()  
-    }
+    return <DataNotFound />;
+  }
 
-    fetchContractLists() {
-        const {getContractListsAction} = this.props;
-        const {
-            currentPage, dataPerPage
-            , sort
-            , filterNo
-            , filterTitle
-            , filterStatus
-            , filterPact
-            , filterPropType
-            , filterValue
-        } = this.state;
+  renderMainData() {
+    const { isLoading } = this.state;
+    if (isLoading) return <Spinner />;
 
-        this.setState({ isLoading: true }, () => {            
-            getContractListsAction(
-                (currentPage-1) * dataPerPage, 
-                dataPerPage, 
-                sort, 
-                filterNo,
-                filterTitle,
-                filterStatus,
-                filterPact,
-                filterPropType,
-                filterValue,
-                () => {                
-                    this.setState({isLoading: false});
-            });   
-        });
-    }
+    return (
+      <div>
+        <div className="right-align red-text">
+          {this.props.contractsList.errorMessage && (
+            <strong>{this.props.contractsList.errorMessage}</strong>
+          )}
+        </div>
+        {this.renderTotalCardNumber()}
+        {this.renderCardLists()}
+        <ContractPagination
+          contractsList={this.props.contractsList}
+          dataPerPage={this.state.dataPerPage}
+          updateContractList={currentPage => {
+            this.setState(
+              {
+                currentPage
+              },
+              () => {
+                this.fetchContractLists();
+                window.scrollTo(0, 0);
+              }
+            );
+          }}
+        />
+      </div>
+    );
+  }
 
-    renderTotalCardNumber() {
-        const { contractsList } = this.props
-        if(contractsList.length && contractsList.length > 0)
-        {
-            return (
-                <div className="center-align grey-text" 
-                    style={{marginTop:'10px',
-                            fontStyle: 'italic'}}>
-                    ผลลัพธ์ทั้งหมด { contractsList.length } รายการ
-                </div>
-            )
-        }
-        return ''
-
-    }
-
-    renderFilterComponent(){
-        const pc = (
-            <div className="hide-on-med-and-down"> 
-            <ContractFilter 
-                            updateContractList={(no, title, status, pact, propType, value) => {
-                                this.setState({
-                                        filterNo: no,
-                                        filterTitle: title,
-                                        filterStatus: status,
-                                        filterPact: pact,
-                                        filterPropType: propType,
-                                        filterValue: value
-                                    }, () => {                                                    
-                                    this.fetchContractLists()  
-                                })                                     
-                            }
-                        }/>
-            </div>
-        )
-        const mobileAndTablet = (
-            <div className="hide-on-large-only">
-            <ContractFilterMobile                 
-                            updateContractList={(no, title, status, pact, propType, value) => {
-                                this.setState({
-                                        filterNo: no,
-                                        filterTitle: title,
-                                        filterStatus: status,
-                                        filterPact: pact,
-                                        filterPropType: propType,
-                                        filterValue: value
-                                    }, () => {                                                    
-                                    this.fetchContractLists()  
-                                })                                     
-                            }
-                        }/>
-            </div>
-        )
-
-        return (
-            <div>
-                { pc }
-                { mobileAndTablet }
-            </div>
-        )
-    }
-
-    renderCardLists() {
-        const { contractsList } = this.props
-
-        if(contractsList.data && contractsList.data.length > 0)
-        {
-            return _.map(this.props.contractsList.data, (contract) => {
-                return <ContractCard key={contract.no} contract ={contract} />;
-            })
-        }
-
-        return (
-            <DataNotFound />
-        )
-    }
-
-    render() {
-        return (
-            <div className="main-box">
-                <div className="row">
-                    <Navbar ActiveIndex="ContractLists"/>
-                </div>
-                <div className="row">
-                    <div className="col s12 m4 l3" >
-                        { this.renderFilterComponent() }
-                    </div>
-                    <div className="col s12 m8 l9" >
-                        <ContractSort 
-                            updateContractList={(sort) => {
-                                this.setState({
-                                    sort
-                                }, () => {                                                    
-                                    this.fetchContractLists()  
-                                })                                     
-                            }
-                        }/>
-                        <div className="right-align red-text">  
-                            {this.props.contractsList.errorMessage && <strong>{this.props.contractsList.errorMessage}</strong>}
-                        </div>
-                        {this.renderTotalCardNumber()}
-                        {this.state.isLoading ? <Spinner/> : this.renderCardLists()} 
-                        <ContractPagination 
-                            contractsList = {this.props.contractsList}
-                            dataPerPage={this.state.dataPerPage}
-                            updateContractList={(currentPage) => {
-                                this.setState({
-                                    currentPage
-                                }, () => {                                                    
-                                    this.fetchContractLists()
-                                    window.scrollTo(0, 0)  
-                                })                                     
-                            }
-                        }/>
-                    </div>
-                </div>   
-                <FixButton link="/Contract"> </FixButton>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="main-box">
+        <div className="row">
+          <Navbar ActiveIndex="ContractLists" />
+        </div>
+        <div className="row">
+          <div className="col s12 m4 l3">{this.renderFilterComponent()}</div>
+          <div className="col s12 m8 l9">
+            <ContractSort
+              updateContractList={sort => {
+                this.setState(
+                  {
+                    sort
+                  },
+                  () => {
+                    this.fetchContractLists();
+                  }
+                );
+              }}
+            />
+            {this.renderMainData()}
+          </div>
+        </div>
+        <FixButton link="/Contract"> </FixButton>
+      </div>
+    );
+  }
 }
 
-function mapStateToProps({ contractsList }){
-    return { contractsList };
+function mapStateToProps({ contractsList }) {
+  return { contractsList };
 }
 
-export default 
-compose(
-    connect(mapStateToProps, {getContractListsAction}),
-    withRouter,
-    requireAuth
-) (ContractLists);
-
+export default compose(
+  connect(
+    mapStateToProps,
+    { getContractListsAction }
+  ),
+  withRouter,
+  requireAuth
+)(ContractLists);

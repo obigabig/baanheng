@@ -7,10 +7,25 @@ import { numberWithCommas } from '../../utils/format'
 
 import { Chart, Axis, Series, Tooltip, Pie } from "react-charts";
 
+import Spinner from '../../components/reactComponent/Spinner';
+
 class InvestmentRatio extends Component{
 
+    constructor() {
+        super();
+    
+        this.state = {
+          isLoading: true
+        };
+    
+      }
+
     componentDidMount() {
-        this.props.getinvestorRatioAction();  
+        this.setState({ isLoading: true }, () => {
+            this.props.getinvestorRatioAction(() => {
+              this.setState({ isLoading: false });
+            });
+          });
     }
     
     rendersumValue() {
@@ -85,6 +100,10 @@ class InvestmentRatio extends Component{
             background: '#faf8f8',
             color: '#545454'
         }
+        
+        const { isLoading } = this.state;
+
+        if (isLoading) return <Spinner />;
         
         return (
             <div>

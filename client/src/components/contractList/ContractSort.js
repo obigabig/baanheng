@@ -44,9 +44,9 @@ class ContractFilter extends Component{
         }
 
         return (
-            <div> 
+            <div style={{marginTop:'10px'}}> 
                 <nav>
-                    <div className="nav-wrapper blue-grey lighten-2 hide-on-med-and-down">
+                    <div className="nav-wrapper blue-grey lighten-1 hide-on-med-and-down">
                         <div className="left" 
                             style={{paddingLeft: '15px', paddingRight: '15px'}}>
                             จัดเรียง: 

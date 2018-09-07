@@ -102,7 +102,7 @@ class ContractForm extends Component {
             this.props.createContractAction(values, () => {
 
                 this.setState({isLoading: false});
-                this.props.history.push('/Dashboard');
+                this.props.history.push('/ContractLists');
                 }, () => {
                     this.setState({isLoading: false});
             })
@@ -111,7 +111,7 @@ class ContractForm extends Component {
             this.props.updateContractAction(values, () => {
 
                 this.setState({isLoading: false});
-                this.props.history.push('/Dashboard');
+                this.props.history.push('/ContractLists');
                 }, () => {
                     this.setState({isLoading: false});
             })

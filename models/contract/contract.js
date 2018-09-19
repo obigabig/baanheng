@@ -24,6 +24,7 @@ const contractSchema = new Schema({
     value: { type: Number,
         required: [true, 'no value'] }, 
     beginDate: { type: String },
+    closeDate: { type: String },
     googleMapsUrl: String,
     _agent: {   type: Schema.Types.ObjectId, 
                 ref: 'user'

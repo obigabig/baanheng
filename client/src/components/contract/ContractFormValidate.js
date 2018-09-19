@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { ContractStatusValue } from '../../const'
 
 const validate = values => {
     const errors = {}
@@ -24,6 +25,11 @@ const validate = values => {
 
     if (!values.pact)
         errors.pact = 'ต้องระบุ';
+
+    if((values.status === ContractStatusValue.break || values.status === ContractStatusValue.end)
+        && !values.closeDate){
+        errors.closeDate = 'ต้องระบุ';
+    }
 
     //Validate actionsArrayErrors
     const actionsArrayErrors = []
@@ -78,6 +84,7 @@ const validate = values => {
           valueErrors.value = 'ต้องมีมูลค่ารวมเท่ากับมูลค่าสัญญา';
           subInvestorsArrayErrors[index] = valueErrors;
         }
+       
     });
 
     if (subInvestorsArrayErrors.length) {

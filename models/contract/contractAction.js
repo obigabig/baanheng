@@ -9,9 +9,6 @@ const actionSchema = new Schema({
     description: {
         type: String
     },
-    period: {
-        type: Number
-    },
     dueDate: {
         type: String,
         required: [true, ' action require dueDate.']

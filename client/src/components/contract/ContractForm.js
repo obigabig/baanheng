@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { reduxForm , Field, FieldArray, getFormValues, FormSection } from 'redux-form';
+import { reduxForm , Field, FieldArray
+    , getFormValues, FormSection, getFormSyncErrors  } from 'redux-form';
 import { compose } from 'redux';
 import { ContractStatus, ContractType, PropertyType} from '../../const';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { isEmpty } from '../../utils/format';
 
 //Sub component
 import ContractFormActions from './ContractFormActions';
@@ -61,7 +63,7 @@ class ContractForm extends Component {
         {
             this.props.getContractAction(this.props.id, () => {
                 const {no,title,type,value,pact
-                    ,status,description,beginDate
+                    ,status,description,beginDate,closeDate
                     ,actions,debtor,subInvestor,googleMapsUrl} = this.props.contracts.data
                 
                 if(this.props.contracts.data){
@@ -74,6 +76,7 @@ class ContractForm extends Component {
                         pact,
                         status,
                         beginDate,
+                        closeDate,
                         contractActions : actions,
                         contractDebtor : debtor,
                         contractSubInvestors: subInvestor,
@@ -150,7 +153,6 @@ class ContractForm extends Component {
 
     render() {
         const { handleSubmit } = this.props;
-
         return (
             <div>
                 <form onSubmit={handleSubmit(this.submit)}>
@@ -227,6 +229,9 @@ class ContractForm extends Component {
                     <div className="col s12">
                         <Field name="beginDate" component={Datepicker} label="วันที่เริ่มสัญญา" placeholder="DD/MM/YYYY"  />
                     </div>
+                    <div className="col s12">
+                        <Field name="closeDate" component={Datepicker} label="วันที่สิ้นสุด" placeholder="DD/MM/YYYY"  />
+                    </div>
                     <div className="col s12">   
                         <FieldArray 
                             name="contractActions" 
@@ -250,6 +255,7 @@ class ContractForm extends Component {
                         style={{margin:'15px 0px 15px 0px'}}>                        
                         <div className="right-align red-text">  
                             {this.props.contracts.errorMessage && <strong>{this.props.contracts.errorMessage}</strong>}
+                            { !isEmpty(this.props.formSyncErrors) && <strong>กรุณากรอกข้อมูลให้ครบถ้วน...</strong>}
                         </div>
                         <div className="right-align">                  
                             <SubmitButton text="บันทึก"/>
@@ -266,11 +272,10 @@ const mapStateToProps = (state) => {
     return { 
         contractForm: getFormValues('contract')(state),
         user: state.user,
-        contracts: state.contracts
+        contracts: state.contracts,
+        formSyncErrors: getFormSyncErrors('contract')(state)
     };
 }
-
-
 
 export default compose(
     reduxForm({        

@@ -29,7 +29,7 @@ class ContractCardDesktopDetail extends Component {
       return (
         <span style={{backgroundColor: 'yellow'}}>
           {upComingAction.type &&
-            `${upComingAction.description} : ` +
+            `${upComingAction.description ? `${upComingAction.type}(${upComingAction.description})` :  upComingAction.type} : ` +
               `${moment(upComingAction.dueDate).format('DD/MM/YYYY')}` +
               ` (${upComingAction.upComingDay} วัน)`}            
         </span>
@@ -54,6 +54,11 @@ class ContractCardDesktopDetail extends Component {
         <span>
           {' '}
           {`เริ่มสัญญา: ${contract.beginDate ? contract.beginDate : '-'}`}{' '}
+        </span>
+        <br />
+        <span>
+          {' '}
+          {`จบสัญญา: ${contract.closeDate ? contract.closeDate : '-'}`}{' '}
         </span>
         <br />
         {this.renderAlertSection(upComingAction)}

@@ -38,6 +38,12 @@ label{
     border: 0px !important;
     color: black !important;
 }
+.btnEdit:hover{
+    color: #757575;
+}
+.btnEdit{
+    color: #484848;
+}
 .btnDelete:hover{
     color: #ff5722;
 }

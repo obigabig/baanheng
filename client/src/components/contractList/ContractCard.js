@@ -34,7 +34,6 @@ const getUpComingAction = (contract) => {
             return {
               type: action.type,
               description: action.description,
-              period: action.period,
               dueDate: moment(action.dueDate, 'DD/MM/YYYY'),
               isCompleted: action.isCompleted,
               upComingDay: 0

@@ -54,7 +54,7 @@ class DueContractCard extends Component {
       <div className="">
         <div className="left-align">
           <span>
-            {action.type && `${action.description} : ${action.dueDate}`}
+            {action.type && `${action.type} : ${action.dueDate}`}
           </span>
           <span className={`${upComingTextColor(upComingDay)}`}>
             {action.type && ` (${upComingDay} วัน)`}

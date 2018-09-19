@@ -85,19 +85,31 @@ exports.migrateContract = async (req, res) => {
             const beginDate = moment().diff(moment(contract.ContractDate), 'years') < 10 ?
                  moment(contract.ContractDate).format('DD/MM/YYYY') : undefined
 
+            const closeDateList = await sql.query`
+            SELECT RedeemDate 
+            FROM CONTRACTDATE 
+            WHERE ContractId = ${no} 
+              AND RedeemDate is not null 
+            ORDER BY RedeemDate DESC`
+
+            const closeDate = closeDateList[0].RedeemDate
+
             const googleMapsUrl = "";            
-            const actionsList = await sql.query`SELECT AlertType
-                    ,AlertDate
+            const actionsList = await sql.query`  
+                SELECT AlertType AS [TYPE], AlertDate AS [DATE]
                 FROM CONTRACTALERT 
                 WHERE ContractId = ${no} AND AlertType != ''
-                ORDER BY No` 
+            
+                UNION 
+            
+                SELECT 'นัดต่อสัญญา' AS [TYPE], SignDate AS [DATE]
+                FROM CONTRACTDATE
+                WHERE ContractId = ${no} AND SignDate is not null
+                ORDER BY [DATE]` 
             const actions = _.map(actionsList.recordset, action => {
                     const type = action.AlertType === 'ทวงถามดอกเบี้ย' ? "ทวงถามดอกเบี้ย" : "อื่นๆ"
-                    const description = action.AlertType === 'ทวงถามดอกเบี้ย' ? "ทวงถามดอกเบี้ย" : "ไม่ได้ระบุ"
+                    const description = action.AlertType
                     //แทรกช่องอื่นๆ 
-                    /*const period = action.AlertDate && contract.ContractDate ?
-                        moment(action.AlertDate).diff(moment(contract.ContractDate), "months") : 0*/
-                    const period = 0;
                     const alertLength = action.AlertDate ? moment(action.AlertDate).diff(moment(), "months") : 0 
                     const isCompleted = 
                         contract.StatusID === 1 && alertLength > -5 && alertLength < 5 ? false : true
@@ -105,7 +117,6 @@ exports.migrateContract = async (req, res) => {
                     return {
                         type ,
                         description,
-                        period,
                         dueDate: moment(action.AlertDate).format('DD/MM/YYYY'),
                         isCompleted
                     }
@@ -138,6 +149,7 @@ exports.migrateContract = async (req, res) => {
                     pact,
                     value,
                     beginDate,
+                    closeDate,
                     _agent,
                     googleMapsUrl,
                     actions,

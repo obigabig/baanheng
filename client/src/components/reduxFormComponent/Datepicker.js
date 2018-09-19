@@ -7,13 +7,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 class Datepicker extends Component {
 
-    constructor (props) {
-        super(props)
-        this.handleChange = this.handleChange.bind(this)
-    }
-
     handleChange (date) {
         this.props.input.onChange(moment(date).format('DD/MM/YYYY'));
+    }
+
+    handleKeyDown (key) {
+      this.props.input.onChange(null);
     }
  
     render () {
@@ -41,11 +40,14 @@ class Datepicker extends Component {
               style={inputStyle}
               placeholder={placeholder}
               selected={input.value ? moment(input.value, 'DD/MM/YYYY') : null}
-              onChange={this.handleChange}
-              placeholderText={label}
+              onChange={this.handleChange.bind(this)}
+              onKeyDown={this.handleKeyDown.bind(this)}
+              placeholderText={label}              
             >
-            </DatePicker>
-            {touched && error && <span>{error}</span>}
+            </DatePicker>            
+            <div className="red-text">
+              {touched && error && <span>{error}</span>}
+            </div>
           </div>
         )
     }

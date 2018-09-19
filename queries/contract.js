@@ -13,7 +13,6 @@ exports.getUpcomingAction = (contract) => {
                     _id: action._id,
                     type : action.type,
                     description: action.description,
-                    period : action.period,
                     dueDate : action.dueDate,
                     isCompleted : action.isCompleted
                 }

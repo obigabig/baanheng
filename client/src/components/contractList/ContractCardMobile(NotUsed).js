@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import { ContractStatusValue } from '../../const';
-import ContractCardMobileDetail from './ContractCardMobileDetail'
+import ContractCardMobileDetail from './ContractCardMobileDetail(NotUsed)'
 
 class ContractCardMobile extends Component {
     state = {
@@ -21,7 +21,6 @@ class ContractCardMobile extends Component {
                     return  { 
                         type : action.type,
                         description: action.description,
-                        period : action.period,
                         dueDate : moment(action.dueDate, "DD/MM/YYYY"),
                         isCompleted : action.isCompleted,
                         upComingDay: 0

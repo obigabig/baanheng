@@ -155,7 +155,13 @@ class ContractLists extends Component {
                     key={contract.no} 
                     contract={contract}
                     selectedContractNo={selectedContractNo} 
-                    setSelectedContractNo={(contractNo) => this.setState({selectedContractNo : contractNo})}
+                    setSelectedContractNo={(contractNo) => {
+                      if(contractNo === selectedContractNo)
+                        this.setState({selectedContractNo : null})
+                      else
+                        this.setState({selectedContractNo : contractNo})
+                    }}
+                      
                 />;
       });
     }

@@ -30,8 +30,16 @@ export const createContractAction = (values , callback, error) => async dispatch
       dispatch(arrayInsert('contract','contractActions', index, value));
   };
   
+  export const updateContractActionsFormAction = (value) => dispatch => {
+    dispatch(change('contract','contractActions', value));
+  };
+
+  export const updateOneContractActionsAction = (value, index) => dispatch => {
+    dispatch(change('contract',`contractActions[${index}]`, value));
+  };
+
   export const updateContractActionsIsCompletedFormAction = (value, index) => dispatch => {
-      dispatch(change('contract',`contractActions[${index}].isCompleted`, value));
+    dispatch(change('contract',`contractActions[${index}].isCompleted`, value));
   };
   
   export const updateContractSubInvestorFormAction = (value, index) => dispatch => {

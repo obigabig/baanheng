@@ -46,7 +46,6 @@ exports.initialContractForm = async (req, res) => {
 
 exports.createContract = async (req, res, next) => {
 
-    console.log(req.user)
     const title = req.body.title;
     const description = req.body.description;
     const status = req.body.status;
@@ -55,6 +54,7 @@ exports.createContract = async (req, res, next) => {
     const value = req.body.value;
     const _agent = req.user.id;
     const beginDate = req.body.beginDate;
+    const closeDate = req.body.closeDate;
     const googleMapsUrl = req.body.contractLocation.url;
     const actions = req.body.contractActions;
     const debtor = req.body.contractDebtor;
@@ -77,6 +77,7 @@ exports.createContract = async (req, res, next) => {
             pact,
             value,
             beginDate,
+            closeDate,
             _agent,
             googleMapsUrl,
             actions,
@@ -106,6 +107,7 @@ exports.updateContract = async (req, res, next) => {
     const value = req.body.value;
     const _agent = req.user.id;
     const beginDate = req.body.beginDate;
+    const closeDate = req.body.closeDate;
     const googleMapsUrl = req.body.contractLocation.url;
     const actions = req.body.contractActions;
     const debtor = req.body.contractDebtor;
@@ -127,6 +129,7 @@ exports.updateContract = async (req, res, next) => {
             pact,
             value,
             beginDate,
+            closeDate,
             _agent,
             googleMapsUrl,
             actions,

@@ -48,8 +48,7 @@ exports.PropertyType = [
 ]
 
 const actionsTypeValue = {
-    redeem: 'ไถ่ถอน',
-    renew: 'ต่อสัญญา',
+    renew: 'นัดต่อสัญญา',
     remindInterest: 'ทวงถามดอกเบี้ย',
     other: 'อื่นๆ'
 };
@@ -57,7 +56,6 @@ const actionsTypeValue = {
 exports.ActionsTypeValue = actionsTypeValue
 
 exports.ActionsType = [
-    { value: actionsTypeValue.redeem , label: actionsTypeValue.redeem },
     { value: actionsTypeValue.renew, label: actionsTypeValue.renew },
     { value: actionsTypeValue.remindInterest, label: actionsTypeValue.remindInterest },
     { value: actionsTypeValue.other, label: actionsTypeValue.other }

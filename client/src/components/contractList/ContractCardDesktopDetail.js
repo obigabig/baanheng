@@ -17,29 +17,8 @@ class ContractCardDesktopDetail extends Component {
     });
   };
 
-
-  renderAlertSection() {
-    const { upComingAction } = this.props
-    if (!_.isEmpty(upComingAction)) {
-      upComingAction.upComingDay = moment(
-        upComingAction.dueDate,
-        'DD/MM/YYYY'
-      ).diff(moment(), 'days');
-
-      return (
-        <span style={{backgroundColor: 'yellow'}}>
-          {upComingAction.type &&
-            `${upComingAction.description ? `${upComingAction.type}(${upComingAction.description})` :  upComingAction.type} : ` +
-              `${moment(upComingAction.dueDate).format('DD/MM/YYYY')}` +
-              ` (${upComingAction.upComingDay} วัน)`}            
-        </span>
-      );
-    }
-    return;
-  }
-
   renderMainDetail() {
-    const { contract, upComingAction } = this.props
+    const { contract } = this.props;
     return (
       <div>
         <span> {`สถานะ: ${contract.status}`} </span>
@@ -53,22 +32,24 @@ class ContractCardDesktopDetail extends Component {
         <br />
         <span>
           {' '}
-          {`เริ่มสัญญา: ${contract.beginDate ? contract.beginDate : '-'}`}{' '}
+          {`วันที่เริ่มสัญญา: ${
+            contract.beginDate ? contract.beginDate : '-'
+          }`}{' '}
         </span>
         <br />
         <span>
           {' '}
-          {`จบสัญญา: ${contract.closeDate ? contract.closeDate : '-'}`}{' '}
+          {`วันที่จบสัญญา: ${
+            contract.closeDate ? contract.closeDate : '-'
+          }`}{' '}
         </span>
-        <br />
-        {this.renderAlertSection(upComingAction)}
       </div>
     );
   }
 
   renderSubInvestor() {
-    const { contract } = this.props
-      
+    const { contract } = this.props;
+
     return _.map(contract.subInvestor, (subInvestor, index) => {
       return (
         <div key={index}>
@@ -84,10 +65,42 @@ class ContractCardDesktopDetail extends Component {
     });
   }
 
+  renderActionList() {
+    const { contract } = this.props;
+
+    if (contract.actions.length > 0) {
+      return _.map(contract.actions, (action, index) => {
+        return (
+          <div className="row" key={index}>
+            <div className="col s12 m6">
+              {`${
+                action.description
+                  ? `${action.type}(${action.description})`
+                  : action.type
+              }`}
+            </div>
+            <div className="col s6 m3">
+              {`${action.dueDate}`}
+            </div>
+            <div className="col s6 m3">
+              <span>แจ้งเตือน: </span>
+              {action.isCompleted ? (
+                <span className="red-text">ปิด</span>
+              ) : (
+                <span className="green-text text-darken-4">เปิด</span>
+              )}
+            </div>
+          </div>
+        );
+      });
+    }
+
+    return <div className="center-align"> ไม่มีรายการแจ้งเตือน </div>
+  }
+
   render() {
     const { contract, visible } = this.props;
     const { index } = this.state;
-
 
     if (visible) {
       return (
@@ -108,18 +121,28 @@ class ContractCardDesktopDetail extends Component {
               </div>
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide2)}>
-              <div className="col s10">
-                {this.renderSubInvestor()}
-                <div style={{ borderTop: '1px solid grey' }}>
-                  <span>
-                    {' '}
-                    <strong>
+              <div className="row">
+                <div className="col s10">
+                  {this.renderSubInvestor()}
+                  <div style={{ borderTop: '1px solid grey' }}>
+                    <span>
                       {' '}
-                      {`รวม (${numberWithCommas(contract.value)} บาท)`}{' '}
-                    </strong>
-                  </span>
+                      <strong>
+                        {' '}
+                        {`รวม (${numberWithCommas(contract.value)} บาท)`}{' '}
+                      </strong>
+                    </span>
+                  </div>
+                </div>
+                <div className="col s2">
+                  <i className="material-icons right black-text">
+                    keyboard_arrow_right
+                  </i>
                 </div>
               </div>
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide3)}>
+              <div className="col s10">{this.renderActionList()}</div>
               <div className="col s2">
                 <i className="material-icons right black-text">
                   keyboard_arrow_left
@@ -133,8 +156,6 @@ class ContractCardDesktopDetail extends Component {
     return '';
   }
 }
-
-
 
 const getRowClass = status => {
   if (status === ContractStatusValue.new) return 'contractRowDetail-new';

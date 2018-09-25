@@ -33,11 +33,11 @@
 
 /*---------------Desktop version---------------*/
 .contractRow-new{
-    background-color: #05d6628a;
+    background-color: #6bb2f62e;
     color: #000000 !important;
 }
 .contractRow-ongoing{
-    background-color: #6bb2f62e;
+    background-color: #05d6628a;
     color: #000000 !important;
 }
 .contractRow-break{
@@ -45,15 +45,15 @@
     color: #ffffff !important;
 }
 .contractRow-end{
-    background-color: #11111161;
+    background-color: #a2a2a2;
     color: #ffffff !important;
 }
 .contractRowDetail-new{
-    background-color: #05d66242;
+    background-color: #6bb2f60a;
     color: #000000 !important;
 }
 .contractRowDetail-ongoing{
-    background-color: #6bb2f60a;
+    background-color: #05d66242;
     color: #000000 !important;
 }
 .contractRowDetail-break{
@@ -61,8 +61,8 @@
     color: #ffffff !important;
 }
 .contractRowDetail-end{
-    background-color: #adadad;
-    color: #ffffff !important;
+    background-color: #eaeaea;
+    color: #000000 !important;
 }
 /*------------ Desktop ----------------*/
 .contractRow-desktop{

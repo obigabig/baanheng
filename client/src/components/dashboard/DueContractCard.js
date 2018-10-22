@@ -51,12 +51,14 @@ export class DueContractCard extends Component {
     };
 
     return (
-      <div className="">
+      <div>
         <div className="left-align">
-          <span>
+          <span data-test="contract-action-type" >
             {action.type && `${action.type} : ${action.dueDate}`}
           </span>
-          <span className={`${upComingTextColor(upComingDay)}`}>
+          <span data-test="contract-upcoming-day"
+            className={`${upComingTextColor(upComingDay)}`}
+          >
             {action.type && ` (${upComingDay} วัน)`}
           </span>
         </div>
@@ -69,6 +71,7 @@ export class DueContractCard extends Component {
 
     return (
       <div
+        data-test="component-dueContarctCard"
         className={`row dueContractRow-desktop ${
           index % 2 ? '' : 'grey lighten-4'
         }`}
@@ -76,19 +79,20 @@ export class DueContractCard extends Component {
       >
         <div className="col s12 m12 l5 truncate">
           <Link to={`/Contract/${contract.no}`}>
-            <span className="">{`#${contract.no} : `} </span>
-            <span style={{ fontWeight: '500' }}>{`${contract.title} `} </span>
+            <span data-test="contract-no">{`#${contract.no} : `} </span>
+            <span data-test="contract-title" style={{ fontWeight: '500' }}>{`${contract.title} `} </span>
           </Link>
         </div>
         <div className="col s12 m10 l6 truncate">
           {this.renderAlertSection(contract.actions[0])}
         </div>
-        <div
+        <div          
           className="col s2 offset-s10 m2 l1 valign-wrapper"
           style={{ height: '35px' }}
         >
           <a
-            href="#!"
+            href="#!"        
+            data-test="contract-mark-as-complete"    
             className="valign-wrapper"
             onClick={event =>
               this.markAsComplete(event, contract.actions[0]._id)

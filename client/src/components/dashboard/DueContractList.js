@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import moment from 'moment';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Spinner from '../reactComponent/Spinner';
 import { getDueContractListsAction } from '../../actions';
@@ -66,7 +65,4 @@ function mapStateToProps({ dueContractList }){
     return { dueContractList };
 }
 
-export default 
-compose(
-    connect(mapStateToProps, { getDueContractListsAction }),
-) (DueContractList);
+export default connect(mapStateToProps, { getDueContractListsAction })(DueContractList);

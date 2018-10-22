@@ -33,7 +33,7 @@
 
 /*---------------Desktop version---------------*/
 .contractRow-new{
-    background-color: #6bb2f62e;
+    background-color: #79bdff;
     color: #000000 !important;
 }
 .contractRow-ongoing{
@@ -45,11 +45,11 @@
     color: #ffffff !important;
 }
 .contractRow-end{
-    background-color: #a2a2a2;
-    color: #ffffff !important;
+    background-color: #d2d2d2;
+    color: #000000 !important;
 }
 .contractRowDetail-new{
-    background-color: #6bb2f60a;
+    background-color: #d3e9ff;
     color: #000000 !important;
 }
 .contractRowDetail-ongoing{

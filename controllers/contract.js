@@ -92,7 +92,7 @@ exports.createContract = async (req, res, next) => {
     }
     catch(e){
         console.log(e);
-        res.status(422).send({ error: `Cannot save new contract: ${contract.title} `+ e});
+        res.status(422).send({ error: `Cannot save new contract: `+ e});
     }
 }
 
@@ -143,7 +143,7 @@ exports.updateContract = async (req, res, next) => {
     }
     catch(e){
         console.log(e);
-        res.status(422).send({ error: `Cannot save update contract: ${contract.title} `+ e});
+        res.status(422).send({ error: `Cannot update contract:`+ e});
     }
 }
 
@@ -319,7 +319,7 @@ exports.markActionAsComplete = async (req, res) => {
     }
     catch(e){
         console.log(e);
-        res.status(422).send({ error: `Cannot do [markActionAsComplete]: ${contract.title} `+ e});
+        res.status(422).send({ error: `Cannot do [markActionAsComplete]:`+ e});
     }
 }
 

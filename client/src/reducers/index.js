@@ -6,6 +6,7 @@ import contractReducer from './contractReducer';
 import contractListReducer from './contractListReducer';
 import dueContractListReducer from './dueContractListReducer';
 import reportReducer from './reportReducer';
+import menuReducer from './menuReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -14,6 +15,7 @@ export default combineReducers({
   contractsList: contractListReducer,
   dueContractList: dueContractListReducer,
   report: reportReducer,
+  menu: menuReducer,
   form: reduxForm
 });
 

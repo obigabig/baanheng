@@ -5,7 +5,28 @@ const moment = require('moment')
 const Contract = require('../models/contract/contract')
 const User = require('../models/user')
 
-    //obigabig
+//obigabig internal
+const subinvestorMapping = (sqlName) => {
+    if(sqlName === 'สุวิทย์')
+        return '5b7e261dc915062d9c888499'   //subinvestor id
+    else if(sqlName === 'สมพร')
+        return '5b7e271ec915062d9c88849b'
+    else if(sqlName === 'สิงห์')
+        return '5b7e2723c915062d9c88849d'
+    else if(sqlName === 'เนี้ยว')
+        return '5b7e2728c915062d9c88849f'
+    else if(sqlName === 'พรพิษ')
+        return '5b7e2730c915062d9c8884a1'
+    else if(sqlName === 'บิ๊ก')
+        return '5b7e2749c915062d9c8884a3'
+    else if(sqlName === 'ยายเฉลิม')
+        return '5b7e274ec915062d9c8884a5'
+    else if(sqlName === 'แป๊ะ')
+        return '5b7e2754c915062d9c8884a7'
+    else
+        return '5b7e275ac915062d9c8884a9'
+
+    //obigabig prod
     /*const subinvestorMapping = (sqlName) => {
     if(sqlName === 'สุวิทย์')
         return '5b7e36834151560014482f8e'   //subinvestor id
@@ -27,7 +48,7 @@ const User = require('../models/user')
         return '5b7e37d04151560014482f9e'*/
 
     //Suvit.jong
-    const subinvestorMapping = (sqlName) => {
+    /*const subinvestorMapping = (sqlName) => {
             if(sqlName === 'สุวิทย์')
                 return '5b767d736aaef100141c4ab3'   //subinvestor id
             else if(sqlName === 'สมพร')
@@ -45,18 +66,20 @@ const User = require('../models/user')
             else if(sqlName === 'แป๊ะ')
                 return '5b767e536aaef100141c4ac1'
             else
-                return '5b767e626aaef100141c4ac3'
+                return '5b767e626aaef100141c4ac3'*/
 }
 
 exports.migrateContract = async (req, res) => {
 
     try {
-        //const userId = '5b7e36834151560014482f8d';  //obigabig
-        const userId = '5b767d736aaef100141c4ab2';  //Suvit.jong
+        const userId = '5b7e261dc915062d9c888498';  //obigabig internal
+        //const userId = '5b7e36834151560014482f8d';  //obigabig prod
+        //const userId = '5b767d736aaef100141c4ab2';  //Suvit.jong
 
         const pool = await sql.connect('mssql://sa:12345@localhost\\SQLEXPRESS/ASSETMANAGER')
         const contractList = await sql.query`select * from CONTRACT WHERE ID > 0 AND ID < 999 AND ACTIVEFLAG = 'A' ORDER BY ID` 
         
+        console.log(contractList.recordset)
         _.forEach(contractList.recordset, async (contract) => {
             const no = contract.ID;
             let title = String(contract.Title).substr(String(contract.Title).indexOf(' ')+1)
@@ -84,7 +107,7 @@ exports.migrateContract = async (req, res) => {
            
             const beginDate = moment().diff(moment(contract.ContractDate), 'years') < 10 ?
                  moment(contract.ContractDate).format('DD/MM/YYYY') : undefined
-
+                 
             const closeDateList = await sql.query`
             SELECT RedeemDate 
             FROM CONTRACTDATE 
@@ -92,7 +115,10 @@ exports.migrateContract = async (req, res) => {
               AND RedeemDate is not null 
             ORDER BY RedeemDate DESC`
 
-            const closeDate = closeDateList[0].RedeemDate
+            const closeDate = closeDateList.recordset.length > 0 ?
+                moment(closeDateList.recordset[0].RedeemDate).format('DD/MM/YYYY') :
+                undefined
+
 
             const googleMapsUrl = "";            
             const actionsList = await sql.query`  
@@ -107,17 +133,23 @@ exports.migrateContract = async (req, res) => {
                 WHERE ContractId = ${no} AND SignDate is not null
                 ORDER BY [DATE]` 
             const actions = _.map(actionsList.recordset, action => {
-                    const type = action.AlertType === 'ทวงถามดอกเบี้ย' ? "ทวงถามดอกเบี้ย" : "อื่นๆ"
-                    const description = action.AlertType
-                    //แทรกช่องอื่นๆ 
-                    const alertLength = action.AlertDate ? moment(action.AlertDate).diff(moment(), "months") : 0 
-                    const isCompleted = 
-                        contract.StatusID === 1 && alertLength > -5 && alertLength < 5 ? false : true
+
+                    let type = "อื่นๆ"
+                    if(action.TYPE === 'ทวงถามดอกเบี้ย' || action.TYPE === 'นัดต่อสัญญา')  
+                        type = action.TYPE
                     
+                    let description = ""
+                    if(action.TYPE !== 'ทวงถามดอกเบี้ย' && action.TYPE !== 'นัดต่อสัญญา') 
+                    description = action.TYPE
+                    //แทรกช่องอื่นๆ 
+                    const alertLength = action.DATE ? moment(action.DATE).diff(moment(), "months") : 0 
+                    const isCompleted = 
+                        contract.StatusID === 1 && alertLength > -3 && alertLength < 3 ? false : true
+
                     return {
                         type ,
                         description,
-                        dueDate: moment(action.AlertDate).format('DD/MM/YYYY'),
+                        dueDate: moment(action.DATE).format('DD/MM/YYYY'),
                         isCompleted
                     }
             });

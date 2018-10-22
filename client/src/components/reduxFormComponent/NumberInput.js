@@ -4,13 +4,15 @@ import NumberFormat from 'react-number-format';
 class NumberInput extends Component {
     
     render() {
+
         const {  input,            
             label, 
             placeholder = '', 
             thousandSeparate=false,
             require=false, 
             readonly=false,
-            meta: { error, touched } } = this.props;
+            meta: { error, touched }
+         } = this.props;
 
         const inputStyle = {
             textAlign: 'right',
@@ -30,7 +32,6 @@ class NumberInput extends Component {
                 <div style={{clear:'both'}} />
                 <NumberFormat 
                     value={input.value}
-                    type={input.type}
                     style={inputStyle} 
                     placeholder={placeholder}
                     displayType={readonly ? 'text': 'input' } 

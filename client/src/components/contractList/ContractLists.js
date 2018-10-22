@@ -4,11 +4,10 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import requireAuth from '../../utils/requireAuth';
-import { getContractListsAction } from '../../actions';
+import { getContractListsAction, menuClicked } from '../../actions';
 
 import DataNotFound from '../reactComponent/DataNotFound';
 import Spinner from '../reactComponent/Spinner';
-import Navbar from '../reactComponent/Navbar';
 import FixButton from '../reactComponent/FixButton';
 import ContractCard from './ContractCard';
 import ContractFilter from './ContractFilter';
@@ -39,6 +38,7 @@ class ContractLists extends Component {
   }
 
   componentDidMount() {
+    this.props.menuClicked('ContractLists')
     this.fetchContractLists();
   }
 
@@ -205,9 +205,6 @@ class ContractLists extends Component {
     return (
       <div className="main-box">
         <div className="row">
-          <Navbar ActiveIndex="ContractLists" />
-        </div>
-        <div className="row">
           <div className="col s12 m4 l3">{this.renderFilterComponent()}</div>
           <div className="col s12 m8 l9">
             <ContractSort
@@ -232,13 +229,14 @@ class ContractLists extends Component {
 }
 
 function mapStateToProps({ contractsList }) {
+  console.log(contractsList)
   return { contractsList };
 }
 
 export default compose(
   connect(
     mapStateToProps,
-    { getContractListsAction }
+    { getContractListsAction, menuClicked }
   ),
   withRouter,
   requireAuth

@@ -5,7 +5,6 @@ import { FETCH_INVESTOR_RATIO, FETCH_INVESTOR_RATIO_ERROR } from './types';
 export const getDueContractListsAction = (callback) => async dispatch => {
     try {
       const contractList = await axios.get(`/api/getDueContractLists`);
-  
       dispatch({ type: FETCH_DUE_CONTRACTLIST, payload: contractList.data });
       callback();
     } catch(err) {

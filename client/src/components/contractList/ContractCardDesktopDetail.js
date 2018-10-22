@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import _ from 'lodash';
-import moment from 'moment';
 
 import { ContractStatusValue } from '../../const';
 import { numberWithCommas } from '../../utils/format';

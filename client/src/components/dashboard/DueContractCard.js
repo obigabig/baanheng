@@ -9,7 +9,7 @@ import '../../css/dueContractCard.css';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
-class DueContractCard extends Component {
+export class DueContractCard extends Component {
   constructor() {
     super();
     this.state = {};
@@ -101,7 +101,7 @@ class DueContractCard extends Component {
     );
   }
 }
-/*    */
+
 export default compose(
   connect(
     null,

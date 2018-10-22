@@ -33,7 +33,7 @@ class DueContractBox extends Component {
 
   render() {
     const { contractList, label, icon, iconClassname } = this.props;
-
+    
     return (
       <div className="collapseBox">
         <div className="collapseTitle">

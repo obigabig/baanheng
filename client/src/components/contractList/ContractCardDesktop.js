@@ -19,7 +19,10 @@ class ContractCardDesktop extends Component {
 
       return (
         <div className="col s12" style={{textAlign:'right', marginTop: '-8px'}}>
-          <span style={{ backgroundColor: '#ffff61', padding: '1px 5px 1px 5px' }}>
+          <span style={{ backgroundColor: '#ffff61'
+            , padding: '1px 5px 1px 5px' 
+            , borderRadius: '8px'
+            , fontSize: '14px'}}>
             {upComingAction.type &&
               `* ${
                 upComingAction.description
@@ -97,12 +100,12 @@ const getRowClass = status => {
 
 const getEditButtonStyle = status => {
   if (status === ContractStatusValue.new)
-    return 'light-blue-text text-darken-1';
-  else if (status === ContractStatusValue.ongoing) return 'teal-text';
+    return 'blue-text text-lighten-5';
+  else if (status === ContractStatusValue.ongoing) return 'teal-text text-lighten-5';
   else if (status === ContractStatusValue.break)
     return 'red-text text-lighten-5';
   else if (status === ContractStatusValue.end)
-    return 'cyan-text text-lighten-5';
+    return 'grey-text text-lighten-5';
 
   return '';
 };
@@ -114,7 +117,7 @@ const getTextStyle = status => {
   else if (status === ContractStatusValue.break)
     return 'grey-text text-lighten-4';
   else if (status === ContractStatusValue.end)
-    return 'grey-text text-lighten-4';
+    return 'grey-text text-darken-4';
 
   return '';
 };

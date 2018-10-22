@@ -6,6 +6,8 @@ import { ContractStatus, ContractType, PropertyType} from '../../const';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isEmpty } from '../../utils/format';
+import Popup from 'react-popup'
+import 'react-popup/style.css';
 
 //Sub component
 import ContractFormActions from './ContractFormActions';
@@ -28,7 +30,8 @@ import {
     updateContractAction,
     getContractAction,
     updateContractSubInvestorFormAction,
-    deleteContractAction
+    deleteContractAction,
+    clearErrorMessageAction
 } from '../../actions';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
@@ -90,11 +93,15 @@ class ContractForm extends Component {
         }
     }
     
-    componentWillReceiveProps (nextProps) {          
+    componentWillReceiveProps (nextProps) {     
         //Set default contract form
-        /*if(this.props.contracts.data !== nextProps.contracts.data) 
+        if(nextProps.contracts.errorMessage) 
         {
-        }*/
+            console.log(nextProps.contracts.errorMessage)             
+            Popup.alert(nextProps.contracts.errorMessage, 'พบข้อผิดพลาด')
+            this.props.clearErrorMessageAction()            
+            console.log(nextProps.contracts.errorMessage) 
+        }
     }
     
     submit = (values) => {
@@ -155,6 +162,7 @@ class ContractForm extends Component {
         const { handleSubmit } = this.props;
         return (
             <div>
+                <Popup />
                 <form onSubmit={handleSubmit(this.submit)}>
                     <div className="blue lighten-2 white-text text-darken-2 valign-wrapper"
                         style={{marginTop: '10px'}}>   
@@ -221,8 +229,7 @@ class ContractForm extends Component {
                                     component={NumberInput} 
                                     label="มูลค่า" 
                                     thousandSeparate={true} 
-                                    placeholder="มูลค่าสัญญา"                             
-                                    onBlur={ (event)=> this.props.updateContractSubInvestorFormAction(event.target.value,0)}
+                                    placeholder="มูลค่าสัญญา"                                                                
                                     require={true}
                         />
                     </div>
@@ -255,7 +262,7 @@ class ContractForm extends Component {
                         style={{margin:'15px 0px 15px 0px'}}>                        
                         <div className="right-align red-text">  
                             {this.props.contracts.errorMessage && <strong>{this.props.contracts.errorMessage}</strong>}
-                            { !isEmpty(this.props.formSyncErrors) && <strong>กรุณากรอกข้อมูลให้ครบถ้วน...</strong>}
+                            { !isEmpty(this.props.formSyncErrors) && <strong>กรุณากรอกข้อมูลให้ถูกต้อง...</strong>}
                         </div>
                         <div className="right-align">                  
                             <SubmitButton text="บันทึก"/>
@@ -289,7 +296,8 @@ export default compose(
             updateContractSubInvestorFormAction,
             initContractFormAction,
             getContractAction,
-            deleteContractAction
+            deleteContractAction,
+            clearErrorMessageAction
         })
 ) (withRouter(ContractForm));
 

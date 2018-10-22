@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import ContractForm from './ContractForm';
 import requireAuth from '../../utils/requireAuth';
 import InvestorRatio from '../dashboard/InvestorRatio';
-import Navbar from '../reactComponent/Navbar';
+import { menuClicked } from '../../actions';
 
 import '../../css/contract.css';
 
 class Contract extends Component {
 
-    componentDidMount() {
+    componentDidMount(){
+        this.props.menuClicked('')
     }
 
     render(){
        return (
         <div className="main-box">
-            <div className="row">
-                <Navbar ActiveIndex=""/>
-            </div>
             <div className="row">
                 <div className="col s12 m4 l3 hide-on-med-and-down"><InvestorRatio/></div>
                 <div className="col s12 m8 l9">
@@ -30,4 +30,7 @@ class Contract extends Component {
     }
 }
 
-export default requireAuth(Contract);
+export default compose(
+    connect(null, { menuClicked }),
+    requireAuth
+  )(Contract);

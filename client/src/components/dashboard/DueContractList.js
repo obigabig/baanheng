@@ -8,7 +8,7 @@ import { getDueContractListsAction } from '../../actions';
 
 import DueContractBox from './DueContractBox';
 
-class DueContractList extends Component {
+export class DueContractList extends Component {
     
     state = {
         isLoading: true
@@ -42,16 +42,18 @@ class DueContractList extends Component {
             return <Spinner />
 
         return (
-            <div> 
+            <div data-test="component-due-contract-lists"> 
                 <div className="right-align red-text">  
                     {this.props.dueContractList.errorMessage && <strong>{this.props.dueContractList.errorMessage}</strong>}
                 </div>  
                 <DueContractBox 
+                    data-test="component-due-contract-box"
                     contractList={overDueList}
                     label="เลยกำหนด"
                     icon="warning"
                     iconClassname=" red-text accent-4"/>                     
                 <DueContractBox 
+                    data-test="component-due-contract-box"
                     contractList={upComingList}
                     label="กำลังจะถึง"
                     icon="warning"

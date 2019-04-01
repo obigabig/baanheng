@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import requireAuth from '../../utils/requireAuth';
+import requireAuth from '../utils/requireAuth';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import DueContractList from './DueContractList';
-import InvestorRatio from './InvestorRatio';
-import FixButton from '../reactComponent/FixButton';
-import { menuClicked } from '../../actions';
+import DueContractList from '../components/dashboard/DueContractList';
+import InvestorRatio from '../components/dashboard/InvestorRatio';
+import FixButton from '../components/reactComponent/FixButton';
+import { menuClicked } from '../actions';
 
-class Dashboard extends Component{
+class DashboardScreen extends Component{
 
     componentDidMount(){
         this.props.menuClicked('Dashboard')
@@ -33,4 +33,4 @@ class Dashboard extends Component{
 export default compose(
     connect(null, { menuClicked }),
     requireAuth
-  )(Dashboard);
+  )(DashboardScreen);

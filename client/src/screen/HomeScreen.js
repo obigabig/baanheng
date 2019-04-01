@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 
-class Home extends Component {
+class HomeScreen extends Component {
 
   componentDidMount() {
     if(this.props.authenticated){
@@ -31,5 +31,5 @@ function mapStateToProps({ auth }) {
           };
 }
 
-export default connect(mapStateToProps) (withRouter(Home));
+export default connect(mapStateToProps) (withRouter(HomeScreen));
 

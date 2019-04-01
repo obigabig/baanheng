@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import requireAuth from '../../utils/requireAuth';
-import { menuClicked } from '../../actions';
+import requireAuth from '../utils/requireAuth';
+import { menuClicked } from '../actions';
 
-import ReportMenu from './ReportMenu';
-import InvestmentRatio from './InvestmentRatio';
+import ReportMenu from '../components/report/ReportMenu';
+import InvestmentRatio from '../components/report/InvestmentRatio';
 
 
 class Reports extends Component{

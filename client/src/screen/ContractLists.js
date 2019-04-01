@@ -3,17 +3,17 @@ import _ from 'lodash';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import requireAuth from '../../utils/requireAuth';
-import { getContractListsAction, menuClicked } from '../../actions';
+import requireAuth from '../utils/requireAuth';
+import { getContractListsAction, menuClicked } from '../actions';
 
-import DataNotFound from '../reactComponent/DataNotFound';
-import Spinner from '../reactComponent/Spinner';
-import FixButton from '../reactComponent/FixButton';
-import ContractCard from './ContractCard';
-import ContractFilter from './ContractFilter';
-import ContractFilterMobile from './ContractFilterMobile';
-import ContractSort from './ContractSort';
-import ContractPagination from './ContractPagination';
+import DataNotFound from '../components/reactComponent/DataNotFound';
+import Spinner from '../components/reactComponent/Spinner';
+import FixButton from '../components/reactComponent/FixButton';
+import ContractCard from '../components/contractList/ContractCard';
+import ContractFilter from '../components/contractList/ContractFilter';
+import ContractFilterMobile from '../components/contractList/ContractFilterMobile';
+import ContractSort from '../components/contractList/ContractSort';
+import ContractPagination from '../components/contractList/ContractPagination';
 
 class ContractLists extends Component {
   constructor() {

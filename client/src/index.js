@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import HttpsRedirect from 'react-https-redirect';
 import Root from './Root';
-import App from './components/App';
+import App from './screen/App';
 
 ReactDom.render(
     <Root initialState={    

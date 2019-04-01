@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import ContractForm from './ContractForm';
-import requireAuth from '../../utils/requireAuth';
-import InvestorRatio from '../dashboard/InvestorRatio';
-import { menuClicked } from '../../actions';
+import ContractForm from '../components/contract/ContractForm';
+import requireAuth from '../utils/requireAuth';
+import InvestorRatio from '../components/dashboard/InvestorRatio';
+import { menuClicked } from '../actions';
 
-import '../../css/contract.css';
+import '../css/contract.css';
 
 class Contract extends Component {
 

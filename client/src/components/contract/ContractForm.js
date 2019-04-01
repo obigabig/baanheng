@@ -38,7 +38,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 
 
-class ContractForm extends Component {
+export class ContractForm extends Component {
 
     constructor() {
         super();
@@ -96,11 +96,9 @@ class ContractForm extends Component {
     componentWillReceiveProps (nextProps) {     
         //Set default contract form
         if(nextProps.contracts.errorMessage) 
-        {
-            console.log(nextProps.contracts.errorMessage)             
+        {             
             Popup.alert(nextProps.contracts.errorMessage, 'พบข้อผิดพลาด')
-            this.props.clearErrorMessageAction()            
-            console.log(nextProps.contracts.errorMessage) 
+            this.props.clearErrorMessageAction()           
         }
     }
     
@@ -150,6 +148,7 @@ class ContractForm extends Component {
         
         return (
             <a href="#!" 
+                data-test="button-delete"
                 className="formBtnDelte right red-text darken-4"
                 onClick={() => deleteData()}
             >
@@ -161,7 +160,7 @@ class ContractForm extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <div>
+            <div data-test="component-contract-form">
                 <Popup />
                 <form onSubmit={handleSubmit(this.submit)}>
                     <div className="blue lighten-2 white-text text-darken-2 valign-wrapper"
@@ -185,6 +184,7 @@ class ContractForm extends Component {
                     }
                     <div className="col s12">
                         <Field name="status" 
+                                data-test="field-status"
                                 component={SelectInput} 
                                 options={ContractStatus} 
                                 label="สถานะ" 
@@ -265,7 +265,7 @@ class ContractForm extends Component {
                             { !isEmpty(this.props.formSyncErrors) && <strong>กรุณากรอกข้อมูลให้ถูกต้อง...</strong>}
                         </div>
                         <div className="right-align">                  
-                            <SubmitButton text="บันทึก"/>
+                            <SubmitButton text="บันทึก" data-test="submit-button"/>
                             {this.state.isLoading ? <Spinner /> : ''}   
                         </div>
                     </div> 

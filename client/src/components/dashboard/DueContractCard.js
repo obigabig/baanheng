@@ -14,6 +14,7 @@ export class DueContractCard extends Component {
     super();
     this.state = {};
 
+    this.IsLinkHover = false;
     this.markAsComplete = this.markAsComplete.bind(this);
   }
 
@@ -94,11 +95,16 @@ export class DueContractCard extends Component {
             href="#!"        
             data-test="contract-mark-as-complete"    
             className="valign-wrapper"
+            onMouseOver={() => this.setState({IsLinkHover: true})}   
+            onMouseLeave={() => this.setState({IsLinkHover: false})}       
             onClick={event =>
               this.markAsComplete(event, contract.actions[0]._id)
             }
           >
-            <i className="Tiny material-icons blue-grey-text">alarm_off</i>
+            {this.state.IsLinkHover ?
+            <i className="material-icons grey-text" style={{fontSize: '2rem'}}>alarm_off</i> : 
+            <i className="material-icons blue-grey-text">alarm_off</i> 
+          }
           </a>
         </div>
       </div>

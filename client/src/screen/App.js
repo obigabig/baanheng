@@ -3,23 +3,21 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-import Header from './Header';
-import Home from './Home';
-import Signup from './authen/signup/Signup';
-import Login from './authen/login/Login';
+import Header from '../components/Header';
+import HomeScreen from './HomeScreen';
+import Signup from './Signup';
+import Login from './Login';
 
-import Dashboard from './dashboard/Dashboard';
-import Contract from './contract/Contract';
-import ContractLists from './contractList/ContractLists';
+import DashboardScreen from './DashboardScreen';
+import Contract from './Contract';
+import ContractLists from './ContractLists';
 
-import Profile from './user/Profile';
-import Reports from './report/Reports';
+import Profile from './Profile';
+import Reports from './Reports';
 import Page404 from './Page404';
 
 import '../css/main.css';
-import Footer from './Footer';
-
-import { StickyContainer } from 'react-sticky';
+import Footer from '../components/Footer';
 
 class App extends Component {
   render() {
@@ -28,16 +26,16 @@ class App extends Component {
         <div className="container">
             <Header />
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={HomeScreen} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/login" component={Login} />
 
-              <Route exact path="/Dashboard" component={Dashboard} />
+              <Route exact path="/Dashboard" component={DashboardScreen} />
               <Route path="/Contract/:id?" component={Contract} />
               <Route exact path="/ContractLists" component={ContractLists} />
 
               <Route exact path="/Profile" component={Profile} />
-
+              
               <Route exact path="/Reports" component={Reports} />
 
               <Route exact path="/404" component={Page404} />

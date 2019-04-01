@@ -30,7 +30,7 @@ class ContractFormActions extends Component {
           <i className="material-icons valign-wrapper">work</i>
         </div>
         <div className="col s8 left-align">
-          <h6> แจ้งเตือน </h6>
+          <h6> การดำเนินงาน </h6>
         </div>
         <div className="col s3 right-align" style={{ paddingRight: '0px' }}>
           <button
@@ -151,7 +151,7 @@ class ContractFormActions extends Component {
   renderEmptyRow() {
     return (
       <div className="row center-align">
-        ยังไม่มีรายการแจ้งเตือน
+        ยังไม่มีรายการดำเนินงานเพิ่มเติม
         <button
           className="btn-flat blue-text"
           type="button"
@@ -189,7 +189,7 @@ class ContractFormActions extends Component {
                   className="btn-flat btn-flat-inline"
                   name="btnComplete"
                   type="button"
-                  title="การแจ้งเตือน"
+                  title="การดำเนินงาน"
                   onClick={() => this.toggleIsCompleted(index)}
                 >
                   {this.renderIsCompletedIcon(action.isCompleted)}

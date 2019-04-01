@@ -1,9 +1,9 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as actions from '../../../actions';
+import * as actions from '../actions';
 //import { facebookClientId } from '../../../const'
-import { googleClientId } from '../../../const'
+import { googleClientId } from '../const'
 
 //import FacebookLogin from 'react-facebook-login';
 import { GoogleLogin } from 'react-google-login';
@@ -52,7 +52,7 @@ class Login extends Component {
                         />
                     </div>
                     <div className="col s12"> 
-                        <img src={require('../../../img/mainPic.jpg')} 
+                        <img src={require('../img/mainPic.jpg')} 
                             alt="Login pic"
                             style={{width: '100%',
                             margin: '10px 0px 10px 0px'}} />

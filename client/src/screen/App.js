@@ -5,8 +5,7 @@ import * as actions from '../actions';
 
 import Header from '../components/Header';
 import HomeScreen from './HomeScreen';
-import Signup from './Signup';
-import Login from './Login';
+import SignIn from './SignIn';
 
 import DashboardScreen from './DashboardScreen';
 import Contract from './Contract';
@@ -19,7 +18,15 @@ import Page404 from './Page404';
 import '../css/main.css';
 import Footer from '../components/Footer';
 
+// Firebase.
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { firebaseConfig } from '../const';
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
 class App extends Component {
+
   render() {
     return (
       <BrowserRouter>
@@ -27,8 +34,7 @@ class App extends Component {
             <Header />
             <Switch>
               <Route exact path="/" component={HomeScreen} />
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/login" component={Login} />
+              <Route exact path="/login" component={SignIn} />
 
               <Route exact path="/Dashboard" component={DashboardScreen} />
               <Route path="/Contract/:id?" component={Contract} />

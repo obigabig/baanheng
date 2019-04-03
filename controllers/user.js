@@ -5,10 +5,9 @@ const _ = require('lodash');
 exports.createUserSubInvestor = async (req,res) => {
 
     const name = req.body.name
-    console.log(req)
     try {
         //Find exist name in UerSubInvestor
-        const user = await User.findOne({ '_id': req.user.id })            
+        const user = await User.findOne({ 'email': req.user.email })            
             .populate('userSubInvestors')
             .select(['userSubInvestors', 'name','isAdmin','local'])
             .exec()
@@ -49,7 +48,7 @@ exports.updateUserSubInvestor = async (req,res) => {
         //!!! Pease exclude ชื่อเดิมออก
        
         //Find exist name in UserSubInvestor
-        const user = await User.findOne({ '_id': req.user.id })            
+        const user = await User.findOne({ 'email': req.user.email })            
             .populate('userSubInvestors')
             .select(['userSubInvestors', 'name','isAdmin','local'])
             .exec()
@@ -63,7 +62,7 @@ exports.updateUserSubInvestor = async (req,res) => {
         await userSubInvestor.save()
         
         //Fetch updated data
-        const updatedUser = await User.findOne({ '_id': req.user.id })            
+        const updatedUser = await User.findOne({ 'email': req.user.email })            
             .populate('userSubInvestors')
             .select(['userSubInvestors', 'name','isAdmin','local'])
             .exec()

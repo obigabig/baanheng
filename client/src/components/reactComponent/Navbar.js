@@ -51,7 +51,7 @@ const NavBar = ({ActiveIndex}) => {
                             <li className={ ActiveIndex==="Reports" ? "active" : ""}>
                                 <Link to="/Reports">
                                     <i className="left material-icons">library_books</i>
-                                    <span className="left">รายงาน</span> 
+                                    <span className="left">รายงาน</span>                                      
                                 </Link>
                             </li>
                         </ul>

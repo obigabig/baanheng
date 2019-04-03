@@ -5,9 +5,12 @@ import { withRouter } from 'react-router-dom';
 
 class HomeScreen extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     if(this.props.authenticated){
       this.props.history.push('/Dashboard')
+    }
+    else{
+      this.props.history.push('/login')
     }
   }
 

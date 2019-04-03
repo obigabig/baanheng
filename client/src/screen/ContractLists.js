@@ -26,7 +26,7 @@ class ContractLists extends Component {
       sort: { field: 'no', type: -1 },
       filterNo: '',
       filterTitle: '',
-      filterStatus: '0,1,2,3',
+      filterStatus: '0,1,2',
       filterPact: '0,1,2',
       filterPropType: '0,1,2,3,4,5,6,7,8,9,10',
       filterValue: '0'
@@ -229,7 +229,6 @@ class ContractLists extends Component {
 }
 
 function mapStateToProps({ contractsList }) {
-  console.log(contractsList)
   return { contractsList };
 }
 

@@ -125,7 +125,7 @@ class InvestmentRatio extends Component{
                     </tbody>
                 </table>    
                 <div className="center-align">
-                    {this.renderPieChart()}
+                    {/*this.renderPieChart()*/}
                 </div>                                           
             </div>
             <div className="right red-text">*นับเฉพาะรายการที่อยู่ระหว่างทำสัญญาเท่านั้น</div> 

@@ -1,117 +1,59 @@
-
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, FETCH_USER } from './types';
+import { AUTH_USER, AUTH_ERROR, FETCH_USER, FETCH_USER_ERROR } from './types';
+
 
 const setAxiosHeader = () => {
-    let xAuthTokenStr = localStorage.getItem('token') ? `${localStorage.getItem('token')}` : '';
-    axios.defaults.headers['x-auth-token'] = xAuthTokenStr;
-}
+  let authTokenStr = localStorage.getItem('token')
+    ? `${localStorage.getItem('token')}`
+    : '';
+  axios.defaults.headers.common['Authorization'] = `Bearer ${authTokenStr}`;
+};
 
-export const fbLogInAction = (values, callback) => async dispatch => {
-    try {
-      
-      //Sign up & Get token from server
-      const res = await axios.post('/api/auth/facebook', values);
-      const token = res.headers['x-auth-token'];
+export const signInAction = (token, callback) => async dispatch => {
+  try {
+    console.log('\nsignInAction called\n');
+    //Save token to localStorage.
+    localStorage.setItem('token', token);
+    //Save Token to Axios Header
+    setAxiosHeader();
+    //dispatch AUTH_USER
+    dispatch({ type: AUTH_USER, payload: token });
 
-      if (token) {              
-        dispatch({ type: AUTH_USER, payload: token });
-        localStorage.setItem('token', token);
-        setAxiosHeader()
-        //dispatch user profile
-        const resUser = await axios.get('/api/current-user');
-        dispatch({ type: FETCH_USER, payload: resUser.data });
-        callback()
-      }
-      
-    } catch(err) {
-      console.log(err)
-      dispatch({ type: AUTH_ERROR, payload: err });
-    }
-  };
+    //Get user profile
+    const resUser = await axios.get('/api/current-user');
+    dispatch({ type: FETCH_USER, payload: resUser.data });
 
-  export const googleLogInAction = (values, callback) => async dispatch => {
-    try {
-      
-      //Sign up & Get token from server
-      const res = await axios.post('/api/auth/google', values);
-      const token = res.headers['x-auth-token'];
+    callback();
+  } catch (err) {
+    console.log(err);
+    dispatch({ type: AUTH_ERROR, payload: err });
+  }
+};
 
-      if (token) {              
-        dispatch({ type: AUTH_USER, payload: token });
-        localStorage.setItem('token', token);
-        setAxiosHeader()
-        //dispatch user profile
-        const resUser = await axios.get('/api/current-user');
-        dispatch({ type: FETCH_USER, payload: resUser.data });
-        callback()
-      }
-      
-    } catch(err) {
-      console.log(err)
-      dispatch({ type: AUTH_ERROR, payload: err });
-    }
-  };
+export const fetchUserAction = () => async dispatch => {
+  try {
+    setAxiosHeader();
 
-  export const signUpAction = (values , callback) => async dispatch => {
-    try {
-      //Sign up & Get token from server
-      const res = await axios.post('/api/signup', values);
+    const res = await axios.get('/api/current-user');
+    dispatch({ type: FETCH_USER, payload: res.data });
+  } catch (e) {
+    console.log(e);
+    dispatch({ type: FETCH_USER_ERROR, payload: e });
+  }
+};
 
-      dispatch({ type: AUTH_USER, payload: res.data.token });
-      localStorage.setItem('token', res.data.token);
-      //Get user profile
-      const resUser = await axios.get('/api/current-user', {
-        headers: {
-          Authorization: res.data.token ? `JWT ${res.data.token}` : ''
-        }
-      });
-      dispatch({ type: FETCH_USER, payload: resUser.data });
-      callback();
-    } catch(err) {
-      dispatch({ type: AUTH_ERROR, payload: err.response.data.error });
-    }
-  };
-
-  export const signInAction = (values , callback) => async dispatch => {
-    try {
-      //Sign in & Get token from server
-      const res = await axios.post('/api/signin', values);
-      dispatch({ type: AUTH_USER, payload: res.data.token });
-      localStorage.setItem('token', res.data.token);
-      //Get user profile (and add token for request)
-      const resUser = await axios.get('/api/current-user', {
-        headers: {
-          Authorization: res.data.token ? `JWT ${res.data.token}` : ''
-        }
-      });
-      dispatch({ type: FETCH_USER, payload: resUser.data });
-
-      callback();
-    } catch(err) {
-      if(err.response.status === 401)
-      {
-        dispatch({ type: AUTH_ERROR, payload: 'Incorrect email or password.' });
-      }
-      else{
-        dispatch({ type: AUTH_ERROR, payload: err.response.data });
-      }
-    }
-  };
-  
-  export const fetchUserAction = () => async dispatch => {
-    try {
-      const res = await axios.get('/api/current-user');
-      dispatch({ type: FETCH_USER, payload: res.data });
-    } catch (e) {
-      dispatch({ type: AUTH_USER, payload: false });
-    }
-  };
-
-
-  export const signOutAction = (callback) => async dispatch => {
+export const signOutAction = callback => dispatch => {
+  try {
     localStorage.removeItem('token');
-    dispatch({ type: AUTH_USER, payload: '' });
+    dispatch({ type: AUTH_USER, payload: false });
     dispatch({ type: FETCH_USER, payload: '' });
     callback();
-  };
+  } catch (err) {
+    console.log(err);
+    dispatch({ type: AUTH_ERROR, payload: err });
+  }
+};
+
+export const signUpAction = callback => async dispatch => {
+  callback();
+};

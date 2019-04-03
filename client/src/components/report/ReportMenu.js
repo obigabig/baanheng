@@ -32,7 +32,7 @@ class ReportMenu extends Component {
           (Comming Soon)
         </a>
         <a
-          href="#!"
+          href="#!" 
           className={`collection-item ${
             actiiveItem === 'BreakContractSummary' ? 'active' : ''
           }`}

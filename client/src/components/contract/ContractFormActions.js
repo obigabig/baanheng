@@ -167,10 +167,10 @@ class ContractFormActions extends Component {
   renderIsCompletedIcon(isCompleted) {
     if (isCompleted)
       return (
-        <i className="material-icons valign-wrapper grey-text">alarm_off</i>
+        <i className="material-icons valign-wrapper grey-text" title="การแจ้งเตือน:ปิด">alarm_off</i>
       );
 
-    return <i className="material-icons valign-wrapper btnApprove">alarm_on</i>;
+    return <i className="material-icons valign-wrapper btnApprove" title="การแจ้งเตือน:เปิด">alarm_on</i>;
   }
 
   renderRow(action, index) {

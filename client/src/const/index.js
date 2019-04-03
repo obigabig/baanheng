@@ -1,22 +1,34 @@
 
 if (process.env.NODE_ENV === 'production') {
-    exports.facebookClientId = '505475596589543'
-    exports.googleClientId = '759363382302-s5ajc1cuqb6lbf2792he3ksor3hpa9vv.apps.googleusercontent.com'
+    exports.firebaseConfig = {
+        apiKey: 'AIzaSyDQAmGCoZgz9sEPwGr-D4YgkJFZNeFbdPM',
+        authDomain: 'baanheng-dev.firebaseapp.com',
+        databaseURL: 'https://baanheng-dev.firebaseio.com',
+        projectId: 'baanheng-dev',
+        storageBucket: 'baanheng-dev.appspot.com',
+        messagingSenderId: '1086485022003'
+      }
   } else {
-    exports.facebookClientId = '505475596589543'
-    exports.googleClientId = '1086485022003-6mp8hgbp4govp1qt6ghg1ag4lcv3uitv.apps.googleusercontent.com'
+    exports.firebaseConfig = {
+        apiKey: 'AIzaSyDQAmGCoZgz9sEPwGr-D4YgkJFZNeFbdPM',
+        authDomain: 'baanheng-dev.firebaseapp.com',
+        databaseURL: 'https://baanheng-dev.firebaseio.com',
+        projectId: 'baanheng-dev',
+        storageBucket: 'baanheng-dev.appspot.com',
+        messagingSenderId: '1086485022003'
+      }
   }
 
 
 const contractStatusValue = {
-    new: 'งานใหม่',
+    draft: 'ฉบับร่าง',
     ongoing: 'ทำสัญญา',
     break: 'หลุด',
     end: 'จบสัญญา'
 };
 exports.ContractStatusValue = contractStatusValue
 exports.ContractStatus = [
-    { value: contractStatusValue.new , label: contractStatusValue.new },
+    { value: contractStatusValue.draft, label: contractStatusValue.draft },
     { value: contractStatusValue.ongoing, label: contractStatusValue.ongoing },
     { value: contractStatusValue.break, label: contractStatusValue.break },
     { value: contractStatusValue.end, label: contractStatusValue.end }

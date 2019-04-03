@@ -31,6 +31,6 @@ class DashboardScreen extends Component{
 }
 
 export default compose(
-    connect(null, { menuClicked }),
-    requireAuth
+    requireAuth,
+    connect(null, { menuClicked }),    
   )(DashboardScreen);

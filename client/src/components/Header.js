@@ -4,13 +4,27 @@ import { Link } from 'react-router-dom';
 import * as actions from '../actions';
 import { withRouter } from 'react-router-dom';
 import Navbar from './reactComponent/Navbar';
+// Firebase.
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 class Header extends Component {
-  componentDidMount() {
-    if (this.props.authenticated) {
+
+  componentDidMount(){
+    if(!!this.props.authenticated){
       this.props.fetchUserAction();
     }
   }
+
+  onSignOut = e => {
+    e.preventDefault();
+    firebase
+      .auth()
+      .signOut()
+      .then(response => {
+        this.props.signOutAction(() => this.props.history.push('/login'));
+      });
+  };
 
   renderLogin() {
     switch (this.props.authenticated) {
@@ -41,7 +55,7 @@ class Header extends Component {
               <a
                 href=""
                 className="white-text text-darken-2 logOut"
-                onClick={actions.signOutAction(this.props.history)}
+                onClick={this.onSignOut}
               >
                 ออกจากระบบ
               </a>
@@ -53,7 +67,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div>        
+      <div>
         <div className="row teal lighten-2 valign-wrapper">
           <div className="col s12 m5" style={{ padding: '10px' }}>
             <Link to="/" className=" white-text text-darken-5">
@@ -72,7 +86,7 @@ class Header extends Component {
           </div>
         </div>
         <div className="row">
-            <Navbar ActiveIndex={this.props.menu}/>
+          <Navbar ActiveIndex={this.props.menu} />
         </div>
       </div>
     );
@@ -82,8 +96,8 @@ class Header extends Component {
 function mapStateToProps({ user, auth, menu }) {
   return {
     user,
-    menu: menu.clickedMenu ,
-    authenticated: auth.authenticated 
+    menu: menu.clickedMenu,
+    authenticated: auth.authenticated
   };
 }
 

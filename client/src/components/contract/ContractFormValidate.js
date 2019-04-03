@@ -99,10 +99,10 @@ const validate = values => {
           valueErrors.name = 'ต้องระบุ'
           debtorsArrayErrors[index] = valueErrors
         }
-        if (!value || !value.tel) {
+        /*if (!value || !value.tel) {
           valueErrors.tel = 'ต้องระบุ'
           debtorsArrayErrors[index] = valueErrors
-        }
+        }*/
     });
         
     if (debtorsArrayErrors.length) {

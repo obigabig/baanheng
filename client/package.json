@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "chart.js": "^1.1.1",
+    "firebase": "^5.9.2",
     "materialize-css": "^0.100.2",
     "moment": "^2.22.2",
     "react": "^16.4.2",
@@ -22,7 +23,7 @@
     "react-datepicker": "^1.5.0",
     "react-dom": "^16.4.2",
     "react-facebook-login": "^4.0.1",
-    "react-google-login": "^3.2.1",
+    "react-firebaseui": "^3.1.2",
     "react-https-redirect": "^1.0.10",
     "react-motion": "^0.5.2",
     "react-number-format": "^3.4.2",
@@ -35,9 +36,9 @@
     "react-sticky": "^6.0.3",
     "react-swipeable-views": "^0.12.14",
     "react-swipeable-views-utils": "^0.12.14",
-    "react-twitter-auth": "0.0.12",
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "url-parse": "^1.4.3"
   },

@@ -28,10 +28,10 @@ exports.getUpcomingAction = (contract) => {
     return {}
 }
 
-exports.getFilterContractQuery = (id, no, title, value) => {
+exports.getFilterContractQuery = (email, no, title, value) => {
     let where = {}
     //Userid
-    where._createBy = id
+    where._createBy = email
     //Contract no    
     if(no !== ''){
         where.no = no

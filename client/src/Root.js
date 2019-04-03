@@ -4,11 +4,12 @@ import { createStore, applyMiddleware } from 'redux';
 
 import reducers from './reducers';
 import reduxThunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 export default ({ children, initialState = {} }) => {
 
   //Create store and set JWT to reducer
-  const middleware = [reduxThunk];
+  const middleware = [reduxThunk, logger];
   const store = createStore(
     reducers,
     initialState,
@@ -17,3 +18,5 @@ export default ({ children, initialState = {} }) => {
 
   return <Provider store={store}>{children}</Provider>;
 };
+
+

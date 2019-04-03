@@ -262,7 +262,7 @@ export class ContractForm extends Component {
                         style={{margin:'15px 0px 15px 0px'}}>                        
                         <div className="right-align red-text">  
                             {this.props.contracts.errorMessage && <strong>{this.props.contracts.errorMessage}</strong>}
-                            { !isEmpty(this.props.formSyncErrors) && <strong>กรุณากรอกข้อมูลให้ถูกต้อง...</strong>}
+                            { !isEmpty(this.props.formSyncErrors) && <strong>คุณยังกรอกข้อมูลไม่ครบถ้วน!!</strong>}
                         </div>
                         <div className="right-align">                  
                             <SubmitButton text="บันทึก" data-test="submit-button"/>

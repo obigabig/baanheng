@@ -1,10 +1,7 @@
-
-const passport = require('passport');
-const requireAuth = passport.authenticate('jwt', { session: false });
-const requireSignin = passport.authenticate('local', { session: false });
 const Contact = require('../controllers/contract');
+const requireAuth = require('../middleware/requireAuth');
 
-module.exports = (app, requireAuth) => {
+module.exports = (app) => {
     /* New contract */
     app.post("/api/create-contract", requireAuth, Contact.createContract);
     app.get("/api/initialContractForm", requireAuth, Contact.initialContractForm);

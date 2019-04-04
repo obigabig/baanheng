@@ -12,19 +12,33 @@ class Signin extends Component {
   // Listen to the Firebase Auth state and set the local state.
   componentDidMount() {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-      console.log('onAuthStateChanged....')
+      console.log('onAuthStateChanged....');
       if (user) {
-        console.log('User sign in....')
+        console.log('User sign in....');
         firebase
           .auth()
-          .currentUser.getIdToken()
-          .then(token => {
-            this.props.signInAction(token, () => {
-              this.props.history.push('/Dashboard');
-            });
+          .currentUser.getIdToken(true)
+          .then(accessToken => {
+            this.props.signInAction(
+              accessToken,
+              () => {
+                this.props.history.push('/Dashboard');
+              },
+              () => {
+                //if error do sign out.
+                firebase
+                  .auth()
+                  .signOut()
+                  .then(response => {
+                    this.props.signOutAction(() =>
+                      this.props.history.push('/login')
+                    );
+                  });
+              }
+            );
           });
       } else {
-        console.log('User sign out....')
+        console.log('User sign out....');
         this.props.history.push('/Login');
       }
     });

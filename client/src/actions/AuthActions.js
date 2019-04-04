@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, FETCH_USER, FETCH_USER_ERROR } from './types';
 
-
 const setAxiosHeader = () => {
   let authTokenStr = localStorage.getItem('token')
     ? `${localStorage.getItem('token')}`
@@ -9,7 +8,7 @@ const setAxiosHeader = () => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${authTokenStr}`;
 };
 
-export const signInAction = (token, callback) => async dispatch => {
+export const signInAction = (token, callback, error) => async dispatch => {
   try {
     console.log('\nsignInAction called\n');
     //Save token to localStorage.
@@ -25,7 +24,16 @@ export const signInAction = (token, callback) => async dispatch => {
 
     callback();
   } catch (err) {
-    console.log(err);
+    dispatch({ type: AUTH_ERROR, payload: err });
+    error();
+  }
+};
+
+export const updateAuthTokenAction = (token) => async dispatch => {
+  try {
+    localStorage.setItem('token', token);
+    dispatch({ type: AUTH_USER, payload: token });
+  } catch (err) {
     dispatch({ type: AUTH_ERROR, payload: err });
   }
 };
@@ -36,9 +44,9 @@ export const fetchUserAction = () => async dispatch => {
 
     const res = await axios.get('/api/current-user');
     dispatch({ type: FETCH_USER, payload: res.data });
-  } catch (e) {
-    console.log(e);
-    dispatch({ type: FETCH_USER_ERROR, payload: e });
+  } catch (err) {
+    console.log(err);
+    dispatch({ type: FETCH_USER_ERROR, payload: err });
   }
 };
 

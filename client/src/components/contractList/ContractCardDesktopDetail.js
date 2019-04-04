@@ -22,11 +22,9 @@ class ContractCardDesktopDetail extends Component {
       <div>
         <span> {`สถานะ: ${contract.status}`} </span>
         <br />
-        <span> {`ประเภท: ${contract.type}`} </span>
-        <br />
         <span>
           {' '}
-          {`${contract.pact} : ${numberWithCommas(contract.value)} บาท`}{' '}
+          {`${contract.pact}/${contract.type}: ${numberWithCommas(contract.value)} บาท`}{' '}
         </span>
         <br />
         <span>

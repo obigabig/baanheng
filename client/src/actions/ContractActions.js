@@ -14,7 +14,7 @@ export const createContractAction = (
     dispatch({ type: FETCH_CONTRACT, payload: res.data });
     callback();
   } catch (err) {
-    dispatch({ type: CONTRACT_ERROR, payload: err.response.data.error });
+    dispatch({ type: CONTRACT_ERROR, payload: err });
     error();
   }
 };
@@ -25,7 +25,7 @@ export const initContractFormAction = callback => async dispatch => {
     dispatch({ type: FETCH_CONTRACT, payload: res.data });
     callback();
   } catch (err) {
-    dispatch({ type: CONTRACT_ERROR, payload: err.response.data.error });
+    dispatch({ type: CONTRACT_ERROR, payload: err });
   }
 };
 
@@ -75,7 +75,7 @@ export const getContractAction = (id, callback) => async dispatch => {
     dispatch({ type: FETCH_CONTRACT, payload: res.data });
     callback();
   } catch (err) {
-    dispatch({ type: CONTRACT_ERROR, payload: err.response.data.error });
+    dispatch({ type: CONTRACT_ERROR, payload: err });
   }
 };
 
@@ -91,7 +91,7 @@ export const updateContractAction = (
     callback();
   } catch (err) {
     console.log(err)
-    dispatch({ type: CONTRACT_ERROR, payload: err.response.data.error });
+    dispatch({ type: CONTRACT_ERROR, payload: err });
     error();
   }
 };
@@ -103,6 +103,6 @@ export const deleteContractAction = (id, callback) => async dispatch => {
     dispatch({ type: FETCH_CONTRACT, payload: res.data });
     callback();
   } catch (err) {
-    dispatch({ type: CONTRACT_ERROR, payload: err.response.data.error });
+    dispatch({ type: CONTRACT_ERROR, payload: err });
   }
 };

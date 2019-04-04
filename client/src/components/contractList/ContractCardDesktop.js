@@ -9,6 +9,10 @@ import { ContractStatusValue } from '../../const';
 import ContractCardDesktopDetail from './ContractCardDesktopDetail';
 
 class ContractCardDesktop extends Component {
+  state = {
+    hovered: false
+  };
+
   renderUpComingAction() {
     const { upComingAction } = this.props;
     if (!_.isEmpty(upComingAction)) {
@@ -18,11 +22,18 @@ class ContractCardDesktop extends Component {
       ).diff(moment(), 'days');
 
       return (
-        <div className="col s12" style={{textAlign:'right', marginTop: '-8px'}}>
-          <span style={{ backgroundColor: '#ffff61'
-            , padding: '1px 5px 1px 5px' 
-            , borderRadius: '8px'
-            , fontSize: '14px'}}>
+        <div
+          className="col s12"
+          style={{ textAlign: 'right', marginTop: '-8px' }}
+        >
+          <span
+            style={{
+              backgroundColor: '#ffff61',
+              padding: '1px 5px 1px 5px',
+              borderRadius: '8px',
+              fontSize: '14px'
+            }}
+          >
             {upComingAction.type &&
               `* ${
                 upComingAction.description
@@ -41,11 +52,22 @@ class ContractCardDesktop extends Component {
   render() {
     const { contract, selectedContractNo, setSelectedContractNo } = this.props;
 
+    let hoverStyle;
+    if (this.state.hovered) {
+      hoverStyle = 'contractRow-hover';
+    } else {
+      hoverStyle = '';
+    }
+
     return (
       <div>
         <div
           onClick={() => setSelectedContractNo(contract.no)}
-          className={`row contractRow-desktop ${getRowClass(contract.status)}`}
+          className={`row contractRow-desktop ${getRowClass(
+            contract.status
+          )} ${hoverStyle}`}
+          onMouseOver={() => this.setState({ hovered: true })}
+          onMouseLeave={() => this.setState({ hovered: false })}
           style={{ cursor: 'pointer' }}
         >
           <div className="col s10 m5 l6 truncate">
@@ -99,9 +121,9 @@ const getRowClass = status => {
 };
 
 const getEditButtonStyle = status => {
-  if (status === ContractStatusValue.new)
-    return 'blue-text text-lighten-5';
-  else if (status === ContractStatusValue.ongoing) return 'teal-text text-lighten-5';
+  if (status === ContractStatusValue.new) return 'blue-text text-lighten-5';
+  else if (status === ContractStatusValue.ongoing)
+    return 'teal-text text-lighten-5';
   else if (status === ContractStatusValue.break)
     return 'red-text text-lighten-5';
   else if (status === ContractStatusValue.end)
@@ -116,8 +138,7 @@ const getTextStyle = status => {
     return 'grey-text text-darken-3';
   else if (status === ContractStatusValue.break)
     return 'grey-text text-lighten-4';
-  else if (status === ContractStatusValue.end)
-    return 'grey-text text-darken-4';
+  else if (status === ContractStatusValue.end) return 'grey-text text-darken-4';
 
   return '';
 };

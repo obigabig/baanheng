@@ -29,7 +29,7 @@ export const getContractListsAction = (
       callback();
     } catch(err) {
       console.log(err)
-      dispatch({ type: CONTRACTLIST_ERROR, payload: err.response.data.error });
+      dispatch({ type: CONTRACTLIST_ERROR, payload: err });
     }
   };
   

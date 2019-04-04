@@ -71,4 +71,12 @@
     margin: 2px 0px 0px 0px;
 }
 
-
+.contractRow-hover{
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.4);
+    border-radius: 0px 16px 0px 0px;
+    -moz-border-radius: 0px 16px 0px 0px;
+    -webkit-border-radius: 0px 16px 0px 0px;
+    border: 0px solid #000000;
+}

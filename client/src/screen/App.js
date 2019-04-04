@@ -16,7 +16,7 @@ import Reports from './Reports';
 import Page404 from './Page404';
 
 
-import Admin from './Admin';
+import Migrate from './Migrate';
 
 import '../css/main.css';
 import Footer from '../components/Footer';
@@ -47,7 +47,7 @@ class App extends Component {
               
               <Route exact path="/Reports" component={Reports} />
 
-              <Route exact path="/Admin" component={Admin} />
+              <Route exact path="/Migrate" component={Migrate} />
               <Route exact path="/404" component={Page404} />
               <Redirect to="/404" />
             </Switch>

@@ -18,4 +18,9 @@ export const DUE_CONTRACTLIST_ERROR = 'due_contractlist_error';
 //Report
 export const FETCH_INVESTOR_RATIO = 'fetch_investor_ratio';
 export const FETCH_INVESTOR_RATIO_ERROR = 'fetch_investor_ratio_error';
+//Migrate
+export const MIGRATE = 'migrate';
+export const MIGRATE_ERROR = 'migrate_error';
+
+
 

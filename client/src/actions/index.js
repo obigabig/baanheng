@@ -6,6 +6,8 @@ export * from './DueContractListActions';
 export * from './UserActions';
 export * from './Menu';
 
+export * from './MigrationAction';
+
 
 
 

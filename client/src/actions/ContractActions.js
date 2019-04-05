@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FETCH_CONTRACT, CONTRACT_ERROR } from './types';
 import { change, arrayInsert } from 'redux-form';
-
+import handlingError from '../utils/handlingError';
 /*-----------------------[New Contract Form]-------------------------------*/
 export const createContractAction = (
   values,
@@ -14,6 +14,7 @@ export const createContractAction = (
     dispatch({ type: FETCH_CONTRACT, payload: res.data });
     callback();
   } catch (err) {
+    handlingError(err, dispatch)
     dispatch({ type: CONTRACT_ERROR, payload: err });
     error();
   }
@@ -25,6 +26,7 @@ export const initContractFormAction = callback => async dispatch => {
     dispatch({ type: FETCH_CONTRACT, payload: res.data });
     callback();
   } catch (err) {
+    handlingError(err, dispatch)
     dispatch({ type: CONTRACT_ERROR, payload: err });
   }
 };
@@ -75,6 +77,7 @@ export const getContractAction = (id, callback) => async dispatch => {
     dispatch({ type: FETCH_CONTRACT, payload: res.data });
     callback();
   } catch (err) {
+    handlingError(err, dispatch)
     dispatch({ type: CONTRACT_ERROR, payload: err });
   }
 };
@@ -90,7 +93,7 @@ export const updateContractAction = (
     dispatch({ type: FETCH_CONTRACT, payload: res.data });
     callback();
   } catch (err) {
-    console.log(err)
+    handlingError(err, dispatch)
     dispatch({ type: CONTRACT_ERROR, payload: err });
     error();
   }
@@ -103,6 +106,7 @@ export const deleteContractAction = (id, callback) => async dispatch => {
     dispatch({ type: FETCH_CONTRACT, payload: res.data });
     callback();
   } catch (err) {
+    handlingError(err, dispatch)
     dispatch({ type: CONTRACT_ERROR, payload: err });
   }
 };

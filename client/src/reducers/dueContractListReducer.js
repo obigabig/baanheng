@@ -4,7 +4,7 @@ const dueContractListReducer = (state = {}, action) => {
 
     switch(action.type){
         case FETCH_DUE_CONTRACTLIST:
-            return { ...state, data: action.payload };
+            return { data: action.payload };
         case DUE_CONTRACTLIST_ERROR:
             return { ...state, errorMessage: action.payload };
         default:

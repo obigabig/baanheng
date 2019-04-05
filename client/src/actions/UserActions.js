@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { FETCH_USER, FETCH_USER_ERROR } from './types';
+import handlingError from '../utils/handlingError';
 
 /*-----------------------[User Profile]-------------------------------*/
 export const createUserSubInvestor = (values , callback, error) => async dispatch => {
@@ -8,6 +9,7 @@ export const createUserSubInvestor = (values , callback, error) => async dispatc
       dispatch({ type: FETCH_USER, payload: res.data });
       callback();
     } catch(err) {
+      handlingError(err, dispatch)
       dispatch({ type: FETCH_USER_ERROR, payload: err.response.data });
       error();
     }
@@ -19,6 +21,7 @@ export const createUserSubInvestor = (values , callback, error) => async dispatc
       dispatch({ type: FETCH_USER, payload: res.data });    
       callback();
     } catch(err) {
+      handlingError(err, dispatch)
       dispatch({ type: FETCH_USER_ERROR, payload: err.response.data });
       error();
     }

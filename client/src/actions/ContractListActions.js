@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { FETCH_CONTRACTLIST, FETCH_CONTRACTLIST_LENGTH, CONTRACTLIST_ERROR } from './types';
+import handlingError from '../utils/handlingError';
 
 /*-----------------------[Contract List]-------------------------------*/
 export const getContractListsAction = (
@@ -28,7 +29,7 @@ export const getContractListsAction = (
       dispatch({ type: FETCH_CONTRACTLIST_LENGTH, payload: contractListLength.data });
       callback();
     } catch(err) {
-      console.log(err)
+      handlingError(err, dispatch)
       dispatch({ type: CONTRACTLIST_ERROR, payload: err });
     }
   };

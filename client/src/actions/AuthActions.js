@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, FETCH_USER, FETCH_USER_ERROR } from './types';
+import handlingError from '../utils/handlingError';
 
 const setAxiosHeader = () => {
   let authTokenStr = localStorage.getItem('token')
@@ -24,6 +25,7 @@ export const signInAction = (token, callback, error) => async dispatch => {
 
     callback();
   } catch (err) {
+    handlingError(err,dispatch);
     dispatch({ type: AUTH_ERROR, payload: err });
     error();
   }
@@ -45,7 +47,7 @@ export const fetchUserAction = () => async dispatch => {
     const res = await axios.get('/api/current-user');
     dispatch({ type: FETCH_USER, payload: res.data });
   } catch (err) {
-    console.log(err);
+    handlingError(err,dispatch);
     dispatch({ type: FETCH_USER_ERROR, payload: err });
   }
 };
@@ -57,7 +59,7 @@ export const signOutAction = callback => dispatch => {
     dispatch({ type: FETCH_USER, payload: '' });
     callback();
   } catch (err) {
-    console.log(err);
+    handlingError(err,dispatch);
     dispatch({ type: AUTH_ERROR, payload: err });
   }
 };

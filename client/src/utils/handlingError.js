@@ -4,7 +4,7 @@ import 'firebase/auth';
 import { AUTH_USER, FETCH_USER } from '../actions/types';
 
 export default (error, dispatch) => {
-  if (error.response && error.response.status === '403') {
+  if (error.response && error.response.status === 403) {
     //Unauthorized
     console.log(error.response.data);
     console.log(error.response.status);

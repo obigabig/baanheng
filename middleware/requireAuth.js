@@ -2,10 +2,15 @@
 const admin = require('firebase-admin');
 
 if(process.env.NODE_ENV === 'production'){
-  const serviceAccount = require('../const/service_account_prod.json');  
+  /*const serviceAccount = require('../const/service_account_prod.json');  
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://baanheng-prod.firebaseio.com"
+  });*/
+  const serviceAccount = require('../const/service_account.json');
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://baanheng-dev.firebaseio.com"
   });
 }
 else{

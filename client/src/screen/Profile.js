@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { menuClicked } from '../actions';
 import UserSetting from '../components/user/UserSetting';
 
 class Profile extends Component {
+    componentDidMount(){
+        this.props.menuClicked('')
+    }
+
     render() {
         return (
             <div className="main-box">
@@ -16,4 +22,4 @@ class Profile extends Component {
     }
 }
 
-export default Profile
+export default connect(null, { menuClicked })(Profile)

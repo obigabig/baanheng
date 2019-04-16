@@ -15,7 +15,6 @@ import Profile from './Profile';
 import Reports from './Reports';
 import Page404 from './Page404';
 
-
 import Migrate from './Migrate';
 
 import '../css/main.css';

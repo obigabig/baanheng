@@ -14,7 +14,7 @@ const keys = require('./config/keys/keys');
 
 //Mongoose connect
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
 
 // App Setup
 app.use(morgan('combined'));

@@ -1,12 +1,12 @@
 
 if (process.env.NODE_ENV === 'production') {
     exports.firebaseConfig = {
-        apiKey: 'AIzaSyDQAmGCoZgz9sEPwGr-D4YgkJFZNeFbdPM',
-        authDomain: 'baanheng-dev.firebaseapp.com',
-        databaseURL: 'https://baanheng-dev.firebaseio.com',
-        projectId: 'baanheng-dev',
-        storageBucket: 'baanheng-dev.appspot.com',
-        messagingSenderId: '1086485022003'
+        apiKey: "AIzaSyA68NKtxm09EyVqooD826nuqs1xJfTlJjE",
+        authDomain: "baanheng-prod.firebaseapp.com",
+        databaseURL: "https://baanheng-prod.firebaseio.com",
+        projectId: "baanheng-prod",
+        storageBucket: "baanheng-prod.appspot.com",
+        messagingSenderId: "759363382302"
       }
   } else {
     exports.firebaseConfig = {
@@ -17,6 +17,14 @@ if (process.env.NODE_ENV === 'production') {
         storageBucket: 'baanheng-dev.appspot.com',
         messagingSenderId: '1086485022003'
       }
+      /*exports.firebaseConfig = {
+        apiKey: "AIzaSyA68NKtxm09EyVqooD826nuqs1xJfTlJjE",
+        authDomain: "baanheng-prod.firebaseapp.com",
+        databaseURL: "https://baanheng-prod.firebaseio.com",
+        projectId: "baanheng-prod",
+        storageBucket: "baanheng-prod.appspot.com",
+        messagingSenderId: "759363382302"
+      }*/
   }
 
 

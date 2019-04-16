@@ -7,7 +7,7 @@ const User = require('../models/user');
 
 //obigabig internal
 const sqlConnectStr = 'mssql://sa:12345@localhost\\SQLEXPRESS/ASSETMANAGER';
-const userId = '5ca434dbe113d55f887a98b4'; //obigabig internal
+const userId = '5caf2e9426d64900158852d4'; //obigabig internal
 const email = 'obigabig.g@gmail.com'; //obigabig internal
 //const userId = '5b7e36834151560014482f8d';  //obigabig prod
 //const userId = '5b767d736aaef100141c4ab2';  //Suvit.jong
@@ -36,16 +36,16 @@ const email = 'obigabig.g@gmail.com'; //obigabig internal
 
 //obigabig prod
 const subinvestorMapping = sqlName => {
-  if (sqlName === 'สุวิทย์') return '5ca5bc2b9804ae5bccef28be';
+  if (sqlName === 'สุวิทย์') return '5caf2e9426d64900158852d5';
   //subinvestor id
-  else if (sqlName === 'สมพร') return '5ca5bc4c9804ae5bccef28c2';
-  else if (sqlName === 'สิงห์') return '5ca5bc529804ae5bccef28c4';
-  else if (sqlName === 'เนี้ยว') return '5ca5bc589804ae5bccef28c6';
-  else if (sqlName === 'พรพิษ') return '5ca5bc5e9804ae5bccef28c8';
-  else if (sqlName === 'บิ๊ก') return '5ca5bc619804ae5bccef28ca';
-  else if (sqlName === 'ยายเฉลิม') return '5ca5bc679804ae5bccef28cc';
-  else if (sqlName === 'แป๊ะ') return '5ca5bc6b9804ae5bccef28ce';
-  else return '5ca5bc769804ae5bccef28d0';
+  else if (sqlName === 'สมพร') return '5cb561e5df9e2b329c86a979';
+  else if (sqlName === 'สิงห์') return '5cb561ebdf9e2b329c86a97b';
+  else if (sqlName === 'เนี้ยว') return '5cb561efdf9e2b329c86a97d';
+  else if (sqlName === 'พรพิษ') return '5cb561f2df9e2b329c86a97f';
+  else if (sqlName === 'บิ๊ก') return '5cb561f6df9e2b329c86a981';
+  else if (sqlName === 'ยายเฉลิม') return '5cb561fddf9e2b329c86a983';
+  else if (sqlName === 'แป๊ะ') return '5cb565aadf9e2b329c86a985';
+  else return '5cb565aedf9e2b329c86a987';
 
   //Suvit.jong
   /*const subinvestorMapping = (sqlName) => {

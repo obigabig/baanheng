@@ -1,11 +1,26 @@
 //Firebase
 const admin = require('firebase-admin');
-const serviceAccount = require('../const/service_account.json');
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://baanheng-dev.firebaseio.com"
-});
+if(process.env.NODE_ENV === 'production'){
+  const serviceAccount = require('../const/service_account_prod.json');  
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://baanheng-prod.firebaseio.com"
+  });
+}
+else{
+  const serviceAccount = require('../const/service_account.json');
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://baanheng-dev.firebaseio.com"
+  });
+  /*const serviceAccount = require('../const/service_account_prod.json');  
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://baanheng-prod.firebaseio.com"
+  });*/
+}
+
 
 module.exports = async (req, res, next) => {
   console.log('Check if request is authorized with Firebase ID token.');

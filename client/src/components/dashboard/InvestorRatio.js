@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { getinvestorRatioAction } from '../../actions';
 import { numberWithCommas } from '../../utils/format';
-import Spinner from '../../components/reactComponent/Spinner';
+import Spinner from '../reactComponent/Spinner';
 
 class InvestorRatio extends Component {
   constructor() {

@@ -4,7 +4,7 @@ import { MIGRATE, MIGRATE_ERROR } from './types';
 export const migrateSQL2MongoAction = callback => async dispatch => {
   try {
     let resUser = await axios.get('/api/current-user');
-    dispatch({ type: MIGRATE, payload: '' });
+    dispatch({ type: MIGRATE, payload: resUser.data });
     callback();
   } catch (err) {
     console.log(err);

@@ -112,7 +112,7 @@ class ContractCardDesktop extends Component {
 }
 
 const getRowClass = status => {
-  if (status === ContractStatusValue.new) return 'contractRow-new';
+  if (status === ContractStatusValue.draft) return 'contractRow-new';
   else if (status === ContractStatusValue.ongoing) return 'contractRow-ongoing';
   else if (status === ContractStatusValue.break) return 'contractRow-break';
   else if (status === ContractStatusValue.end) return 'contractRow-end';
@@ -121,7 +121,7 @@ const getRowClass = status => {
 };
 
 const getEditButtonStyle = status => {
-  if (status === ContractStatusValue.new) return 'blue-text text-lighten-5';
+  if (status === ContractStatusValue.draft) return 'blue-text text-lighten-5';
   else if (status === ContractStatusValue.ongoing)
     return 'teal-text text-lighten-5';
   else if (status === ContractStatusValue.break)
@@ -133,7 +133,7 @@ const getEditButtonStyle = status => {
 };
 
 const getTextStyle = status => {
-  if (status === ContractStatusValue.new) return 'grey-text text-darken-3';
+  if (status === ContractStatusValue.draft) return 'grey-text text-darken-3';
   else if (status === ContractStatusValue.ongoing)
     return 'grey-text text-darken-3';
   else if (status === ContractStatusValue.break)

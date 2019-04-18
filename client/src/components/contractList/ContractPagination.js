@@ -4,9 +4,9 @@ class ContractPagination extends Component{
     constructor() {
         super();
         this.state = {
-            currentPage: 1
+            curPage: 1
         }
-
+        console.log('ContractPagination constructor')
         this.handlePaginationClick = this.handlePaginationClick.bind(this)
         this.handlePaginationLeftClick = this.handlePaginationLeftClick.bind(this)
         this.handlePaginationRightClick = this.handlePaginationRightClick.bind(this)
@@ -15,51 +15,69 @@ class ContractPagination extends Component{
     componentDidMount() {
        /* const {sort} = this.state;
         this.props.updateContractList(sort)    */
+        this.props.currentPage !== undefined ? this.setState({curPage : this.props.currentPage}) : 1
     }
 
     handlePaginationClick(event) {
-        const newCurrentPage = Number(event.target.id);
+        const newcurPage = Number(event.target.id);
 
         this.setState({
-          currentPage: newCurrentPage
+          curPage: newcurPage
         }, () => {
-            this.props.updateContractList(this.state.currentPage)  
+            this.props.updateContractList(this.state.curPage)  
         });
     }
 
     handlePaginationLeftClick(event) {
-        const {currentPage} = this.state;
-        if(currentPage > 1)
+        const {curPage} = this.state;
+        if(curPage > 1)
         {
-            const newCurrentPage = currentPage - 1;
+            const newcurPage = curPage - 1;
 
             this.setState({
-                currentPage: newCurrentPage
+                curPage: newcurPage
             }, () => {
-                this.props.updateContractList(this.state.currentPage)                 
+                this.props.updateContractList(this.state.curPage)                 
             })
         }
     }
 
     handlePaginationRightClick(event) {  
         const {contractsList, dataPerPage} = this.props;
-        const {currentPage} = this.state;
+        const {curPage} = this.state;
 
-        if(currentPage < Math.ceil(contractsList.length / dataPerPage))
+        if(curPage < Math.ceil(contractsList.length / dataPerPage))
         {  
-            const newCurrentPage = currentPage + 1;    
+            const newcurPage = curPage + 1;    
             this.setState({
-                currentPage: newCurrentPage,
+                curPage: newcurPage,
             }, () => {
-                this.props.updateContractList(this.state.currentPage) 
+                this.props.updateContractList(this.state.curPage) 
             })
         }
     }
 
+    renderPageNumbers = pageNumbers => pageNumbers.map(number => {
+        
+        return (
+            <li
+                className={ number === this.state.curPage ? "active" : "waves-effect"}
+                key={number}           
+            >
+                <a 
+                    id={number}
+                    onClick={this.handlePaginationClick}
+                >
+                    {number} 
+                </a>
+            </li>
+        );
+    });
 
     render(){
         const { contractsList, dataPerPage } = this.props
-        const { currentPage } = this.state
+        const { curPage } = this.state
+        console.log('renderPageNumbers >>> ' , this.state)
         // Logic for displaying page numbers
         const pageNumbers = [];
         if(contractsList.length)
@@ -69,34 +87,18 @@ class ContractPagination extends Component{
             }
         }
 
-        const renderPageNumbers = pageNumbers.map(number => {
-            return (
-                <li
-                    className={ number === currentPage ? "active" : "waves-effect"}
-                    key={number}           
-                >
-                    <a 
-                        id={number}
-                        onClick={this.handlePaginationClick}
-                    >
-                        {number} 
-                    </a>
-                </li>
-            );
-        });
-
         return (
             <div className = "row center-align">  
                 <ul className="pagination">
                     <li 
-                        className={currentPage === 1 ? "disabled" : "waves-effect"}>
+                        className={curPage === 1 ? "disabled" : "waves-effect"}>
                         <a onClick={this.handlePaginationLeftClick}>
                             <i className="material-icons">chevron_left</i>
                         </a>
                     </li>
-                    {renderPageNumbers}
+                    {this.renderPageNumbers(pageNumbers)}
                     <li 
-                        className={currentPage === pageNumbers.length ? "disabled" : "waves-effect"}>
+                        className={curPage === pageNumbers.length ? "disabled" : "waves-effect"}>
                         <a onClick={this.handlePaginationRightClick}><i className="material-icons">chevron_right</i></a></li>
                 </ul>     
             </div>

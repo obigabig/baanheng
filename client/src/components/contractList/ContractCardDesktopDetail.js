@@ -155,7 +155,7 @@ class ContractCardDesktopDetail extends Component {
 }
 
 const getRowClass = status => {
-  if (status === ContractStatusValue.new) return 'contractRowDetail-new';
+  if (status === ContractStatusValue.draft) return 'contractRowDetail-new';
   else if (status === ContractStatusValue.ongoing)
     return 'contractRowDetail-ongoing';
   else if (status === ContractStatusValue.break)

@@ -38,7 +38,7 @@ class ContractLists extends Component {
   }
 
   componentDidMount() {
-    this.props.menuClicked('ContractLists')
+    this.props.menuClicked('ContractLists');
     this.fetchContractLists();
   }
 
@@ -151,18 +151,18 @@ class ContractLists extends Component {
 
     if (contractsList.data && contractsList.data.length > 0) {
       return _.map(this.props.contractsList.data, contract => {
-        return <ContractCard 
-                    key={contract.no} 
-                    contract={contract}
-                    selectedContractNo={selectedContractNo} 
-                    setSelectedContractNo={(contractNo) => {
-                      if(contractNo === selectedContractNo)
-                        this.setState({selectedContractNo : null})
-                      else
-                        this.setState({selectedContractNo : contractNo})
-                    }}
-                      
-                />;
+        return (
+          <ContractCard
+            key={contract.no}
+            contract={contract}
+            selectedContractNo={selectedContractNo}
+            setSelectedContractNo={contractNo => {
+              if (contractNo === selectedContractNo)
+                this.setState({ selectedContractNo: null });
+              else this.setState({ selectedContractNo: contractNo });
+            }}
+          />
+        );
       });
     }
 
@@ -185,17 +185,18 @@ class ContractLists extends Component {
         <ContractPagination
           contractsList={this.props.contractsList}
           dataPerPage={this.state.dataPerPage}
-          updateContractList={currentPage => {
+          updateContractList={childCurrentPage => {
             this.setState(
               {
-                currentPage
+                currentPage: childCurrentPage
               },
-              () => {
+              () => {              
                 this.fetchContractLists();
                 window.scrollTo(0, 0);
               }
             );
           }}
+          currentPage={this.state.currentPage}
         />
       </div>
     );

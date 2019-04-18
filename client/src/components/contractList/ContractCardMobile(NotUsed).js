@@ -77,7 +77,7 @@ class ContractCardMobile extends Component {
     }
     
     cardStyle(contract) {
-        if(contract.status === ContractStatusValue.new)
+        if(contract.status === ContractStatusValue.draft)
             return "color-new"
         else if(contract.status === ContractStatusValue.ongoing)
             return "color-ongoing"

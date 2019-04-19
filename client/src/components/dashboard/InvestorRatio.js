@@ -115,9 +115,9 @@ class InvestorRatio extends Component {
     return (
       <div style={boxStyle}>
         <div className="right-align red-text">
-          {this.props.report.errorMessage && (
+          {/*this.props.report.errorMessage && (
             <strong>{this.props.report.errorMessage}</strong>
-          )}
+          )*/}
         </div>
         {this.renderMainData()}
       </div>

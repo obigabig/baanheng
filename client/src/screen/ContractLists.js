@@ -100,6 +100,7 @@ class ContractLists extends Component {
           updateContractList={(no, title, status, pact, propType, value) => {
             this.setState(
               {
+                currentPage: 1,
                 filterNo: no,
                 filterTitle: title,
                 filterStatus: status,
@@ -121,6 +122,7 @@ class ContractLists extends Component {
           updateContractList={(no, title, status, pact, propType, value) => {
             this.setState(
               {
+                currentPage: 1,
                 filterNo: no,
                 filterTitle: title,
                 filterStatus: status,

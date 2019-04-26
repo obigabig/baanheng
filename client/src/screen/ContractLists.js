@@ -22,7 +22,7 @@ class ContractLists extends Component {
       isLoading: true,
       selectedContractNo: null,
       currentPage: 1,
-      dataPerPage: 30,
+      dataPerPage: 15,
       sort: { field: 'no', type: -1 },
       filterNo: '',
       filterTitle: '',

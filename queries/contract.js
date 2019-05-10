@@ -7,10 +7,6 @@ exports.getUpcomingAction = (contract) => {
     if(contract.actions.length > 0){    
         const notCompletedActions = _(contract.actions).map(action => {
             const upComingDay = moment(action.dueDate, "DD/MM/YYYY").diff(moment(), 'days') + 1;
-            console.log(action.dueDate)
-            console.log(moment())
-            console.log(upComingDay)
-            console.log('-------------------')
             if(!action.isCompleted  && upComingDay < upComingDayCount)
             {                
                 return  { 

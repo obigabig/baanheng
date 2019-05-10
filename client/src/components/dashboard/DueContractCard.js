@@ -43,7 +43,7 @@ export class DueContractCard extends Component {
     const upComingDay = moment(action.dueDate, 'DD/MM/YYYY').diff(
       moment(),
       'days'
-    );
+    ) + 1;
     const upComingTextColor = upComingDay => {
       if (upComingDay <= 10) return 'red-text darken-4';
       else if (upComingDay <= 20) return 'amber-text text-accent-4';

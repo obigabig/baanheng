@@ -5,10 +5,13 @@ const moment = require('moment');
 const Contract = require('../models/contract/contract');
 const User = require('../models/user');
 
-//obigabig internal
+//SQL DB Connect
 const sqlConnectStr = 'mssql://sa:12345@localhost\\SQLEXPRESS/ASSETMANAGER';
-const userId = '5caf2e9426d64900158852d4'; //obigabig internal
-const email = 'obigabig.g@gmail.com'; //obigabig internal
+const userId = '5cb5564025550743948c8481'; //obigabig internal
+//Email
+//const email = 'obigabig.g@gmail.com'; //obigabig internal
+const email = 'suvit.jong@gmail.com'; 
+
 //const userId = '5b7e36834151560014482f8d';  //obigabig prod
 //const userId = '5b767d736aaef100141c4ab2';  //Suvit.jong
 
@@ -35,7 +38,7 @@ const email = 'obigabig.g@gmail.com'; //obigabig internal
 }*/
 
 //obigabig prod
-const subinvestorMapping = sqlName => {
+/*const subinvestorMapping = sqlName => {
   if (sqlName === 'สุวิทย์') return '5caf2e9426d64900158852d5';
   //subinvestor id
   else if (sqlName === 'สมพร') return '5cb561e5df9e2b329c86a979';
@@ -45,28 +48,20 @@ const subinvestorMapping = sqlName => {
   else if (sqlName === 'บิ๊ก') return '5cb561f6df9e2b329c86a981';
   else if (sqlName === 'ยายเฉลิม') return '5cb561fddf9e2b329c86a983';
   else if (sqlName === 'แป๊ะ') return '5cb565aadf9e2b329c86a985';
-  else return '5cb565aedf9e2b329c86a987';
+  else return '5cb565aedf9e2b329c86a987';*/
 
   //Suvit.jong
-  /*const subinvestorMapping = (sqlName) => {
-            if(sqlName === 'สุวิทย์')
-                return '5b767d736aaef100141c4ab3'   //subinvestor id
-            else if(sqlName === 'สมพร')
-                return '5b767e1a6aaef100141c4ab5'
-            else if(sqlName === 'สิงห์')
-                return '5b767e216aaef100141c4ab7'
-            else if(sqlName === 'เนี้ยว')
-                return '5b767e2a6aaef100141c4ab9'
-            else if(sqlName === 'พรพิษ')
-                return '5b767e376aaef100141c4abb'
-            else if(sqlName === 'บิ๊ก')
-                return '5b767e3f6aaef100141c4abd'
-            else if(sqlName === 'ยายเฉลิม')
-                return '5b767e486aaef100141c4abf'
-            else if(sqlName === 'แป๊ะ')
-                return '5b767e536aaef100141c4ac1'
-            else
-                return '5b767e626aaef100141c4ac3'*/
+  const subinvestorMapping = sqlName => {
+    if (sqlName === 'สุวิทย์') return '5cc31bf1c52f753620855be0';
+    //subinvestor id
+    else if (sqlName === 'สมพร') return '5cc31c1bc52f753620855be2';
+    else if (sqlName === 'สิงห์') return '5cc31c22c52f753620855be4';
+    else if (sqlName === 'เนี้ยว') return '5cc31c2cc52f753620855be6';
+    else if (sqlName === 'พรพิษ') return '5cc31c35c52f753620855be8';
+    else if (sqlName === 'บิ๊ก') return '5cc31c3bc52f753620855bea';
+    else if (sqlName === 'ยายเฉลิม') return '5cc31c40c52f753620855bec';
+    else if (sqlName === 'แป๊ะ') return '5cc31c46c52f753620855bee';
+    else return '5cc31c4dc52f753620855bf0';
 };
 
 exports.migrateContract = async (req, res) => {

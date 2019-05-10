@@ -14,16 +14,16 @@ if(process.env.NODE_ENV === 'production'){
   });*/
 }
 else{
-  const serviceAccount = require('../const/service_account.json');
+  /*const serviceAccount = require('../const/service_account.json');
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://baanheng-dev.firebaseio.com"
-  });
-  /*const serviceAccount = require('../const/service_account_prod.json');  
+  });*/
+  const serviceAccount = require('../const/service_account_prod.json');  
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://baanheng-prod.firebaseio.com"
-  });*/
+  });
 }
 
 

@@ -143,7 +143,7 @@ exports.migrateContract = async (req, res) => {
           description = action.TYPE;
         //แทรกช่องอื่นๆ
         const alertLength = action.DATE
-          ? moment(action.DATE).diff(moment(), 'months')
+          ? moment(action.DATE).diff(moment().startOf('day'), 'months')
           : 0;
         const isCompleted =
           contract.StatusID === 1 && alertLength > -3 && alertLength < 3

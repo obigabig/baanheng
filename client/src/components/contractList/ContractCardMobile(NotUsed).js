@@ -65,7 +65,7 @@ class ContractCardMobile extends Component {
         const upComingAction = this.getUpComingAction(contract);
         if(!_.isEmpty(upComingAction)){
     
-            upComingAction.upComingDay = moment(upComingAction.dueDate, "DD/MM/YYYY").diff(moment(), 'days') + 1;
+            upComingAction.upComingDay = moment(upComingAction.dueDate, "DD/MM/YYYY").diff(moment().startOf('day'), 'days');
     
             return (
                 <div className="card-action">

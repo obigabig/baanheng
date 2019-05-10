@@ -19,7 +19,7 @@ class ContractCardDesktop extends Component {
       upComingAction.upComingDay = moment(
         upComingAction.dueDate,
         'DD/MM/YYYY'
-      ).diff(moment(), 'days') + 1;
+      ).diff(moment().startOf('day'), 'days');
 
       return (
         <div

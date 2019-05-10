@@ -36,7 +36,7 @@ export class DueContractList extends Component {
       _.each(sortedList, contract => {
         if (
           moment(contract.actions[0].dueDate, 'DD/MM/YYYY').diff(
-            moment(),
+            moment().startOf('day'),
             'days'
           ) < 0
         )

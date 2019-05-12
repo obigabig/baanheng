@@ -76,6 +76,13 @@ class ActionsPopupForm extends Component {
     this.setState({ dueDate: moment(date).format('DD/MM/YYYY') });
   };
 
+  renderLabel(label, value){
+    if(value)
+      return <label> {`${label} (${moment(value, 'DD/MM/YYYY').add('year',543).format('DD/MMM/YYYY')})`} </label>
+    else
+      return <label>{label} </label>
+  }
+
   render() {
     const { closePopup } = this.props;
     const { selectedActionTypeOption } = this.state;
@@ -124,9 +131,11 @@ class ActionsPopupForm extends Component {
               />
             </div>
             <div>
-              <label>วันที่ดำเนินการ:</label>
+              {this.renderLabel('วันที่ดำเนินการ:', this.state.dueDate)}
               <DatePicker
+                autoComplete="off"
                 placeholder="วันที่ดำเนินการ"
+                locale="th"
                 dateFormat="DD/MM/YYYY"
                 selected={
                   this.state.dueDate
@@ -134,6 +143,9 @@ class ActionsPopupForm extends Component {
                     : null
                 }
                 onChange={this.handleActionDateChange}
+                showMonthDropdown
+                showYearDropdown
+                fixedHeight
               />
             </div>
             <div />

@@ -18,8 +18,9 @@ class ActionsPopupForm extends Component {
     errorMessage: ''
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const { type, description, dueDate, isCompleted } = this.props.data;
+
     this.setState({
       selectedActionTypeOption: { value: type },
       description,
@@ -42,13 +43,23 @@ class ActionsPopupForm extends Component {
 
   validateAddAction = () => {
     const { selectedActionTypeOption, description, dueDate } = this.state;
+    let isError = false;
     this.setState({ errorMessage: '' });
 
-    if (selectedActionTypeOption.value === 'อื่นๆ' && description === '') {
-      this.setState({ errorMessage: 'กรุณากรอกข้อมูลให้ครบถ้วน' });
+
+    if (
+      selectedActionTypeOption &&
+      selectedActionTypeOption.value === 'อื่นๆ' &&
+      description === ''
+    ) {
+      this.setState({ errorMessage: 'กรุณากรอกช่อง "เพิ่มเติม"' });
       return false;
     }
-    if (selectedActionTypeOption && dueDate !== '') {
+    if (
+      selectedActionTypeOption &&
+      selectedActionTypeOption.value &&
+      moment(dueDate, 'DD/MM/YYYY', true).isValid()
+    ) {
       return true;
     }
     this.setState({ errorMessage: 'กรุณากรอกข้อมูลให้ครบถ้วน' });
@@ -76,11 +87,17 @@ class ActionsPopupForm extends Component {
     this.setState({ dueDate: moment(date).format('DD/MM/YYYY') });
   };
 
-  renderLabel(label, value){
-    if(value)
-      return <label> {`${label} (${moment(value, 'DD/MM/YYYY').add('year',543).format('DD/MMM/YYYY')})`} </label>
-    else
-      return <label>{label} </label>
+  renderLabel(label, value) {
+    if (value)
+      return (
+        <label>
+          {' '}
+          {`${label} (${moment(value, 'DD/MM/YYYY')
+            .add('year', 543)
+            .format('DD/MMM/YYYY')})`}{' '}
+        </label>
+      );
+    else return <label>{label} </label>;
   }
 
   render() {
@@ -115,7 +132,7 @@ class ActionsPopupForm extends Component {
               <label>รายการ:</label>
               <Select
                 name="actionType"
-                value={selectedActionValue}
+                value={selectedActionValue || ''}
                 onChange={this.handleActionTypeChange}
                 options={ActionsType}
                 placeholder="รายการ"
@@ -125,6 +142,7 @@ class ActionsPopupForm extends Component {
               <label>เพิ่มเติม :</label>
               <input
                 name="description"
+                value={this.state.description || ''}
                 type="text"
                 placeholder="เช่น ดอกเบี้ยค้างชำระ"
                 onChange={this.handleDescriptionChange}
@@ -143,6 +161,7 @@ class ActionsPopupForm extends Component {
                     : null
                 }
                 onChange={this.handleActionDateChange}
+                withPortal
                 showMonthDropdown
                 showYearDropdown
                 fixedHeight

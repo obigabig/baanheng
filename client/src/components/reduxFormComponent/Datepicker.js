@@ -49,10 +49,11 @@ class Datepicker extends Component {
           placeholder={placeholder}
           selected={input.value ? moment(input.value, 'DD/MM/YYYY') : null}
           onChange={this.handleChange.bind(this)}
-          //onKeyDown={this.handleKeyDown.bind(this)}
+          onKeyDown={this.handleKeyDown.bind(this)}
           showMonthDropdown
           showYearDropdown
           fixedHeight
+          withPortal
           placeholderText={label}
         />
         <div className="red-text">

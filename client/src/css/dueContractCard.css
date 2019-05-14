@@ -1,0 +1,23 @@
+.collapseBox{
+    border: 1px groove #80808029;
+    padding: 0px 0px 10px 0px;
+    margin: 10px 0px 15px 0px;
+    /*background: #faf8f8;*/
+}
+
+.collapseTitle{
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+    border-bottom: 1px solid grey;
+}
+.collapseTitle label{
+    color: #545454;
+}
+
+/*------------ Desktop ----------------*/
+.dueContractRow-desktop{
+    line-height: 35px;
+    font-size: medium;
+    padding-top: 2px;
+    margin: 0px 10px 0px 10px !important;
+}

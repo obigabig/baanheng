@@ -1,0 +1,82 @@
+
+.card-content{
+    padding: 20px 20px 5px 20px !important;
+}
+
+.contractCard{
+    border: 1px groove #e3f2fd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.contractCard-title{
+    border-bottom: 1px groove;
+    font-weight: 400 !important;
+}
+
+.contractCard-detail{
+    color: #525151 !important;
+}
+
+.color-new{
+    background-color: #b9e8ce59;
+}
+.color-ongoing{
+    background-color: #6bb2f62e;
+}
+.color-break{
+    background-color: #f28c7c57;
+}
+.color-end{
+    background-color: #b6b5b599;
+}
+
+/*---------------Desktop version---------------*/
+.contractRow-new{
+    background-color: #79bdff;
+    color: #000000 !important;
+}
+.contractRow-ongoing{
+    background-color: #05d6628a;
+    color: #000000 !important;
+}
+.contractRow-break{
+    background-color: #ad4c3dcf;
+    color: #ffffff !important;
+}
+.contractRow-end{
+    background-color: #d2d2d2;
+    color: #000000 !important;
+}
+.contractRowDetail-new{
+    background-color: #d3e9ff;
+    color: #000000 !important;
+}
+.contractRowDetail-ongoing{
+    background-color: #05d66242;
+    color: #000000 !important;
+}
+.contractRowDetail-break{
+    background-color: #bf8379;
+    color: #ffffff !important;
+}
+.contractRowDetail-end{
+    background-color: #eaeaea;
+    color: #000000 !important;
+}
+/*------------ Desktop ----------------*/
+.contractRow-desktop{
+    line-height: 35px;
+    font-size: medium;
+    margin: 2px 0px 0px 0px;
+}
+
+.contractRow-hover{
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.4);
+    border-radius: 0px 16px 0px 0px;
+    -moz-border-radius: 0px 16px 0px 0px;
+    -webkit-border-radius: 0px 16px 0px 0px;
+    border: 0px solid #000000;
+}

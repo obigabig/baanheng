@@ -1,0 +1,114 @@
+#root{
+    background-color: rgba(212, 212, 212, 0.4);
+    background-color: #faf8f8;
+}
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 5vh;
+}
+.main-box{
+    background: #FFF !important;
+}
+.row{
+    margin-bottom: 0px;
+}
+.container .row {
+     margin-left: 0rem; 
+     margin-right: 0rem; 
+}
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea{
+    margin-bottom: 5px;
+}
+label{
+    font-size: 15px;
+}
+
+ /* Redux field array Grid */
+.btn-flat.btn-flat-inline i{
+    font-size: 1.8em;
+}
+.btn-flat-inline{
+    padding: 0 5px 0 5px;
+}
+.fieldArrayRow{
+    border-bottom: 1px dotted rgba(0,0,0,0.42);
+}
+.grid-input-readonly{
+    border: 0px !important;
+    color: black !important;
+}
+.btnEdit:hover{
+    color: #757575;
+}
+.btnEdit{
+    color: #484848;
+}
+.btnDelete:hover{
+    color: #ff5722;
+}
+.btnDelete{
+    color: #dd2c00;
+}
+.btnApprove:hover{
+    color: #81c784;
+}
+.btnApprove{
+    color: #4caf50;
+}
+.logOut{
+    font-style: italic;
+    font-size: small;
+}
+nav{
+    background-color: #4c9e96;
+}
+
+ /* Btn log in */
+ .fb-login-btn{
+    height: 50px;
+    line-height: 15px;
+    margin: 5px;
+    font-family: Helvetica,sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: calc(.27548vw + 12.71074px);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color .3s,border-color .3s;
+    background-color: #4c69ba;
+    border: calc(.06887vw + .67769px) solid #4c69ba;
+    padding: calc(.34435vw + 13.38843px) calc(.34435vw + 18.38843px);
+    width: 250px;
+ }
+
+ .google-login-btn{
+    height: 50px;
+    line-height: 15px;
+    margin: 5px;
+    font-family: Helvetica,sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: calc(.27548vw + 12.71074px);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color .3s,border-color .3s;
+    background-color: rgb(209, 72, 54);
+    border: calc(.06887vw + .67769px) solid rgb(209, 72, 54);
+    padding: calc(.34435vw + 13.38843px) calc(.34435vw + 18.38843px);
+    width: 250px;
+ }
+
+  
+@media only screen and (max-width: 992px)
+{
+    .mobile-box{
+        padding: 0px !important;
+    }
+}

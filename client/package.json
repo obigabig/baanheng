@@ -1,0 +1,60 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": {
+    "/auth/google": {
+      "target": "http://localhost:5000"
+    },
+    "/api/*": {
+      "target": "http://localhost:5000"
+    }
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chart.js": "^1.1.1",
+    "firebase": "^5.9.2",
+    "lodash": "^4.17.11",
+    "materialize-css": "^0.100.2",
+    "moment": "^2.22.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.4.2",
+    "react-charts": "^1.0.10",
+    "react-collapse": "^4.0.3",
+    "react-confirm-alert": "^2.0.5",
+    "react-datepicker": "^1.5.0",
+    "react-dom": "^16.4.2",
+    "react-facebook-login": "^4.0.1",
+    "react-firebaseui": "^3.1.2",
+    "react-https-redirect": "^1.0.10",
+    "react-motion": "^0.5.2",
+    "react-number-format": "^3.4.2",
+    "react-popup": "^0.9.3",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "react-select": "^1.2.1",
+    "react-spinkit": "^3.0.0",
+    "react-sticky": "^6.0.3",
+    "react-swipeable-views": "^0.12.14",
+    "react-swipeable-views-utils": "^0.12.14",
+    "redux": "^4.0.0",
+    "redux-form": "^7.4.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "url-parse": "^1.4.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "jest": "^23.6.0",
+    "moxios": "^0.4.0",
+    "redux-mock-store": "^1.5.3"
+  }
+}

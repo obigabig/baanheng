@@ -118,7 +118,6 @@ export class ContractForm extends Component {
   }
 
   submit = values => {
-    console.log(values)
     //Validate by SubmissionError
     contractFormSubmitValidate(values);
 

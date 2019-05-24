@@ -54,7 +54,7 @@ exports.createContract = async (req, res, next) => {
   const _agent = req.user.email;
   const beginDate = req.body.beginDate;
   const closeDate = req.body.closeDate;
-  const _signBy = req.body._signBy;
+  const _signBy = req.body._signBy ? req.body._signBy : null;
   const googleMapsUrl = req.body.contractLocation.url;
   const actions = req.body.contractActions;
   const debtor = req.body.contractDebtor;
@@ -109,7 +109,7 @@ exports.updateContract = async (req, res, next) => {
   const _agent = req.user.email;
   const beginDate = req.body.beginDate;
   const closeDate = req.body.closeDate;
-  const _signBy = req.body._signBy;
+  const _signBy = req.body._signBy ? req.body._signBy : null;
   const googleMapsUrl = req.body.contractLocation.url;
   const actions = req.body.contractActions;
   const debtor = req.body.contractDebtor;

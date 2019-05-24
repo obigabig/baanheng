@@ -20,7 +20,8 @@ import ContractFormActions from './ContractFormActions';
 import ContractFormSubInvestors from './ContractFormSubInvestors';
 import ContractFormDebtor from './ContractFormDebtor';
 import ContractFormLocation from './ContractFormLocation';
-import ContractFormValidate from './ContractFormValidate';
+import contractFormValidate from './contractFormValidate';
+import contractFormSubmitValidate from './contractFormSubmitValidate';
 import SelectInputAsync from '../reduxFormComponent/SelectInputAsync';
 
 //reduxFormComponent
@@ -117,9 +118,10 @@ export class ContractForm extends Component {
   }
 
   submit = values => {
-    //SubmissionError
-    //throw new SubmissionError({ username: 'User does not exist', _error: 'Login failed!' })
-    
+    console.log(values)
+    //Validate by SubmissionError
+    contractFormSubmitValidate(values);
+
     this.setState({ isLoading: true });
     if (this.props.mode === 'new') {
       this.props.createContractAction(
@@ -314,9 +316,10 @@ export class ContractForm extends Component {
               {!isEmpty(this.props.formSyncErrors) && (
                 <strong>คุณยังกรอกข้อมูลไม่ครบถ้วน!!</strong>
               )}
+              {this.props.error && <strong>{this.props.error}</strong>}
             </div>
             <div className="right-align">
-              <SubmitButton text="บันทึก" data-test="submit-button" />
+              <SubmitButton text="บันทึกและออก" data-test="submit-button" />
               {this.state.isLoading ? <Spinner /> : ''}
             </div>
           </div>
@@ -338,7 +341,7 @@ const mapStateToProps = state => {
 export default compose(
   reduxForm({
     form: 'contract',
-    validate: ContractFormValidate
+    validate: contractFormValidate
   }),
   connect(
     mapStateToProps,

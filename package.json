@@ -29,7 +29,7 @@
     "nodemon": "^1.17.5",
     "prop-types": "^15.7.2",
     "request": "^2.88.0",
-    "url-parse": "^1.4.3",
+    "url-parse": "^1.5.8",
     "validator": "^10.5.0"
   },  
   "engines": {
